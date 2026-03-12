@@ -7,10 +7,16 @@ import com.agenteval.core.model.EvalScore;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.Future;
+import java.util.concurrent.Semaphore;
+import java.util.concurrent.atomic.AtomicInteger;
 
 /**
  * Static entry point for running evaluations.
@@ -48,14 +54,85 @@ public final class AgentEval {
         LOG.info("Starting evaluation: {} test cases, {} metrics", testCases.size(), metrics.size());
         long startTime = System.currentTimeMillis();
 
-        List<CaseResult> caseResults = testCases.stream()
-                .map(tc -> evaluateCase(tc, metrics))
-                .toList();
+        List<CaseResult> caseResults;
+        if (config.parallelEvaluation() && testCases.size() > 1) {
+            caseResults = evaluateParallel(testCases, metrics, config, startTime);
+        } else {
+            caseResults = evaluateSequential(testCases, metrics, config, startTime);
+        }
 
         long durationMs = System.currentTimeMillis() - startTime;
         LOG.info("Evaluation complete in {}ms", durationMs);
 
         return EvalResult.of(caseResults, durationMs);
+    }
+
+    private static List<CaseResult> evaluateSequential(
+            List<AgentTestCase> testCases, List<EvalMetric> metrics,
+            AgentEvalConfig config, long startTime) {
+        ProgressCallback callback = config.progressCallback();
+        int total = testCases.size();
+        List<CaseResult> results = new ArrayList<>(total);
+
+        for (int i = 0; i < total; i++) {
+            results.add(evaluateCase(testCases.get(i), metrics));
+            if (callback != null) {
+                callback.onProgress(buildProgressEvent(i + 1, total, startTime));
+            }
+        }
+        return results;
+    }
+
+    private static List<CaseResult> evaluateParallel(
+            List<AgentTestCase> testCases, List<EvalMetric> metrics,
+            AgentEvalConfig config, long startTime) {
+        int total = testCases.size();
+        ProgressCallback callback = config.progressCallback();
+        Semaphore semaphore = new Semaphore(config.parallelism());
+        AtomicInteger completed = new AtomicInteger(0);
+
+        try (ExecutorService executor = Executors.newVirtualThreadPerTaskExecutor()) {
+            List<Future<CaseResult>> futures = new ArrayList<>(total);
+
+            for (AgentTestCase tc : testCases) {
+                futures.add(executor.submit(() -> {
+                    semaphore.acquire();
+                    try {
+                        CaseResult result = evaluateCase(tc, metrics);
+                        int done = completed.incrementAndGet();
+                        if (callback != null) {
+                            callback.onProgress(buildProgressEvent(done, total, startTime));
+                        }
+                        return result;
+                    } finally {
+                        semaphore.release();
+                    }
+                }));
+            }
+
+            List<CaseResult> results = new ArrayList<>(total);
+            for (Future<CaseResult> future : futures) {
+                try {
+                    results.add(future.get());
+                } catch (Exception e) {
+                    LOG.error("Parallel evaluation task failed", e);
+                    throw new EvaluationException("Parallel evaluation failed", e);
+                }
+            }
+            return results;
+        }
+    }
+
+    private static ProgressEvent buildProgressEvent(int done, int total, long startTime) {
+        long elapsed = System.currentTimeMillis() - startTime;
+        long estimatedRemaining = -1;
+        if (done > 0 && done < total) {
+            long msPerCase = elapsed / done;
+            estimatedRemaining = msPerCase * (total - done);
+        } else if (done == total) {
+            estimatedRemaining = 0;
+        }
+        return new ProgressEvent(done, total, elapsed, estimatedRemaining);
     }
 
     private static CaseResult evaluateCase(AgentTestCase testCase, List<EvalMetric> metrics) {

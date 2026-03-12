@@ -84,6 +84,12 @@ public final class AgentEvalConfigLoader {
             if (defaults.getMaxConcurrentJudgeCalls() != null) {
                 builder.maxConcurrentJudgeCalls(defaults.getMaxConcurrentJudgeCalls());
             }
+            if (defaults.getParallelEvaluation() != null) {
+                builder.parallelEvaluation(defaults.getParallelEvaluation());
+            }
+            if (defaults.getParallelism() != null) {
+                builder.parallelism(defaults.getParallelism());
+            }
         }
 
         if (model.getCost() != null && model.getCost().getBudget() != null) {
