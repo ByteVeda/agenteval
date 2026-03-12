@@ -7,6 +7,7 @@ import org.springframework.ai.chat.client.ChatClientResponse;
 import org.springframework.ai.chat.client.advisor.api.CallAdvisor;
 import org.springframework.ai.chat.client.advisor.api.CallAdvisorChain;
 import org.springframework.ai.document.Document;
+import org.springframework.lang.NonNull;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,9 +24,10 @@ public final class SpringAiAdvisorInterceptor implements CallAdvisor {
 
     private final List<String> capturedContext = new ArrayList<>();
 
+    @NonNull
     @Override
-    public ChatClientResponse adviseCall(ChatClientRequest request,
-                                         CallAdvisorChain chain) {
+    public ChatClientResponse adviseCall(@NonNull ChatClientRequest request,
+                                         @NonNull CallAdvisorChain chain) {
         if (request.context() != null) {
             var context = request.context();
             Object docs = context.get("qa_advisor_retrieved_documents");
@@ -43,6 +45,7 @@ public final class SpringAiAdvisorInterceptor implements CallAdvisor {
         return chain.nextCall(request);
     }
 
+    @NonNull
     @Override
     public String getName() {
         return "AgentEvalAdvisorInterceptor";
