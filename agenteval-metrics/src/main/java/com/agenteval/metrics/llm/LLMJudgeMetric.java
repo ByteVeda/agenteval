@@ -5,6 +5,7 @@ import com.agenteval.core.judge.JudgeResponse;
 import com.agenteval.core.metric.EvalMetric;
 import com.agenteval.core.model.AgentTestCase;
 import com.agenteval.core.model.EvalScore;
+import com.agenteval.core.template.PromptTemplate;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
