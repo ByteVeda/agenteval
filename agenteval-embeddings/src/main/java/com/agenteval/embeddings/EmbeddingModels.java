@@ -1,7 +1,9 @@
 package com.agenteval.embeddings;
 
 import com.agenteval.core.embedding.EmbeddingModel;
+import com.agenteval.embeddings.config.CustomEmbeddingConfig;
 import com.agenteval.embeddings.config.EmbeddingConfig;
+import com.agenteval.embeddings.provider.CustomHttpEmbeddingModel;
 import com.agenteval.embeddings.provider.OllamaEmbeddingModel;
 import com.agenteval.embeddings.provider.OpenAiEmbeddingModel;
 
@@ -62,5 +64,16 @@ public final class EmbeddingModels {
      */
     public static EmbeddingModel ollama(EmbeddingConfig config) {
         return new OllamaEmbeddingModel(config);
+    }
+
+    /**
+     * Creates a custom embedding model with a configurable HTTP endpoint.
+     *
+     * @param config base embedding config (model, baseUrl, timeout)
+     * @param customConfig custom request template and response JSON path
+     */
+    public static EmbeddingModel custom(EmbeddingConfig config,
+                                        CustomEmbeddingConfig customConfig) {
+        return new CustomHttpEmbeddingModel(config, customConfig);
     }
 }
