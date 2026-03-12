@@ -20,4 +20,28 @@
         <Class name="com.agenteval.metrics.llm.LLMJudgeMetric"/>
         <Bug pattern="CT_CONSTRUCTOR_THROW"/>
     </Match>
+
+    <!-- EvalDataset fields are defensively copied via List.copyOf/Map.copyOf -->
+    <Match>
+        <Class name="com.agenteval.datasets.EvalDataset"/>
+        <Bug pattern="EI_EXPOSE_REP"/>
+    </Match>
+
+    <!-- ObjectMapper is intentionally shared (thread-safe) -->
+    <Match>
+        <Class name="~com\.agenteval\.datasets\.json\.Json.*"/>
+        <Bug pattern="EI_EXPOSE_REP2"/>
+    </Match>
+
+    <!-- ConsoleReporter stores PrintStream for injection (test support) -->
+    <Match>
+        <Class name="com.agenteval.reporting.ConsoleReporter"/>
+        <Bug pattern="EI_EXPOSE_REP2"/>
+    </Match>
+
+    <!-- AgentTestCaseAssert intentionally exposes the mutable test case -->
+    <Match>
+        <Class name="com.agenteval.junit5.assertion.AgentTestCaseAssert"/>
+        <Bug pattern="EI_EXPOSE_REP"/>
+    </Match>
 </FindBugsFilter>

@@ -24,6 +24,9 @@
         <module>agenteval-core</module>
         <module>agenteval-judge</module>
         <module>agenteval-metrics</module>
+        <module>agenteval-datasets</module>
+        <module>agenteval-reporting</module>
+        <module>agenteval-junit5</module>
     </modules>
 
     <properties>
@@ -90,6 +93,21 @@
             <dependency>
                 <groupId>com.agenteval</groupId>
                 <artifactId>agenteval-judge</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.agenteval</groupId>
+                <artifactId>agenteval-metrics</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.agenteval</groupId>
+                <artifactId>agenteval-datasets</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.agenteval</groupId>
+                <artifactId>agenteval-reporting</artifactId>
                 <version>${project.version}</version>
             </dependency>
         </dependencies>
