@@ -61,6 +61,8 @@ public final class YamlConfigModel {
         private Integer maxRetries;
         private Boolean retryOnRateLimit;
         private Integer maxConcurrentJudgeCalls;
+        private Boolean parallelEvaluation;
+        private Integer parallelism;
 
         public Double getThreshold() { return threshold; }
         public void setThreshold(Double threshold) { this.threshold = threshold; }
@@ -72,6 +74,12 @@ public final class YamlConfigModel {
         }
         public Integer getMaxConcurrentJudgeCalls() { return maxConcurrentJudgeCalls; }
         public void setMaxConcurrentJudgeCalls(Integer max) { this.maxConcurrentJudgeCalls = max; }
+        public Boolean getParallelEvaluation() { return parallelEvaluation; }
+        public void setParallelEvaluation(Boolean parallelEvaluation) {
+            this.parallelEvaluation = parallelEvaluation;
+        }
+        public Integer getParallelism() { return parallelism; }
+        public void setParallelism(Integer parallelism) { this.parallelism = parallelism; }
     }
 
     public static final class CostSection {

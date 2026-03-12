@@ -6,7 +6,7 @@ import com.agenteval.core.metric.ConversationMetric;
 import com.agenteval.core.model.AgentTestCase;
 import com.agenteval.core.model.ConversationTestCase;
 import com.agenteval.core.model.EvalScore;
-import com.agenteval.metrics.llm.PromptTemplate;
+import com.agenteval.core.template.PromptTemplate;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

@@ -4,6 +4,8 @@ import com.agenteval.core.cost.PricingModel;
 import com.agenteval.core.embedding.EmbeddingModel;
 import com.agenteval.core.judge.JudgeModel;
 
+import com.agenteval.core.eval.ProgressCallback;
+
 import java.math.BigDecimal;
 
 /**
@@ -16,6 +18,8 @@ import java.math.BigDecimal;
  *     .retryOnRateLimit(true)
  *     .maxRetries(3)
  *     .cacheJudgeResults(true)
+ *     .parallelEvaluation(true)
+ *     .parallelism(8)
  *     .build();
  * }</pre>
  */
@@ -29,6 +33,9 @@ public final class AgentEvalConfig {
     private final boolean cacheJudgeResults;
     private final BigDecimal costBudget;
     private final PricingModel pricingModel;
+    private final boolean parallelEvaluation;
+    private final int parallelism;
+    private final ProgressCallback progressCallback;
 
     private AgentEvalConfig(Builder builder) {
         this.judgeModel = builder.judgeModel;
@@ -39,6 +46,9 @@ public final class AgentEvalConfig {
         this.cacheJudgeResults = builder.cacheJudgeResults;
         this.costBudget = builder.costBudget;
         this.pricingModel = builder.pricingModel;
+        this.parallelEvaluation = builder.parallelEvaluation;
+        this.parallelism = builder.parallelism;
+        this.progressCallback = builder.progressCallback;
     }
 
     public JudgeModel judgeModel() { return judgeModel; }
@@ -49,6 +59,9 @@ public final class AgentEvalConfig {
     public boolean cacheJudgeResults() { return cacheJudgeResults; }
     public BigDecimal costBudget() { return costBudget; }
     public PricingModel pricingModel() { return pricingModel; }
+    public boolean parallelEvaluation() { return parallelEvaluation; }
+    public int parallelism() { return parallelism; }
+    public ProgressCallback progressCallback() { return progressCallback; }
 
     public static Builder builder() {
         return new Builder();
@@ -70,6 +83,9 @@ public final class AgentEvalConfig {
         private boolean cacheJudgeResults = false;
         private BigDecimal costBudget;
         private PricingModel pricingModel;
+        private boolean parallelEvaluation = false;
+        private int parallelism = Runtime.getRuntime().availableProcessors();
+        private ProgressCallback progressCallback;
 
         private Builder() {}
 
@@ -92,6 +108,19 @@ public final class AgentEvalConfig {
         public Builder cacheJudgeResults(boolean cache) { this.cacheJudgeResults = cache; return this; }
         public Builder costBudget(BigDecimal budget) { this.costBudget = budget; return this; }
         public Builder pricingModel(PricingModel pricing) { this.pricingModel = pricing; return this; }
+        public Builder parallelEvaluation(boolean parallel) {
+            this.parallelEvaluation = parallel;
+            return this;
+        }
+        public Builder parallelism(int parallelism) {
+            if (parallelism < 1) throw new IllegalArgumentException("parallelism must be >= 1");
+            this.parallelism = parallelism;
+            return this;
+        }
+        public Builder progressCallback(ProgressCallback callback) {
+            this.progressCallback = callback;
+            return this;
+        }
 
         public AgentEvalConfig build() {
             return new AgentEvalConfig(this);

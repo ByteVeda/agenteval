@@ -5,7 +5,7 @@ import com.agenteval.core.judge.JudgeResponse;
 import com.agenteval.core.metric.EvalMetric;
 import com.agenteval.core.model.AgentTestCase;
 import com.agenteval.core.model.EvalScore;
-import com.agenteval.metrics.llm.PromptTemplate;
+import com.agenteval.core.template.PromptTemplate;
 
 import java.util.HashMap;
 import java.util.HashSet;

@@ -1,0 +1,30 @@
+You are evaluating a single reasoning step in an agent's execution trace.
+
+## Task
+The agent was given this input:
+{{input}}
+
+The expected output is:
+{{expectedOutput}}
+
+## Context
+Previous steps:
+{{previousSteps}}
+
+## Current Step ({{stepIndex}} of {{totalSteps}})
+Type: {{stepType}}
+Content: {{stepContent}}
+
+## Instructions
+Evaluate whether this reasoning step is correct and logically sound given:
+1. The original task/input
+2. The previous steps taken
+3. Whether this step moves toward the expected output
+
+Score this step:
+- 1.0: Step is correct, logical, and productive
+- 0.5: Step is partially correct or neutral
+- 0.0: Step is incorrect, illogical, or counterproductive
+
+Return your evaluation as JSON:
+{"score": <number>, "reason": "<brief explanation>"}
