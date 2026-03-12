@@ -2,6 +2,7 @@ package com.agenteval.judge;
 
 import com.agenteval.core.judge.JudgeModel;
 import com.agenteval.judge.config.JudgeConfig;
+import com.agenteval.judge.multi.MultiModelJudge;
 import com.agenteval.judge.provider.AnthropicJudgeModel;
 import com.agenteval.judge.provider.OllamaJudgeModel;
 import com.agenteval.judge.provider.OpenAiJudgeModel;
@@ -86,6 +87,21 @@ public final class JudgeModels {
      */
     public static JudgeModel ollama(JudgeConfig config) {
         return new OllamaJudgeModel(config);
+    }
+
+    /**
+     * Creates a multi-model judge builder for combining multiple judge models.
+     *
+     * <pre>{@code
+     * var judge = JudgeModels.multi()
+     *     .add(JudgeModels.openai("gpt-4o"))
+     *     .add(JudgeModels.anthropic("claude-sonnet-4-20250514"), 2.0)
+     *     .strategy(ConsensusStrategy.WEIGHTED_AVERAGE)
+     *     .build();
+     * }</pre>
+     */
+    public static MultiModelJudge.Builder multi() {
+        return MultiModelJudge.builder();
     }
 
     private static String resolveApiKey(String envVar, String providerName) {

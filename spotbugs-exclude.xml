@@ -89,4 +89,34 @@
         <Class name="com.agenteval.mcp.McpCapture"/>
         <Bug pattern="EI_EXPOSE_REP"/>
     </Match>
+
+    <!-- Multi-judge records use defensive copies; ThreadLocal is intentional -->
+    <Match>
+        <Class name="~com\.agenteval\.judge\.multi\..*"/>
+        <Bug pattern="EI_EXPOSE_REP,EI_EXPOSE_REP2"/>
+    </Match>
+
+    <!-- Dataset version records expose immutable components by design -->
+    <Match>
+        <Class name="~com\.agenteval\.datasets\.version\..*"/>
+        <Bug pattern="EI_EXPOSE_REP,EI_EXPOSE_REP2"/>
+    </Match>
+
+    <!-- MarkdownReporter intentionally uses \n (not %n) for Markdown output -->
+    <Match>
+        <Class name="com.agenteval.github.MarkdownReporter"/>
+        <Bug pattern="VA_FORMAT_STRING_USES_NEWLINE"/>
+    </Match>
+
+    <!-- MarkdownConfig stores Path (immutable by design) -->
+    <Match>
+        <Class name="com.agenteval.github.MarkdownConfig"/>
+        <Bug pattern="EI_EXPOSE_REP,EI_EXPOSE_REP2"/>
+    </Match>
+
+    <!-- GitHub Actions module — ObjectMapper is thread-safe, records expose by design -->
+    <Match>
+        <Class name="~com\.agenteval\.github\..*"/>
+        <Bug pattern="EI_EXPOSE_REP,EI_EXPOSE_REP2"/>
+    </Match>
 </FindBugsFilter>

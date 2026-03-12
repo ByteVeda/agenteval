@@ -33,6 +33,8 @@
         <module>agenteval-langgraph4j</module>
         <module>agenteval-mcp</module>
         <module>agenteval-redteam</module>
+        <module>agenteval-maven-plugin</module>
+        <module>agenteval-github-actions</module>
     </modules>
 
     <properties>
