@@ -68,7 +68,6 @@ public final class SemanticSimilarityMetric implements EvalMetric {
      * @deprecated Use {@link VectorMath#cosineSimilarity(List, List)} instead.
      */
     @Deprecated(since = "0.2.0", forRemoval = true)
-    @SuppressWarnings("dep-ann")
     static double cosineSimilarity(List<Double> a, List<Double> b) {
         return VectorMath.cosineSimilarity(a, b);
     }
