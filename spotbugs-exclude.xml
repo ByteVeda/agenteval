@@ -20,6 +20,10 @@
         <Class name="com.agenteval.metrics.llm.LLMJudgeMetric"/>
         <Bug pattern="CT_CONSTRUCTOR_THROW"/>
     </Match>
+    <Match>
+        <Class name="com.agenteval.metrics.conversation.LLMConversationMetric"/>
+        <Bug pattern="CT_CONSTRUCTOR_THROW"/>
+    </Match>
 
     <!-- EvalDataset fields are defensively copied via List.copyOf/Map.copyOf -->
     <Match>
@@ -30,6 +34,10 @@
     <!-- ObjectMapper is intentionally shared (thread-safe) -->
     <Match>
         <Class name="~com\.agenteval\.datasets\.json\.Json.*"/>
+        <Bug pattern="EI_EXPOSE_REP2"/>
+    </Match>
+    <Match>
+        <Class name="~com\.agenteval\.datasets\.jsonl\.Jsonl.*"/>
         <Bug pattern="EI_EXPOSE_REP2"/>
     </Match>
 
@@ -43,5 +51,17 @@
     <Match>
         <Class name="com.agenteval.junit5.assertion.AgentTestCaseAssert"/>
         <Bug pattern="EI_EXPOSE_REP"/>
+    </Match>
+
+    <!-- YamlConfigModel is a Jackson deserialization POJO — mutable by design -->
+    <Match>
+        <Class name="~com\.agenteval\.core\.config\.YamlConfigModel.*"/>
+        <Bug pattern="EI_EXPOSE_REP,EI_EXPOSE_REP2"/>
+    </Match>
+
+    <!-- AgentEvalConfigLoader reads YAML files which are always UTF-8 -->
+    <Match>
+        <Class name="com.agenteval.core.config.AgentEvalConfigLoader"/>
+        <Bug pattern="DM_DEFAULT_ENCODING"/>
     </Match>
 </FindBugsFilter>
