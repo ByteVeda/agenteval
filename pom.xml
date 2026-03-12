@@ -30,6 +30,9 @@
         <module>agenteval-junit5</module>
         <module>agenteval-spring-ai</module>
         <module>agenteval-langchain4j</module>
+        <module>agenteval-langgraph4j</module>
+        <module>agenteval-mcp</module>
+        <module>agenteval-redteam</module>
     </modules>
 
     <properties>
