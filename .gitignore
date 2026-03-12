@@ -31,5 +31,6 @@ target/
 *.iml
 
 # Misc
+.vscode
 CLAUDE.md
 .claude/
