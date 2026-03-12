@@ -1,7 +1,9 @@
 package com.agenteval.datasets;
 
 import com.agenteval.core.model.AgentTestCase;
+import com.agenteval.datasets.csv.CsvDatasetWriter;
 import com.agenteval.datasets.json.JsonDatasetWriter;
+import com.agenteval.datasets.jsonl.JsonlDatasetWriter;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder;
 
@@ -52,6 +54,22 @@ public final class EvalDataset {
      */
     public void save(Path path) {
         new JsonDatasetWriter().write(this, path);
+    }
+
+    /**
+     * Saves this dataset to a file in the specified format.
+     *
+     * @param path the target file path
+     * @param format the output format
+     * @throws DatasetException if writing fails
+     */
+    public void save(Path path, DatasetFormat format) {
+        switch (format) {
+            case JSON -> new JsonDatasetWriter().write(this, path);
+            case JSONL -> new JsonlDatasetWriter().write(this, path);
+            case CSV -> new CsvDatasetWriter().write(this, path);
+            default -> throw new DatasetException("Unsupported format: " + format);
+        }
     }
 
     @JsonPOJOBuilder(withPrefix = "")

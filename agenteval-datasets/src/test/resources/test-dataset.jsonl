@@ -1,0 +1,2 @@
+{"input":"What is Java?","actualOutput":"Java is a programming language.","expectedOutput":"Java is a programming language developed by Sun.","retrievalContext":["Java was created by Sun","Java runs on JVM"]}
+{"input":"What is Python?","actualOutput":"Python is easy to learn.","expectedOutput":"Python is a high-level language.","retrievalContext":["Python was created by Guido"]}
