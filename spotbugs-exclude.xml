@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<FindBugsFilter>
+    <!-- Builder patterns store mutable objects intentionally;
+         defensive copies are made in build() -->
+    <Match>
+        <Class name="~.*\$Builder"/>
+        <Bug pattern="EI_EXPOSE_REP2"/>
+    </Match>
+
+    <!-- CaseResult.testCase is an intentionally mutable reference
+         (AgentTestCase has mutable capture-time fields by design) -->
+    <Match>
+        <Class name="com.agenteval.core.eval.CaseResult"/>
+        <Bug pattern="EI_EXPOSE_REP,EI_EXPOSE_REP2"/>
+    </Match>
+</FindBugsFilter>
