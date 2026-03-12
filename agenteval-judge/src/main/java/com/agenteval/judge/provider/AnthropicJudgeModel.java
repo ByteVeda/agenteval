@@ -29,6 +29,9 @@ public final class AnthropicJudgeModel extends AbstractHttpJudgeModel {
 
     public AnthropicJudgeModel(JudgeConfig config) {
         super(config);
+        if (config.getApiKey() == null || config.getApiKey().isBlank()) {
+            throw new JudgeException("Anthropic requires a non-null API key");
+        }
     }
 
     AnthropicJudgeModel(JudgeConfig config, HttpJudgeClient client) {

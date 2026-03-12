@@ -1,7 +1,10 @@
 package com.agenteval.core.config;
 
+import com.agenteval.core.cost.PricingModel;
 import com.agenteval.core.embedding.EmbeddingModel;
 import com.agenteval.core.judge.JudgeModel;
+
+import java.math.BigDecimal;
 
 /**
  * Configuration for the AgentEval evaluation engine.
@@ -24,6 +27,8 @@ public final class AgentEvalConfig {
     private final boolean retryOnRateLimit;
     private final int maxRetries;
     private final boolean cacheJudgeResults;
+    private final BigDecimal costBudget;
+    private final PricingModel pricingModel;
 
     private AgentEvalConfig(Builder builder) {
         this.judgeModel = builder.judgeModel;
@@ -32,6 +37,8 @@ public final class AgentEvalConfig {
         this.retryOnRateLimit = builder.retryOnRateLimit;
         this.maxRetries = builder.maxRetries;
         this.cacheJudgeResults = builder.cacheJudgeResults;
+        this.costBudget = builder.costBudget;
+        this.pricingModel = builder.pricingModel;
     }
 
     public JudgeModel judgeModel() { return judgeModel; }
@@ -40,6 +47,8 @@ public final class AgentEvalConfig {
     public boolean retryOnRateLimit() { return retryOnRateLimit; }
     public int maxRetries() { return maxRetries; }
     public boolean cacheJudgeResults() { return cacheJudgeResults; }
+    public BigDecimal costBudget() { return costBudget; }
+    public PricingModel pricingModel() { return pricingModel; }
 
     public static Builder builder() {
         return new Builder();
@@ -59,6 +68,8 @@ public final class AgentEvalConfig {
         private boolean retryOnRateLimit = true;
         private int maxRetries = 3;
         private boolean cacheJudgeResults = false;
+        private BigDecimal costBudget;
+        private PricingModel pricingModel;
 
         private Builder() {}
 
@@ -79,6 +90,8 @@ public final class AgentEvalConfig {
             return this;
         }
         public Builder cacheJudgeResults(boolean cache) { this.cacheJudgeResults = cache; return this; }
+        public Builder costBudget(BigDecimal budget) { this.costBudget = budget; return this; }
+        public Builder pricingModel(PricingModel pricing) { this.pricingModel = pricing; return this; }
 
         public AgentEvalConfig build() {
             return new AgentEvalConfig(this);

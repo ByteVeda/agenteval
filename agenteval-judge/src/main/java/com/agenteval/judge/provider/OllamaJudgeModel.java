@@ -11,29 +11,26 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import java.util.Map;
 
 /**
- * OpenAI-compatible judge model provider.
+ * Ollama judge model provider.
  *
- * <p>Sends requests to {@code POST /v1/chat/completions} with
- * {@code response_format: {"type": "json_object"}} for structured output.</p>
+ * <p>Sends requests to {@code POST /api/chat} with JSON response format.
+ * No API key required.</p>
  */
-public final class OpenAiJudgeModel extends AbstractHttpJudgeModel {
+public final class OllamaJudgeModel extends AbstractHttpJudgeModel {
 
     private static final ObjectMapper MAPPER = new ObjectMapper();
-    private static final String DEFAULT_BASE_URL = "https://api.openai.com";
-    private static final String COMPLETIONS_PATH = "/v1/chat/completions";
+    private static final String DEFAULT_BASE_URL = "http://localhost:11434";
+    private static final String CHAT_PATH = "/api/chat";
     private static final String SYSTEM_PROMPT =
             "You are an evaluation judge. Respond ONLY with a JSON object "
                     + "containing \"score\" (a number between 0.0 and 1.0) "
                     + "and \"reason\" (a brief explanation).";
 
-    public OpenAiJudgeModel(JudgeConfig config) {
+    public OllamaJudgeModel(JudgeConfig config) {
         super(config);
-        if (config.getApiKey() == null || config.getApiKey().isBlank()) {
-            throw new JudgeException("OpenAI requires a non-null API key");
-        }
     }
 
-    OpenAiJudgeModel(JudgeConfig config, HttpJudgeClient client) {
+    OllamaJudgeModel(JudgeConfig config, HttpJudgeClient client) {
         super(config, client);
     }
 
@@ -46,11 +43,8 @@ public final class OpenAiJudgeModel extends AbstractHttpJudgeModel {
         try {
             var body = MAPPER.createObjectNode();
             body.put("model", config.getModel());
-            body.put("temperature", config.getTemperature());
-
-            var responseFormat = MAPPER.createObjectNode();
-            responseFormat.put("type", "json_object");
-            body.set("response_format", responseFormat);
+            body.put("stream", false);
+            body.put("format", "json");
 
             var messages = body.putArray("messages");
 
@@ -62,36 +56,33 @@ public final class OpenAiJudgeModel extends AbstractHttpJudgeModel {
             userMsg.put("role", "user");
             userMsg.put("content", prompt);
 
-            String url = config.getBaseUrl() + COMPLETIONS_PATH;
-            return new HttpJudgeRequest(
-                    url,
-                    Map.of("Authorization", "Bearer " + config.getApiKey()),
+            String url = config.getBaseUrl() + CHAT_PATH;
+            return new HttpJudgeRequest(url, Map.of(),
                     MAPPER.writeValueAsString(body));
         } catch (Exception e) {
-            throw new JudgeException("Failed to build OpenAI request", e);
+            throw new JudgeException("Failed to build Ollama request", e);
         }
     }
 
     @Override
     protected String extractContent(String responseBody) {
         JsonNode root = parseJson(responseBody);
-        JsonNode choices = root.path("choices");
-        if (choices.isEmpty()) {
-            throw new JudgeException("No choices in OpenAI response");
+        JsonNode message = root.path("message");
+        if (message.isMissingNode()) {
+            throw new JudgeException("No message in Ollama response");
         }
-        return choices.get(0).path("message").path("content").asText("");
+        return message.path("content").asText("");
     }
 
     @Override
     protected TokenUsage extractTokenUsage(String responseBody) {
         JsonNode root = parseJson(responseBody);
-        JsonNode usage = root.path("usage");
-        if (usage.isMissingNode()) {
+        int promptTokens = root.path("prompt_eval_count").asInt(0);
+        int completionTokens = root.path("eval_count").asInt(0);
+        if (promptTokens == 0 && completionTokens == 0) {
             return null;
         }
-        return new TokenUsage(
-                usage.path("prompt_tokens").asInt(0),
-                usage.path("completion_tokens").asInt(0),
-                usage.path("total_tokens").asInt(0));
+        return new TokenUsage(promptTokens, completionTokens,
+                promptTokens + completionTokens);
     }
 }
