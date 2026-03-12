@@ -31,5 +31,5 @@ target/
 *.iml
 
 # Misc
-CLUADE.md
+CLAUDE.md
 .claude/
