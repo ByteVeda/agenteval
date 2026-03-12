@@ -2,10 +2,10 @@ package com.agenteval.junit5.extension;
 
 import com.agenteval.core.judge.JudgeModel;
 import com.agenteval.core.metric.EvalMetric;
+import java.lang.reflect.Constructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.lang.reflect.Constructor;
 
 /**
  * Reflectively instantiates {@link EvalMetric} implementations from annotation metadata.
@@ -70,7 +70,6 @@ public final class MetricFactory {
                         + ". Expected one of: (JudgeModel, double), (double), (JudgeModel), ()");
     }
 
-    @SuppressWarnings("unchecked")
     private static EvalMetric tryConstruct(Class<? extends EvalMetric> clazz,
                                            Class<?>[] paramTypes,
                                            Object... args) {
