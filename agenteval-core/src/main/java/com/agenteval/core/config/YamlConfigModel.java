@@ -1,6 +1,7 @@
 package com.agenteval.core.config;
 
 import java.math.BigDecimal;
+import java.util.List;
 
 /**
  * POJO representing the {@code agenteval.yaml} configuration file structure.
@@ -29,6 +30,8 @@ public final class YamlConfigModel {
         private String model;
         private String apiKey;
         private String baseUrl;
+        private List<JudgeSection> models;
+        private String consensusStrategy;
 
         public String getProvider() { return provider; }
         public void setProvider(String provider) { this.provider = provider; }
@@ -38,6 +41,12 @@ public final class YamlConfigModel {
         public void setApiKey(String apiKey) { this.apiKey = apiKey; }
         public String getBaseUrl() { return baseUrl; }
         public void setBaseUrl(String baseUrl) { this.baseUrl = baseUrl; }
+        public List<JudgeSection> getModels() { return models; }
+        public void setModels(List<JudgeSection> models) { this.models = models; }
+        public String getConsensusStrategy() { return consensusStrategy; }
+        public void setConsensusStrategy(String consensusStrategy) {
+            this.consensusStrategy = consensusStrategy;
+        }
     }
 
     public static final class EmbeddingSection {

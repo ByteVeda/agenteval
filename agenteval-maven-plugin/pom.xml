@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>com.agenteval</groupId>
+        <artifactId>agenteval-parent</artifactId>
+        <version>0.1.0-SNAPSHOT</version>
+    </parent>
+
+    <artifactId>agenteval-maven-plugin</artifactId>
+    <packaging>maven-plugin</packaging>
+    <name>AgentEval Maven Plugin</name>
+    <description>Maven plugin for running AgentEval evaluations</description>
+
+    <properties>
+        <maven-plugin-api.version>3.9.9</maven-plugin-api.version>
+        <maven-plugin-annotations.version>3.15.1</maven-plugin-annotations.version>
+        <maven-plugin-plugin.version>3.15.1</maven-plugin-plugin.version>
+    </properties>
+
+    <dependencies>
+        <dependency>
+            <groupId>org.apache.maven</groupId>
+            <artifactId>maven-plugin-api</artifactId>
+            <version>${maven-plugin-api.version}</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.maven.plugin-tools</groupId>
+            <artifactId>maven-plugin-annotations</artifactId>
+            <version>${maven-plugin-annotations.version}</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.agenteval</groupId>
+            <artifactId>agenteval-core</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.agenteval</groupId>
+            <artifactId>agenteval-judge</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.agenteval</groupId>
+            <artifactId>agenteval-metrics</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.agenteval</groupId>
+            <artifactId>agenteval-datasets</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.agenteval</groupId>
+            <artifactId>agenteval-reporting</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-api</artifactId>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-plugin-plugin</artifactId>
+                <version>${maven-plugin-plugin.version}</version>
+            </plugin>
+            <!-- Skip SpotBugs for maven-plugin module (Maven API triggers false positives) -->
+            <plugin>
+                <groupId>com.github.spotbugs</groupId>
+                <artifactId>spotbugs-maven-plugin</artifactId>
+                <configuration>
+                    <skip>true</skip>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+</project>

@@ -4,6 +4,8 @@ import com.agenteval.core.model.AgentTestCase;
 import com.agenteval.datasets.csv.CsvDatasetWriter;
 import com.agenteval.datasets.json.JsonDatasetWriter;
 import com.agenteval.datasets.jsonl.JsonlDatasetWriter;
+import com.agenteval.datasets.version.DatasetVersioner;
+import com.agenteval.datasets.version.VersionedDataset;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder;
 
@@ -70,6 +72,17 @@ public final class EvalDataset {
             case CSV -> new CsvDatasetWriter().write(this, path);
             default -> throw new DatasetException("Unsupported format: " + format);
         }
+    }
+
+    /**
+     * Tags this dataset with a version label and saves it to the storage directory.
+     *
+     * @param label      the version label (e.g., "v1.0")
+     * @param storageDir the directory where versioned datasets are stored
+     * @return the versioned dataset with git metadata
+     */
+    public VersionedDataset tagVersion(String label, Path storageDir) {
+        return new DatasetVersioner(storageDir).tag(this, label);
     }
 
     @JsonPOJOBuilder(withPrefix = "")
