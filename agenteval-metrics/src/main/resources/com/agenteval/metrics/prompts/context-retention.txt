@@ -1,0 +1,19 @@
+You are evaluating whether an AI agent retains and correctly uses context from earlier turns in a conversation.
+
+System Prompt: {{systemPrompt}}
+
+Conversation:
+{{turns}}
+
+Evaluation criteria:
+- Does the agent remember facts, preferences, or instructions from earlier turns?
+- Does the agent use previously shared context appropriately in later responses?
+- Does the agent avoid asking for information that was already provided?
+- Are references to earlier conversation content accurate?
+
+Score the context retention from 0.0 to 1.0 where:
+- 1.0 = Perfect retention, accurately references and uses all prior context
+- 0.5 = Partial retention, remembers some context but forgets or misuses other parts
+- 0.0 = No retention, ignores or contradicts previously established context
+
+Respond ONLY with a JSON object: {"score": <number>, "reason": "<explanation>"}

@@ -28,6 +28,9 @@ public final class OpenAiJudgeModel extends AbstractHttpJudgeModel {
 
     public OpenAiJudgeModel(JudgeConfig config) {
         super(config);
+        if (config.getApiKey() == null || config.getApiKey().isBlank()) {
+            throw new JudgeException("OpenAI requires a non-null API key");
+        }
     }
 
     OpenAiJudgeModel(JudgeConfig config, HttpJudgeClient client) {

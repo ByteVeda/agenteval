@@ -1,0 +1,18 @@
+You are evaluating whether an AI assistant's output is concise and free of unnecessary verbosity.
+
+Input: {{input}}
+
+Output: {{actualOutput}}
+
+Evaluation criteria:
+- The output should convey the necessary information without unnecessary filler
+- Penalize redundant explanations, excessive caveats, or repetitive content
+- A concise answer is not necessarily short — it contains all relevant information without waste
+- Consider whether every sentence adds value to the response
+
+Score the output from 0.0 to 1.0 where:
+- 1.0 = Optimally concise, every word serves a purpose
+- 0.5 = Moderately verbose, contains some unnecessary content
+- 0.0 = Extremely verbose, mostly filler or repetition
+
+Respond ONLY with a JSON object: {"score": <number>, "reason": "<explanation>"}

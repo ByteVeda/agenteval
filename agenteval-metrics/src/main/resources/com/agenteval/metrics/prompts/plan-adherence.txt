@@ -1,0 +1,23 @@
+You are evaluating whether an AI agent adhered to its planned steps during execution.
+
+Task Input: {{input}}
+
+Agent's Reasoning Trace (plan and execution steps):
+{{reasoningTrace}}
+
+Tool Calls Made: {{toolCalls}}
+
+Final Output: {{actualOutput}}
+
+Evaluation criteria:
+- Did the agent follow the order of its planned steps?
+- Were all planned actions actually executed?
+- Did the agent deviate from the plan without justification?
+- Were the tool calls consistent with the plan?
+
+Score the plan adherence from 0.0 to 1.0 where:
+- 1.0 = Perfectly followed the plan, all steps executed as planned
+- 0.5 = Partially followed the plan, some deviations
+- 0.0 = Completely deviated from the plan
+
+Respond ONLY with a JSON object: {"score": <number>, "reason": "<explanation>"}

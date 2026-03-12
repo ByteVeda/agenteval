@@ -1,5 +1,7 @@
 package com.agenteval.core.eval;
 
+import com.agenteval.core.cost.CostSummary;
+
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
@@ -12,19 +14,27 @@ public final class EvalResult {
 
     private final List<CaseResult> caseResults;
     private final long durationMs;
+    private final CostSummary costSummary;
 
-    private EvalResult(List<CaseResult> caseResults, long durationMs) {
+    private EvalResult(List<CaseResult> caseResults, long durationMs, CostSummary costSummary) {
         Objects.requireNonNull(caseResults, "caseResults must not be null");
         this.caseResults = List.copyOf(caseResults);
         this.durationMs = durationMs;
+        this.costSummary = costSummary;
     }
 
     public static EvalResult of(List<CaseResult> caseResults, long durationMs) {
-        return new EvalResult(caseResults, durationMs);
+        return new EvalResult(caseResults, durationMs, null);
+    }
+
+    public static EvalResult of(List<CaseResult> caseResults, long durationMs,
+                                CostSummary costSummary) {
+        return new EvalResult(caseResults, durationMs, costSummary);
     }
 
     public List<CaseResult> caseResults() { return caseResults; }
     public long durationMs() { return durationMs; }
+    public CostSummary costSummary() { return costSummary; }
 
     /**
      * Returns the overall average score across all cases and metrics.

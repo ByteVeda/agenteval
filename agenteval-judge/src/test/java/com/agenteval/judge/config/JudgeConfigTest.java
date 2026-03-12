@@ -42,12 +42,12 @@ class JudgeConfigTest {
     }
 
     @Test
-    void shouldRejectNullApiKey() {
-        assertThatThrownBy(() -> JudgeConfig.builder()
+    void shouldAllowNullApiKey() {
+        var config = JudgeConfig.builder()
                 .model("gpt-4o")
                 .baseUrl("https://api.openai.com")
-                .build())
-                .isInstanceOf(NullPointerException.class);
+                .build();
+        assertThat(config.getApiKey()).isNull();
     }
 
     @Test

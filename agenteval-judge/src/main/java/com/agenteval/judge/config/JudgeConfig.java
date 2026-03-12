@@ -16,7 +16,7 @@ public final class JudgeConfig {
     private final double temperature;
 
     private JudgeConfig(Builder builder) {
-        this.apiKey = Objects.requireNonNull(builder.apiKey, "apiKey must not be null");
+        this.apiKey = builder.apiKey;
         this.model = Objects.requireNonNull(builder.model, "model must not be null");
         this.baseUrl = Objects.requireNonNull(builder.baseUrl, "baseUrl must not be null");
         this.timeout = builder.timeout;

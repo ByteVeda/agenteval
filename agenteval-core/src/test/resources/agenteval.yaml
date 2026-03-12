@@ -1,0 +1,17 @@
+judge:
+  provider: openai
+  model: gpt-4o
+  apiKey: ${OPENAI_API_KEY}
+  baseUrl: https://api.openai.com
+
+embedding:
+  provider: openai
+  model: text-embedding-3-small
+
+defaults:
+  maxRetries: 5
+  retryOnRateLimit: true
+  maxConcurrentJudgeCalls: 8
+
+cost:
+  budget: 10.00

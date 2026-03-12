@@ -23,10 +23,13 @@
     <modules>
         <module>agenteval-core</module>
         <module>agenteval-judge</module>
+        <module>agenteval-embeddings</module>
         <module>agenteval-metrics</module>
         <module>agenteval-datasets</module>
         <module>agenteval-reporting</module>
         <module>agenteval-junit5</module>
+        <module>agenteval-spring-ai</module>
+        <module>agenteval-langchain4j</module>
     </modules>
 
     <properties>
@@ -108,6 +111,11 @@
             <dependency>
                 <groupId>com.agenteval</groupId>
                 <artifactId>agenteval-reporting</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.agenteval</groupId>
+                <artifactId>agenteval-embeddings</artifactId>
                 <version>${project.version}</version>
             </dependency>
         </dependencies>

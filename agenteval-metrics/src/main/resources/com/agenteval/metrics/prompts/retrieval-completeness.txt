@@ -1,0 +1,19 @@
+You are evaluating whether the retrieved documents cover all the expected reference documents.
+
+Expected Context (ground truth documents):
+{{context}}
+
+Retrieved Context (documents actually retrieved):
+{{retrievalContext}}
+
+Evaluation steps:
+1. For each expected document, determine if its key information is semantically covered by at least one retrieved document
+2. Count the number of expected documents that are covered vs total expected documents
+3. Partial coverage of a document should receive partial credit
+
+Score the retrieval completeness from 0.0 to 1.0 where:
+- 1.0 = All expected documents are fully covered by retrieved documents
+- 0.5 = About half the expected documents are covered
+- 0.0 = None of the expected documents are covered
+
+Respond ONLY with a JSON object: {"score": <number>, "reason": "<explanation>"}
