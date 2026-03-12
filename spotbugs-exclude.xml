@@ -64,4 +64,29 @@
         <Class name="com.agenteval.core.config.AgentEvalConfigLoader"/>
         <Bug pattern="DM_DEFAULT_ENCODING"/>
     </Match>
+
+    <!-- Regression records use defensive copies where possible;
+         records expose their components by design -->
+    <Match>
+        <Class name="~com\.agenteval\.reporting\.regression\..*"/>
+        <Bug pattern="EI_EXPOSE_REP,EI_EXPOSE_REP2,WMI_WRONG_MAP_ITERATOR"/>
+    </Match>
+
+    <!-- HtmlReportConfig stores Path (immutable by design) -->
+    <Match>
+        <Class name="com.agenteval.reporting.HtmlReportConfig"/>
+        <Bug pattern="EI_EXPOSE_REP,EI_EXPOSE_REP2"/>
+    </Match>
+
+    <!-- Red team records expose their list components by design -->
+    <Match>
+        <Class name="~com\.agenteval\.redteam\..*"/>
+        <Bug pattern="EI_EXPOSE_REP,EI_EXPOSE_REP2"/>
+    </Match>
+
+    <!-- MCP capture stores thread-safe synchronized list -->
+    <Match>
+        <Class name="com.agenteval.mcp.McpCapture"/>
+        <Bug pattern="EI_EXPOSE_REP"/>
+    </Match>
 </FindBugsFilter>
