@@ -4,6 +4,7 @@ import com.agenteval.core.embedding.EmbeddingModel;
 import com.agenteval.core.metric.EvalMetric;
 import com.agenteval.core.model.AgentTestCase;
 import com.agenteval.core.model.EvalScore;
+import com.agenteval.metrics.util.VectorMath;
 
 import java.util.List;
 import java.util.Objects;
@@ -51,7 +52,7 @@ public final class SemanticSimilarityMetric implements EvalMetric {
         List<Double> actualEmb = embeddingModel.embed(testCase.getActualOutput());
         List<Double> expectedEmb = embeddingModel.embed(testCase.getExpectedOutput());
 
-        double similarity = cosineSimilarity(actualEmb, expectedEmb);
+        double similarity = VectorMath.cosineSimilarity(actualEmb, expectedEmb);
         double score = Math.min(1.0, Math.max(0.0, similarity));
         String reason = String.format("Cosine similarity: %.4f (model: %s)",
                 similarity, embeddingModel.modelId());
@@ -63,23 +64,12 @@ public final class SemanticSimilarityMetric implements EvalMetric {
         return NAME;
     }
 
+    /**
+     * @deprecated Use {@link VectorMath#cosineSimilarity(List, List)} instead.
+     */
+    @Deprecated(since = "0.2.0", forRemoval = true)
+    @SuppressWarnings("dep-ann")
     static double cosineSimilarity(List<Double> a, List<Double> b) {
-        if (a.size() != b.size()) {
-            throw new IllegalArgumentException(
-                    "Embedding dimensions must match: " + a.size() + " vs " + b.size());
-        }
-        double dotProduct = 0.0;
-        double normA = 0.0;
-        double normB = 0.0;
-        for (int i = 0; i < a.size(); i++) {
-            dotProduct += a.get(i) * b.get(i);
-            normA += a.get(i) * a.get(i);
-            normB += b.get(i) * b.get(i);
-        }
-        double denominator = Math.sqrt(normA) * Math.sqrt(normB);
-        if (denominator == 0.0) {
-            return 0.0;
-        }
-        return dotProduct / denominator;
+        return VectorMath.cosineSimilarity(a, b);
     }
 }
