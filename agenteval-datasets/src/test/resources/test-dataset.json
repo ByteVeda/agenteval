@@ -1,0 +1,20 @@
+{
+  "name": "golden-set",
+  "version": "1.0",
+  "testCases": [
+    {
+      "input": "How do I get a refund?",
+      "expectedOutput": "You can request a refund within 30 days of purchase.",
+      "metadata": {"category": "refund"}
+    },
+    {
+      "input": "What are your business hours?",
+      "expectedOutput": "We are open Monday through Friday, 9am to 5pm.",
+      "metadata": {"category": "general"}
+    }
+  ],
+  "metadata": {
+    "source": "manual",
+    "domain": "customer-support"
+  }
+}

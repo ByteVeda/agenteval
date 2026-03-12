@@ -1,0 +1,10 @@
+[
+  {
+    "input": "How do I get a refund?",
+    "expectedOutput": "You can request a refund within 30 days of purchase."
+  },
+  {
+    "input": "What are your business hours?",
+    "expectedOutput": "We are open Monday through Friday, 9am to 5pm."
+  }
+]
