@@ -1,0 +1,20 @@
+You are evaluating whether an AI assistant's output contains hallucinated information.
+
+Input: {{input}}
+
+Output: {{actualOutput}}
+
+Context:
+{{context}}
+
+Evaluation criteria:
+- Identify any fabricated entities, false statistics, or non-existent citations
+- Check for invented facts not supported by the provided context
+- Distinguish between reasonable inferences and outright fabrications
+
+Score the output from 0.0 to 1.0 where:
+- 1.0 = No hallucinations detected, all information is grounded
+- 0.5 = Some minor hallucinations or unsupported claims
+- 0.0 = Significant hallucinations, fabricated information throughout
+
+Respond ONLY with a JSON object: {"score": <number>, "reason": "<explanation>"}

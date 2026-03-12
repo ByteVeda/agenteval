@@ -13,4 +13,11 @@
         <Class name="com.agenteval.core.eval.CaseResult"/>
         <Bug pattern="EI_EXPOSE_REP,EI_EXPOSE_REP2"/>
     </Match>
+
+    <!-- Abstract base class constructors that validate arguments intentionally
+         throw; all concrete subclasses are final -->
+    <Match>
+        <Class name="com.agenteval.metrics.llm.LLMJudgeMetric"/>
+        <Bug pattern="CT_CONSTRUCTOR_THROW"/>
+    </Match>
 </FindBugsFilter>
