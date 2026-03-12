@@ -69,9 +69,7 @@ public final class CsvDatasetLoader implements DatasetLoader {
 
         List<AgentTestCase> testCases = new ArrayList<>();
         String line;
-        int lineNum = 1;
         while ((line = reader.readLine()) != null) {
-            lineNum++;
             if (line.isBlank()) continue;
 
             String[] fields = parseCsvLine(line);
