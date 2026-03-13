@@ -35,6 +35,8 @@
         <module>agenteval-redteam</module>
         <module>agenteval-maven-plugin</module>
         <module>agenteval-github-actions</module>
+        <module>agenteval-gradle-plugin</module>
+        <module>agenteval-intellij</module>
     </modules>
 
     <properties>

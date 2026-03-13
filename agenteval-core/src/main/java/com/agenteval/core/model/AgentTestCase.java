@@ -51,6 +51,27 @@ public final class AgentTestCase {
         return new Builder();
     }
 
+    /**
+     * Returns a new builder pre-populated with this test case's values.
+     * Useful for creating modified copies (e.g., benchmark variants).
+     */
+    public Builder toBuilder() {
+        Builder b = new Builder();
+        b.input = this.input;
+        b.actualOutput = this.actualOutput;
+        b.expectedOutput = this.expectedOutput;
+        b.retrievalContext = this.retrievalContext.isEmpty() ? null : List.copyOf(this.retrievalContext);
+        b.context = this.context.isEmpty() ? null : List.copyOf(this.context);
+        b.toolCalls = this.toolCalls.isEmpty() ? null : List.copyOf(this.toolCalls);
+        b.expectedToolCalls = this.expectedToolCalls.isEmpty() ? null : List.copyOf(this.expectedToolCalls);
+        b.reasoningTrace = this.reasoningTrace.isEmpty() ? null : List.copyOf(this.reasoningTrace);
+        b.latencyMs = this.latencyMs;
+        b.tokenUsage = this.tokenUsage;
+        b.cost = this.cost;
+        b.metadata = this.metadata.isEmpty() ? null : new java.util.HashMap<>(this.metadata);
+        return b;
+    }
+
     // --- Getters ---
 
     public String getInput() { return input; }

@@ -119,4 +119,25 @@
         <Class name="~com\.agenteval\.github\..*"/>
         <Bug pattern="EI_EXPOSE_REP,EI_EXPOSE_REP2"/>
     </Match>
+
+    <!-- Benchmark classes store config/metrics intentionally;
+         BenchmarkResult exposes variant results by design -->
+    <Match>
+        <Class name="~com\.agenteval\.core\.benchmark\..*"/>
+        <Bug pattern="EI_EXPOSE_REP,EI_EXPOSE_REP2"/>
+    </Match>
+
+    <!-- BenchmarkReporter stores PrintStream for injection (test support) -->
+    <Match>
+        <Class name="com.agenteval.reporting.benchmark.BenchmarkReporter"/>
+        <Bug pattern="EI_EXPOSE_REP2"/>
+    </Match>
+
+    <!-- Snapshot records expose their components by design;
+         SnapshotStore shares ObjectMapper (thread-safe);
+         SnapshotReporter stores config/store references intentionally -->
+    <Match>
+        <Class name="~com\.agenteval\.reporting\.snapshot\..*"/>
+        <Bug pattern="EI_EXPOSE_REP,EI_EXPOSE_REP2"/>
+    </Match>
 </FindBugsFilter>
