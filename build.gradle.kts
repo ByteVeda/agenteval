@@ -1,4 +1,5 @@
 plugins {
+    base
     alias(libs.plugins.spotbugs) apply false
     alias(libs.plugins.shadow) apply false
 }
