@@ -25,6 +25,11 @@ replay_pid*
 
 # Build output
 target/
+build/
+
+# Gradle
+.gradle/
+!gradle/wrapper/gradle-wrapper.jar
 
 # IDE
 .idea/

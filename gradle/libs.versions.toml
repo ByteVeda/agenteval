@@ -1,0 +1,50 @@
+[versions]
+junit-bom = "5.11.4"
+jackson-bom = "2.18.3"
+slf4j = "2.0.16"
+assertj = "3.27.7"
+logback = "1.5.25"
+mockito = "5.14.2"
+checkstyle = "10.21.4"
+spring-ai = "1.0.0"
+spring-boot = "3.4.2"
+langchain4j = "0.36.2"
+langgraph4j = "1.0.0"
+spotbugs-plugin = "6.0.27"
+shadow = "8.1.1"
+
+[libraries]
+# BOMs
+junit-bom = { module = "org.junit:junit-bom", version.ref = "junit-bom" }
+jackson-bom = { module = "com.fasterxml.jackson:jackson-bom", version.ref = "jackson-bom" }
+
+# Jackson (versions managed by BOM)
+jackson-databind = { module = "com.fasterxml.jackson.core:jackson-databind" }
+jackson-dataformat-yaml = { module = "com.fasterxml.jackson.dataformat:jackson-dataformat-yaml" }
+jackson-datatype-jsr310 = { module = "com.fasterxml.jackson.datatype:jackson-datatype-jsr310" }
+
+# Logging
+slf4j-api = { module = "org.slf4j:slf4j-api", version.ref = "slf4j" }
+logback-classic = { module = "ch.qos.logback:logback-classic", version.ref = "logback" }
+
+# Testing
+assertj-core = { module = "org.assertj:assertj-core", version.ref = "assertj" }
+mockito-core = { module = "org.mockito:mockito-core", version.ref = "mockito" }
+junit-jupiter = { module = "org.junit.jupiter:junit-jupiter" }
+junit-jupiter-api = { module = "org.junit.jupiter:junit-jupiter-api" }
+junit-jupiter-params = { module = "org.junit.jupiter:junit-jupiter-params" }
+junit-platform-testkit = { module = "org.junit.platform:junit-platform-testkit" }
+
+# Spring
+spring-ai-model = { module = "org.springframework.ai:spring-ai-model", version.ref = "spring-ai" }
+spring-ai-client-chat = { module = "org.springframework.ai:spring-ai-client-chat", version.ref = "spring-ai" }
+spring-ai-commons = { module = "org.springframework.ai:spring-ai-commons", version.ref = "spring-ai" }
+spring-boot-autoconfigure = { module = "org.springframework.boot:spring-boot-autoconfigure", version.ref = "spring-boot" }
+
+# LangChain4j / LangGraph4j
+langchain4j-core = { module = "dev.langchain4j:langchain4j-core", version.ref = "langchain4j" }
+langgraph4j-core = { module = "org.bsc.langgraph4j:langgraph4j-core-jdk8", version.ref = "langgraph4j" }
+
+[plugins]
+spotbugs = { id = "com.github.spotbugs", version.ref = "spotbugs-plugin" }
+shadow = { id = "com.github.johnrengelman.shadow", version.ref = "shadow" }
