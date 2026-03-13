@@ -1,0 +1,20 @@
+<idea-plugin>
+    <id>com.agenteval.intellij</id>
+    <name>AgentEval</name>
+    <vendor>AgentEval</vendor>
+    <description>View AgentEval evaluation results in IntelliJ IDEA</description>
+
+    <depends>com.intellij.modules.platform</depends>
+    <depends>com.intellij.modules.java</depends>
+
+    <extensions defaultExtensionNs="com.intellij">
+        <toolWindow id="AgentEval"
+                    anchor="bottom"
+                    factoryClass="com.agenteval.intellij.AgentEvalToolWindowFactory"
+                    icon="/icons/agenteval-toolwindow.svg"/>
+
+        <codeInsight.lineMarkerProvider
+                language="JAVA"
+                implementationClass="com.agenteval.intellij.MetricGutterIconProvider"/>
+    </extensions>
+</idea-plugin>
