@@ -33,7 +33,6 @@ public final class JudgeModels {
     private static final String OPENAI_API_KEY_ENV = "OPENAI_API_KEY";
     private static final String ANTHROPIC_API_KEY_ENV = "ANTHROPIC_API_KEY";
     private static final String GOOGLE_API_KEY_ENV = "GOOGLE_API_KEY";
-    private static final String AZURE_OPENAI_API_KEY_ENV = "AZURE_OPENAI_API_KEY";
     private static final String OPENAI_BASE_URL = "https://api.openai.com";
     private static final String ANTHROPIC_BASE_URL = "https://api.anthropic.com";
     private static final String GOOGLE_BASE_URL = "https://generativelanguage.googleapis.com";

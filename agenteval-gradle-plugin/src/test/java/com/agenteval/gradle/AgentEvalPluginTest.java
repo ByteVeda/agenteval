@@ -31,8 +31,7 @@ class AgentEvalPluginTest {
         Project project = ProjectBuilder.builder().build();
         project.getPluginManager().apply("com.agenteval.evaluate");
 
-        var task = project.getTasks().findByName("agentEvaluate");
-        assertThat(task).isNotNull();
+        var task = project.getTasks().getByName("agentEvaluate");
         assertThat(task).isInstanceOf(EvaluateTask.class);
         assertThat(task.getGroup()).isEqualTo("verification");
     }
@@ -43,8 +42,7 @@ class AgentEvalPluginTest {
         project.getPluginManager().apply("com.agenteval.evaluate");
 
         AgentEvalExtension ext = project.getExtensions()
-                .findByType(AgentEvalExtension.class);
-        assertThat(ext).isNotNull();
+                .getByType(AgentEvalExtension.class);
 
         assertThat(ext.getConfigFile().get()).isEqualTo("agenteval.yaml");
         assertThat(ext.getReportFormats().get()).isEqualTo("console,json");

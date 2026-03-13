@@ -19,7 +19,7 @@ class EvaluateTaskTest {
         try {
             Project project = ProjectBuilder.builder().build();
             project.getPluginManager().apply("com.agenteval.evaluate");
-            EvaluateTask task = (EvaluateTask) project.getTasks().findByName("agentEvaluate");
+            EvaluateTask task = (EvaluateTask) project.getTasks().getByName("agentEvaluate");
             gradleTaskCreationSupported = task != null;
         } catch (Exception e) {
             gradleTaskCreationSupported = false;
@@ -34,8 +34,7 @@ class EvaluateTaskTest {
         Project project = ProjectBuilder.builder().build();
         project.getPluginManager().apply("com.agenteval.evaluate");
 
-        EvaluateTask task = (EvaluateTask) project.getTasks().findByName("agentEvaluate");
-        assertThat(task).isNotNull();
+        EvaluateTask task = (EvaluateTask) project.getTasks().getByName("agentEvaluate");
 
         assertThat(task.getConfigFile().get()).isEqualTo("agenteval.yaml");
         assertThat(task.getReportFormats().get()).isEqualTo("console,json");
@@ -53,8 +52,7 @@ class EvaluateTaskTest {
         Project project = ProjectBuilder.builder().build();
         project.getPluginManager().apply("com.agenteval.evaluate");
 
-        EvaluateTask task = (EvaluateTask) project.getTasks().findByName("agentEvaluate");
-        assertThat(task).isNotNull();
+        EvaluateTask task = (EvaluateTask) project.getTasks().getByName("agentEvaluate");
 
         assertThat(task.getDatasetPath().isPresent()).isFalse();
     }
@@ -68,14 +66,12 @@ class EvaluateTaskTest {
         project.getPluginManager().apply("com.agenteval.evaluate");
 
         AgentEvalExtension ext = project.getExtensions()
-                .findByType(AgentEvalExtension.class);
-        assertThat(ext).isNotNull();
+                .getByType(AgentEvalExtension.class);
 
         ext.getMetrics().set("Faithfulness,Correctness");
         ext.getThreshold().set(0.8);
 
-        EvaluateTask task = (EvaluateTask) project.getTasks().findByName("agentEvaluate");
-        assertThat(task).isNotNull();
+        EvaluateTask task = (EvaluateTask) project.getTasks().getByName("agentEvaluate");
         assertThat(task.getMetrics().get()).isEqualTo("Faithfulness,Correctness");
         assertThat(task.getThreshold().get()).isEqualTo(0.8);
     }
