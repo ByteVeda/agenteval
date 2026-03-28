@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>com.agenteval</groupId>
+    <artifactId>agenteval-bom</artifactId>
+    <version>0.1.0-SNAPSHOT</version>
+    <packaging>pom</packaging>
+
+    <name>AgentEval BOM</name>
+    <description>Bill of Materials for AgentEval dependency management</description>
+    <url>https://github.com/agenteval/agenteval</url>
+
+    <licenses>
+        <license>
+            <name>Apache License, Version 2.0</name>
+            <url>https://www.apache.org/licenses/LICENSE-2.0</url>
+        </license>
+    </licenses>
+
+    <dependencyManagement>
+        <dependencies>
+            <!-- Core -->
+            <dependency>
+                <groupId>com.agenteval</groupId>
+                <artifactId>agenteval-core</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+
+            <!-- Judge Engine -->
+            <dependency>
+                <groupId>com.agenteval</groupId>
+                <artifactId>agenteval-judge</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+
+            <!-- Metrics -->
+            <dependency>
+                <groupId>com.agenteval</groupId>
+                <artifactId>agenteval-metrics</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+
+            <!-- Embeddings -->
+            <dependency>
+                <groupId>com.agenteval</groupId>
+                <artifactId>agenteval-embeddings</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+
+            <!-- JUnit 5 Integration -->
+            <dependency>
+                <groupId>com.agenteval</groupId>
+                <artifactId>agenteval-junit5</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+
+            <!-- Datasets -->
+            <dependency>
+                <groupId>com.agenteval</groupId>
+                <artifactId>agenteval-datasets</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+
+            <!-- Reporting -->
+            <dependency>
+                <groupId>com.agenteval</groupId>
+                <artifactId>agenteval-reporting</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+
+            <!-- Framework Integrations (optional) -->
+            <dependency>
+                <groupId>com.agenteval</groupId>
+                <artifactId>agenteval-spring-ai</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.agenteval</groupId>
+                <artifactId>agenteval-langchain4j</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.agenteval</groupId>
+                <artifactId>agenteval-langgraph4j</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.agenteval</groupId>
+                <artifactId>agenteval-mcp</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+
+            <!-- Red Teaming (optional) -->
+            <dependency>
+                <groupId>com.agenteval</groupId>
+                <artifactId>agenteval-redteam</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+</project>
