@@ -35,6 +35,9 @@ build/
 .idea/
 *.iml
 
+# Maven wrapper jar (downloaded on demand)
+.mvn/wrapper/maven-wrapper.jar
+
 # Misc
 .vscode
 CLAUDE.md
