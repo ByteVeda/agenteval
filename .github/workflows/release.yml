@@ -16,7 +16,7 @@ permissions:
 
 jobs:
   release:
-    name: Build & Release
+    name: Build & Publish Release
     runs-on: ubuntu-latest
     environment: release
     steps:
@@ -62,7 +62,7 @@ jobs:
         run: |
           ./mvnw deploy -Prelease -DskipTests -B --no-transfer-progress
 
-      - name: Publish Gradle Plugin
+      - name: Publish Gradle plugin
         env:
           GRADLE_PUBLISH_KEY: ${{ secrets.GRADLE_PUBLISH_KEY }}
           GRADLE_PUBLISH_SECRET: ${{ secrets.GRADLE_PUBLISH_SECRET }}
@@ -73,7 +73,7 @@ jobs:
             --no-daemon
         continue-on-error: true
 
-      - name: Create GitHub Release
+      - name: Create GitHub release
         uses: softprops/action-gh-release@v2
         with:
           tag_name: ${{ github.event_name == 'push' && github.ref_name || format('v{0}', inputs.version) }}
