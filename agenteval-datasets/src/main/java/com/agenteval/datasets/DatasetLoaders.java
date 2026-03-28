@@ -3,6 +3,7 @@ package com.agenteval.datasets;
 import com.agenteval.datasets.csv.CsvDatasetLoader;
 import com.agenteval.datasets.json.JsonDatasetLoader;
 import com.agenteval.datasets.jsonl.JsonlDatasetLoader;
+import com.agenteval.datasets.yaml.YamlDatasetLoader;
 
 import java.nio.file.Path;
 
@@ -30,6 +31,7 @@ public final class DatasetLoaders {
             case JSON -> new JsonDatasetLoader().load(path);
             case JSONL -> new JsonlDatasetLoader().load(path);
             case CSV -> new CsvDatasetLoader().load(path);
+            case YAML -> new YamlDatasetLoader().load(path);
         };
     }
 }

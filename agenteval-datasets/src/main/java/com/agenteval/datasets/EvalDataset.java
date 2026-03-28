@@ -70,6 +70,7 @@ public final class EvalDataset {
             case JSON -> new JsonDatasetWriter().write(this, path);
             case JSONL -> new JsonlDatasetWriter().write(this, path);
             case CSV -> new CsvDatasetWriter().write(this, path);
+            case YAML -> throw new DatasetException("YAML format is read-only");
             default -> throw new DatasetException("Unsupported format: " + format);
         }
     }

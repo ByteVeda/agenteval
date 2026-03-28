@@ -6,6 +6,7 @@ import com.agenteval.datasets.EvalDataset;
 import com.agenteval.datasets.csv.CsvDatasetLoader;
 import com.agenteval.datasets.json.JsonDatasetLoader;
 import com.agenteval.datasets.jsonl.JsonlDatasetLoader;
+import com.agenteval.datasets.yaml.YamlDatasetLoader;
 import com.agenteval.junit5.annotation.DatasetSource;
 import org.junit.jupiter.api.extension.ExtensionContext;
 import org.junit.jupiter.params.provider.Arguments;
@@ -45,6 +46,7 @@ public final class DatasetArgumentsProvider
             case JSON -> new JsonDatasetLoader().load(is);
             case JSONL -> new JsonlDatasetLoader().load(is);
             case CSV -> new CsvDatasetLoader().load(is);
+            case YAML -> new YamlDatasetLoader().load(is);
         };
         return dataset.getTestCases().stream().map(Arguments::of);
     }
