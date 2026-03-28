@@ -19,7 +19,7 @@ import java.util.Objects;
 public final class TopicDriftDetectionMetric implements ConversationMetric {
 
     private static final String NAME = "TopicDriftDetection";
-    private static final double DEFAULT_THRESHOLD = 0.6;
+    private static final double DEFAULT_THRESHOLD = 0.5;
 
     private final EmbeddingModel embeddingModel;
     private final double threshold;

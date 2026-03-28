@@ -21,7 +21,7 @@ import java.util.Objects;
 public final class ToolResultUtilizationMetric implements EvalMetric {
 
     private static final String NAME = "ToolResultUtilization";
-    private static final double DEFAULT_THRESHOLD = 0.6;
+    private static final double DEFAULT_THRESHOLD = 0.7;
 
     private final EmbeddingModel embeddingModel;
     private final double threshold;

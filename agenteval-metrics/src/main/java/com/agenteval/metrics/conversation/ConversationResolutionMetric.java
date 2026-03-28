@@ -17,7 +17,7 @@ public final class ConversationResolutionMetric extends LLMConversationMetric {
     private static final String NAME = "ConversationResolution";
     private static final String PROMPT_PATH =
             "com/agenteval/metrics/prompts/conversation-resolution.txt";
-    private static final double DEFAULT_THRESHOLD = 0.7;
+    private static final double DEFAULT_THRESHOLD = 0.5;
 
     private final String successCriteria;
 
