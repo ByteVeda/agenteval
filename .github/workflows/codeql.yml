@@ -14,7 +14,7 @@ permissions:
 
 jobs:
   analyze:
-    name: Analyze
+    name: CodeQL Analysis
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -35,5 +35,5 @@ jobs:
       - name: Build
         run: ./mvnw compile -B --no-transfer-progress -DskipTests
 
-      - name: Perform CodeQL Analysis
+      - name: Perform CodeQL analysis
         uses: github/codeql-action/analyze@v3

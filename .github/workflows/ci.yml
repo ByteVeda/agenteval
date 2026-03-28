@@ -15,8 +15,8 @@ permissions:
   checks: write
 
 jobs:
-  build-maven:
-    name: Maven (Java ${{ matrix.java }})
+  maven:
+    name: Build (Maven, Java ${{ matrix.java }})
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false
@@ -56,12 +56,12 @@ jobs:
         if: always()
         uses: dorny/test-reporter@v1
         with:
-          name: Maven Test Results (Java ${{ matrix.java }})
+          name: Test Results (Maven, Java ${{ matrix.java }})
           path: '**/target/surefire-reports/*.xml'
           reporter: java-junit
 
-  build-gradle:
-    name: Gradle (Java ${{ matrix.java }})
+  gradle:
+    name: Build (Gradle, Java ${{ matrix.java }})
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false
@@ -91,7 +91,7 @@ jobs:
 
   eval-tests:
     name: Eval Tests (LLM-backed)
-    needs: build-maven
+    needs: maven
     if: github.event_name == 'push' && github.ref == 'refs/heads/main'
     runs-on: ubuntu-latest
     steps:
