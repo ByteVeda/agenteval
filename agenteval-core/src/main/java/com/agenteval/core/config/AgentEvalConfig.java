@@ -2,6 +2,7 @@ package com.agenteval.core.config;
 
 import com.agenteval.core.cost.PricingModel;
 import com.agenteval.core.embedding.EmbeddingModel;
+import com.agenteval.core.judge.CachingJudgeModel;
 import com.agenteval.core.judge.JudgeModel;
 
 import com.agenteval.core.eval.ProgressCallback;
@@ -123,6 +124,10 @@ public final class AgentEvalConfig {
         }
 
         public AgentEvalConfig build() {
+            if (cacheJudgeResults && judgeModel != null
+                    && !(judgeModel instanceof CachingJudgeModel)) {
+                judgeModel = new CachingJudgeModel(judgeModel);
+            }
             return new AgentEvalConfig(this);
         }
     }
