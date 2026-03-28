@@ -6,7 +6,7 @@ import java.nio.file.Path;
  * Supported dataset file formats.
  */
 public enum DatasetFormat {
-    JSON, JSONL, CSV;
+    JSON, JSONL, CSV, YAML;
 
     /**
      * Auto-detects the dataset format from a file path extension.
@@ -27,8 +27,10 @@ public enum DatasetFormat {
             return JSON;
         } else if (name.endsWith(".csv")) {
             return CSV;
+        } else if (name.endsWith(".yaml") || name.endsWith(".yml")) {
+            return YAML;
         }
         throw new DatasetException("Unsupported dataset format: " + name
-                + ". Supported extensions: .json, .jsonl, .csv");
+                + ". Supported extensions: .json, .jsonl, .csv, .yaml, .yml");
     }
 }
