@@ -108,6 +108,41 @@ public final class AgentTestCaseAssert {
     }
 
     /**
+     * Asserts that the test case has exactly the given number of tool calls.
+     */
+    public AgentTestCaseAssert toolCallCount(int expectedCount) {
+        int actual = testCase.getToolCalls().size();
+        if (actual != expectedCount) {
+            throw new AssertionError("Expected " + expectedCount
+                    + " tool call(s) but found " + actual);
+        }
+        return this;
+    }
+
+    /**
+     * Asserts that the actual output matches the expected JSON schema
+     * by attempting to deserialize it into the given class.
+     *
+     * @param schemaClass the class representing the expected schema
+     */
+    public AgentTestCaseAssert outputMatchesSchema(Class<?> schemaClass) {
+        String actual = testCase.getActualOutput();
+        if (actual == null || actual.isBlank()) {
+            throw new AssertionError("Expected output matching schema "
+                    + schemaClass.getSimpleName() + ", but output was empty");
+        }
+        try {
+            com.fasterxml.jackson.databind.ObjectMapper mapper =
+                    new com.fasterxml.jackson.databind.ObjectMapper();
+            mapper.readValue(actual, schemaClass);
+        } catch (Exception e) {
+            throw new AssertionError("Output does not match schema "
+                    + schemaClass.getSimpleName() + ": " + e.getMessage());
+        }
+        return this;
+    }
+
+    /**
      * Returns the underlying test case for further inspection.
      */
     public AgentTestCase testCase() {
