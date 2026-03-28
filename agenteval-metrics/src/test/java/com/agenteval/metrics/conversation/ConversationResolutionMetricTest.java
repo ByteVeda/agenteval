@@ -107,6 +107,6 @@ class ConversationResolutionMetricTest {
                 .build();
 
         EvalScore score = metric.evaluate(testCase);
-        assertThat(score.threshold()).isEqualTo(0.7);
+        assertThat(score.threshold()).isEqualTo(0.5);
     }
 }
