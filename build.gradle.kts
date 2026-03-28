@@ -7,6 +7,7 @@ plugins {
 subprojects {
     apply(plugin = "java-library")
     apply(plugin = "checkstyle")
+    apply(plugin = "jacoco")
 
     group = "com.agenteval"
     version = "0.1.0-SNAPSHOT"
@@ -52,6 +53,16 @@ subprojects {
     }
 
     tasks.withType<Test> {
-        useJUnitPlatform()
+        useJUnitPlatform {
+            excludeTags("eval")
+        }
+    }
+
+    tasks.named<JacocoReport>("jacocoTestReport") {
+        dependsOn(tasks.named("test"))
+        reports {
+            xml.required = true
+            html.required = true
+        }
     }
 }
