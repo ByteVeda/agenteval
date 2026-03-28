@@ -20,7 +20,9 @@ import java.util.Objects;
  * <p>Follows the same template method pattern as {@code LLMJudgeMetric},
  * but operates on {@link ConversationTestCase} instead of {@code AgentTestCase}.</p>
  */
-public abstract class LLMConversationMetric implements ConversationMetric {
+public abstract sealed class LLMConversationMetric implements ConversationMetric
+        permits ConversationCoherenceMetric, ContextRetentionMetric,
+                ConversationResolutionMetric {
 
     private static final Logger LOG = LoggerFactory.getLogger(LLMConversationMetric.class);
 
