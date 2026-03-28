@@ -1,21 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <FindBugsFilter>
     <!-- Builder patterns store mutable objects intentionally;
-         defensive copies are made in build() -->
+        defensive copies are made in build() -->
     <Match>
         <Class name="~.*\$Builder"/>
         <Bug pattern="EI_EXPOSE_REP2"/>
     </Match>
 
     <!-- CaseResult.testCase is an intentionally mutable reference
-         (AgentTestCase has mutable capture-time fields by design) -->
+        (AgentTestCase has mutable capture-time fields by design) -->
     <Match>
         <Class name="com.agenteval.core.eval.CaseResult"/>
         <Bug pattern="EI_EXPOSE_REP,EI_EXPOSE_REP2"/>
     </Match>
 
     <!-- Abstract base class constructors that validate arguments intentionally
-         throw; all concrete subclasses are final -->
+        throw; all concrete subclasses are final -->
     <Match>
         <Class name="com.agenteval.metrics.llm.LLMJudgeMetric"/>
         <Bug pattern="CT_CONSTRUCTOR_THROW"/>
@@ -38,6 +38,10 @@
     </Match>
     <Match>
         <Class name="~com\.agenteval\.datasets\.jsonl\.Jsonl.*"/>
+        <Bug pattern="EI_EXPOSE_REP2"/>
+    </Match>
+    <Match>
+        <Class name="~com\.agenteval\.datasets\.yaml\.Yaml.*"/>
         <Bug pattern="EI_EXPOSE_REP2"/>
     </Match>
 
@@ -66,7 +70,7 @@
     </Match>
 
     <!-- Regression records use defensive copies where possible;
-         records expose their components by design -->
+        records expose their components by design -->
     <Match>
         <Class name="~com\.agenteval\.reporting\.regression\..*"/>
         <Bug pattern="EI_EXPOSE_REP,EI_EXPOSE_REP2,WMI_WRONG_MAP_ITERATOR"/>
@@ -121,7 +125,7 @@
     </Match>
 
     <!-- Benchmark classes store config/metrics intentionally;
-         BenchmarkResult exposes variant results by design -->
+        BenchmarkResult exposes variant results by design -->
     <Match>
         <Class name="~com\.agenteval\.core\.benchmark\..*"/>
         <Bug pattern="EI_EXPOSE_REP,EI_EXPOSE_REP2"/>
@@ -134,8 +138,8 @@
     </Match>
 
     <!-- Snapshot records expose their components by design;
-         SnapshotStore shares ObjectMapper (thread-safe);
-         SnapshotReporter stores config/store references intentionally -->
+        SnapshotStore shares ObjectMapper (thread-safe);
+        SnapshotReporter stores config/store references intentionally -->
     <Match>
         <Class name="~com\.agenteval\.reporting\.snapshot\..*"/>
         <Bug pattern="EI_EXPOSE_REP,EI_EXPOSE_REP2"/>

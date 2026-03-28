@@ -19,7 +19,10 @@ import org.slf4j.LoggerFactory;
  * delegates to {@link #buildRequest(String)} and {@link #parseResponse(HttpJudgeResponse)}
  * which subclasses implement for provider-specific formats.</p>
  */
-public abstract class AbstractHttpJudgeModel implements JudgeModel {
+public abstract sealed class AbstractHttpJudgeModel implements JudgeModel
+        permits OpenAiJudgeModel, AnthropicJudgeModel, GoogleJudgeModel,
+                OllamaJudgeModel, AzureOpenAiJudgeModel, BedrockJudgeModel,
+                CustomHttpJudgeModel {
 
     private static final Logger LOG = LoggerFactory.getLogger(AbstractHttpJudgeModel.class);
 

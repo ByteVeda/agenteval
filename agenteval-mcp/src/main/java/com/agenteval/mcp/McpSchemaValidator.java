@@ -90,12 +90,15 @@ public final class McpSchemaValidator {
     }
 
     private static String jsonType(Object value) {
-        if (value instanceof String) return "string";
-        if (value instanceof Integer || value instanceof Long) return "integer";
-        if (value instanceof Number) return "number";
-        if (value instanceof Boolean) return "boolean";
-        if (value instanceof List) return "array";
-        if (value instanceof Map) return "object";
-        return "unknown";
+        return switch (value) {
+            case String s -> "string";
+            case Integer i -> "integer";
+            case Long l -> "integer";
+            case Number n -> "number";
+            case Boolean b -> "boolean";
+            case List<?> list -> "array";
+            case Map<?, ?> map -> "object";
+            case null, default -> "unknown";
+        };
     }
 }
