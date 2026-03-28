@@ -1,0 +1,49 @@
+version: 2
+updates:
+  # Maven dependencies
+  - package-ecosystem: maven
+    directory: /
+    schedule:
+      interval: weekly
+      day: monday
+    open-pull-requests-limit: 10
+    groups:
+      junit:
+        patterns:
+          - "org.junit*"
+          - "org.assertj*"
+          - "org.mockito*"
+      jackson:
+        patterns:
+          - "com.fasterxml.jackson*"
+      maven-plugins:
+        patterns:
+          - "org.apache.maven.plugins*"
+          - "com.puppycrawl.tools*"
+          - "com.github.spotbugs*"
+          - "org.jacoco*"
+      logging:
+        patterns:
+          - "org.slf4j*"
+          - "ch.qos.logback*"
+
+  # Gradle dependencies
+  - package-ecosystem: gradle
+    directory: /
+    schedule:
+      interval: weekly
+      day: monday
+    open-pull-requests-limit: 5
+    groups:
+      gradle-plugins:
+        patterns:
+          - "com.github.spotbugs*"
+          - "com.github.johnrengelman*"
+
+  # GitHub Actions
+  - package-ecosystem: github-actions
+    directory: /
+    schedule:
+      interval: weekly
+      day: monday
+    open-pull-requests-limit: 5
