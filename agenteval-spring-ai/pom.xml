@@ -16,7 +16,7 @@
 
     <properties>
         <spring-ai.version>1.0.0</spring-ai.version>
-        <spring-boot.version>3.4.2</spring-boot.version>
+        <spring-boot.version>4.0.5</spring-boot.version>
     </properties>
 
     <dependencies>
