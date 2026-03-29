@@ -370,6 +370,12 @@ mvn test -pl agenteval-core    # Test specific module
 
 ---
 
+## Building from Source
+
+See [INSTALL.md](INSTALL.md) for full instructions on building from source, including cross-platform install scripts.
+
+---
+
 ## Requirements
 
 - Java 21+
