@@ -47,9 +47,9 @@
         <!-- Dependency versions -->
         <junit-bom.version>5.11.4</junit-bom.version>
         <jackson-bom.version>2.18.3</jackson-bom.version>
-        <slf4j.version>2.0.16</slf4j.version>
+        <slf4j.version>2.0.17</slf4j.version>
         <assertj.version>3.27.7</assertj.version>
-        <logback.version>1.5.25</logback.version>
+        <logback.version>1.5.32</logback.version>
         <mockito.version>5.14.2</mockito.version>
 
         <!-- Plugin versions -->
