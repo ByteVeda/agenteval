@@ -1,14 +1,16 @@
 <p align="center">
-  <img src="docs/static/img/logo.png" alt="AgentEval" width="80" />
+  <img src="docs/static/img/logo-full.png" alt="AgentEval" width="200" />
+</p>
+
+<p align="center">
+[![License](https://img.shields.io/badge/license-Apache%202.0-blue.svg)](LICENSE)
+[![Java](https://img.shields.io/badge/java-21+-orange.svg)](https://openjdk.org/projects/jdk/21/)
+[![Build](https://img.shields.io/badge/build-Maven%20%7C%20Gradle-green.svg)](#build)
 </p>
 
 <p align="center">
   <strong>Java AI Agent Evaluation & Testing Library</strong> — JUnit 5-native, local-first, framework-agnostic evaluation for AI agents.
 </p>
-
-[![License](https://img.shields.io/badge/license-Apache%202.0-blue.svg)](LICENSE)
-[![Java](https://img.shields.io/badge/java-21+-orange.svg)](https://openjdk.org/projects/jdk/21/)
-[![Build](https://img.shields.io/badge/build-Maven%20%7C%20Gradle-green.svg)](#build)
 
 ---
 
