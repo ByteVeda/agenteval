@@ -46,7 +46,6 @@
   },
   "overrides": {
     "serialize-javascript": ">=7.0.5",
-    "path-to-regexp": ">=8.2.0",
     "picomatch": ">=4.0.2",
     "brace-expansion": ">=2.0.2"
   }
