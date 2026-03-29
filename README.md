@@ -1,6 +1,10 @@
-# AgentEval
+<p align="center">
+  <img src="docs/static/img/logo.png" alt="AgentEval" width="80" />
+</p>
 
-**Java AI Agent Evaluation & Testing Library** — JUnit 5-native, local-first, framework-agnostic evaluation for AI agents.
+<p align="center">
+  <strong>Java AI Agent Evaluation & Testing Library</strong> — JUnit 5-native, local-first, framework-agnostic evaluation for AI agents.
+</p>
 
 [![License](https://img.shields.io/badge/license-Apache%202.0-blue.svg)](LICENSE)
 [![Java](https://img.shields.io/badge/java-21+-orange.svg)](https://openjdk.org/projects/jdk/21/)
