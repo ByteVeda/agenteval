@@ -12,7 +12,7 @@ Add the JUnit 5 integration module (the most common starting point):
 
 ```xml
 <dependency>
-  <groupId>com.agenteval</groupId>
+  <groupId>org.byteveda.agenteval</groupId>
   <artifactId>agenteval-junit5</artifactId>
   <version>1.0.0</version>
   <scope>test</scope>
@@ -23,7 +23,7 @@ For LLM-as-judge metrics (AnswerRelevancy, Faithfulness, etc.), also add the jud
 
 ```xml
 <dependency>
-  <groupId>com.agenteval</groupId>
+  <groupId>org.byteveda.agenteval</groupId>
   <artifactId>agenteval-judge</artifactId>
   <version>1.0.0</version>
   <scope>test</scope>
@@ -38,7 +38,7 @@ Use the BOM to manage versions across multiple modules:
 <dependencyManagement>
   <dependencies>
     <dependency>
-      <groupId>com.agenteval</groupId>
+      <groupId>org.byteveda.agenteval</groupId>
       <artifactId>agenteval-bom</artifactId>
       <version>1.0.0</version>
       <type>pom</type>
@@ -49,12 +49,12 @@ Use the BOM to manage versions across multiple modules:
 
 <dependencies>
   <dependency>
-    <groupId>com.agenteval</groupId>
+    <groupId>org.byteveda.agenteval</groupId>
     <artifactId>agenteval-junit5</artifactId>
     <scope>test</scope>
   </dependency>
   <dependency>
-    <groupId>com.agenteval</groupId>
+    <groupId>org.byteveda.agenteval</groupId>
     <artifactId>agenteval-judge</artifactId>
     <scope>test</scope>
   </dependency>
@@ -65,9 +65,9 @@ Use the BOM to manage versions across multiple modules:
 
 ```kotlin
 dependencies {
-    testImplementation(platform("com.agenteval:agenteval-bom:1.0.0"))
-    testImplementation("com.agenteval:agenteval-junit5")
-    testImplementation("com.agenteval:agenteval-judge")
+    testImplementation(platform("org.byteveda.agenteval:agenteval-bom:1.0.0"))
+    testImplementation("org.byteveda.agenteval:agenteval-junit5")
+    testImplementation("org.byteveda.agenteval:agenteval-judge")
 }
 ```
 
@@ -75,9 +75,9 @@ dependencies {
 
 ```groovy
 dependencies {
-    testImplementation platform('com.agenteval:agenteval-bom:1.0.0')
-    testImplementation 'com.agenteval:agenteval-junit5'
-    testImplementation 'com.agenteval:agenteval-judge'
+    testImplementation platform('org.byteveda.agenteval:agenteval-bom:1.0.0')
+    testImplementation 'org.byteveda.agenteval:agenteval-junit5'
+    testImplementation 'org.byteveda.agenteval:agenteval-judge'
 }
 ```
 

@@ -5,7 +5,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
-        <groupId>com.agenteval</groupId>
+        <groupId>org.byteveda.agenteval</groupId>
         <artifactId>agenteval-parent</artifactId>
         <version>0.1.0-SNAPSHOT</version>
     </parent>
@@ -38,11 +38,11 @@
                 <artifactId>maven-compiler-plugin</artifactId>
                 <configuration>
                     <excludes>
-                        <exclude>com/agenteval/intellij/AgentEvalIcons.java</exclude>
-                        <exclude>com/agenteval/intellij/AgentEvalToolWindowFactory.java</exclude>
-                        <exclude>com/agenteval/intellij/AgentEvalToolWindow.java</exclude>
-                        <exclude>com/agenteval/intellij/ReportFileWatcher.java</exclude>
-                        <exclude>com/agenteval/intellij/MetricGutterIconProvider.java</exclude>
+                        <exclude>org/byteveda/agenteval/intellij/AgentEvalIcons.java</exclude>
+                        <exclude>org/byteveda/agenteval/intellij/AgentEvalToolWindowFactory.java</exclude>
+                        <exclude>org/byteveda/agenteval/intellij/AgentEvalToolWindow.java</exclude>
+                        <exclude>org/byteveda/agenteval/intellij/ReportFileWatcher.java</exclude>
+                        <exclude>org/byteveda/agenteval/intellij/MetricGutterIconProvider.java</exclude>
                     </excludes>
                 </configuration>
             </plugin>
@@ -52,11 +52,11 @@
                 <artifactId>maven-checkstyle-plugin</artifactId>
                 <configuration>
                     <excludes>
-                        com/agenteval/intellij/AgentEvalIcons.java,
-                        com/agenteval/intellij/AgentEvalToolWindowFactory.java,
-                        com/agenteval/intellij/AgentEvalToolWindow.java,
-                        com/agenteval/intellij/ReportFileWatcher.java,
-                        com/agenteval/intellij/MetricGutterIconProvider.java
+                        org/byteveda/agenteval/intellij/AgentEvalIcons.java,
+                        org/byteveda/agenteval/intellij/AgentEvalToolWindowFactory.java,
+                        org/byteveda/agenteval/intellij/AgentEvalToolWindow.java,
+                        org/byteveda/agenteval/intellij/ReportFileWatcher.java,
+                        org/byteveda/agenteval/intellij/MetricGutterIconProvider.java
                     </excludes>
                 </configuration>
             </plugin>

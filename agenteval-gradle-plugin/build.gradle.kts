@@ -14,8 +14,8 @@ dependencies {
 gradlePlugin {
     plugins {
         create("agenteval") {
-            id = "com.agenteval.evaluate"
-            implementationClass = "com.agenteval.gradle.AgentEvalPlugin"
+            id = "org.byteveda.agenteval.evaluate"
+            implementationClass = "org.byteveda.agenteval.gradle.AgentEvalPlugin"
         }
     }
 }

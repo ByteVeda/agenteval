@@ -1,5 +1,5 @@
 <idea-plugin>
-    <id>com.agenteval.intellij</id>
+    <id>org.byteveda.agenteval.intellij</id>
     <name>AgentEval</name>
     <vendor>AgentEval</vendor>
     <description>View AgentEval evaluation results in IntelliJ IDEA</description>
@@ -10,11 +10,11 @@
     <extensions defaultExtensionNs="com.intellij">
         <toolWindow id="AgentEval"
                     anchor="bottom"
-                    factoryClass="com.agenteval.intellij.AgentEvalToolWindowFactory"
+                    factoryClass="org.byteveda.agenteval.intellij.AgentEvalToolWindowFactory"
                     icon="/icons/agenteval-toolwindow.svg"/>
 
         <codeInsight.lineMarkerProvider
                 language="JAVA"
-                implementationClass="com.agenteval.intellij.MetricGutterIconProvider"/>
+                implementationClass="org.byteveda.agenteval.intellij.MetricGutterIconProvider"/>
     </extensions>
 </idea-plugin>

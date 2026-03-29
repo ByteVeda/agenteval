@@ -9,7 +9,7 @@ subprojects {
     apply(plugin = "checkstyle")
     apply(plugin = "jacoco")
 
-    group = "com.agenteval"
+    group = "org.byteveda.agenteval"
     version = "0.1.0-SNAPSHOT"
 
     repositories {

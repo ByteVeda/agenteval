@@ -4,14 +4,14 @@
     xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>com.agenteval</groupId>
+    <groupId>org.byteveda.agenteval</groupId>
     <artifactId>agenteval-parent</artifactId>
     <version>0.1.0-SNAPSHOT</version>
     <packaging>pom</packaging>
 
     <name>AgentEval</name>
     <description>Java AI Agent Evaluation &amp; Testing Library</description>
-    <url>https://github.com/agenteval/agenteval</url>
+    <url>https://github.com/ByteVeda/agenteval</url>
 
     <licenses>
         <license>
@@ -66,9 +66,9 @@
     </properties>
 
     <scm>
-        <connection>scm:git:git://github.com/pratyush618/agenteval.git</connection>
-        <developerConnection>scm:git:ssh://github.com:pratyush618/agenteval.git</developerConnection>
-        <url>https://github.com/pratyush618/agenteval/tree/main</url>
+        <connection>scm:git:git://github.com/ByteVeda/agenteval.git</connection>
+        <developerConnection>scm:git:ssh://github.com:ByteVeda/agenteval.git</developerConnection>
+        <url>https://github.com/ByteVeda/agenteval/tree/main</url>
     </scm>
 
     <developers>
@@ -116,32 +116,32 @@
                 <version>${mockito.version}</version>
             </dependency>
             <dependency>
-                <groupId>com.agenteval</groupId>
+                <groupId>org.byteveda.agenteval</groupId>
                 <artifactId>agenteval-core</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>
-                <groupId>com.agenteval</groupId>
+                <groupId>org.byteveda.agenteval</groupId>
                 <artifactId>agenteval-judge</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>
-                <groupId>com.agenteval</groupId>
+                <groupId>org.byteveda.agenteval</groupId>
                 <artifactId>agenteval-metrics</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>
-                <groupId>com.agenteval</groupId>
+                <groupId>org.byteveda.agenteval</groupId>
                 <artifactId>agenteval-datasets</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>
-                <groupId>com.agenteval</groupId>
+                <groupId>org.byteveda.agenteval</groupId>
                 <artifactId>agenteval-reporting</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>
-                <groupId>com.agenteval</groupId>
+                <groupId>org.byteveda.agenteval</groupId>
                 <artifactId>agenteval-embeddings</artifactId>
                 <version>${project.version}</version>
             </dependency>

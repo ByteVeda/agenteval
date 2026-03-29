@@ -30,13 +30,13 @@ AgentEval is a library (not a framework) for evaluating the quality of Java-base
 
 ```xml
 <dependency>
-    <groupId>com.agenteval</groupId>
+    <groupId>org.byteveda.agenteval</groupId>
     <artifactId>agenteval-junit5</artifactId>
     <version>0.1.0-SNAPSHOT</version>
     <scope>test</scope>
 </dependency>
 <dependency>
-    <groupId>com.agenteval</groupId>
+    <groupId>org.byteveda.agenteval</groupId>
     <artifactId>agenteval-metrics</artifactId>
     <version>0.1.0-SNAPSHOT</version>
     <scope>test</scope>
@@ -46,18 +46,18 @@ AgentEval is a library (not a framework) for evaluating the quality of Java-base
 ### Gradle
 
 ```kotlin
-testImplementation("com.agenteval:agenteval-junit5:0.1.0-SNAPSHOT")
-testImplementation("com.agenteval:agenteval-metrics:0.1.0-SNAPSHOT")
+testImplementation("org.byteveda.agenteval:agenteval-junit5:0.1.0-SNAPSHOT")
+testImplementation("org.byteveda.agenteval:agenteval-metrics:0.1.0-SNAPSHOT")
 ```
 
 ### Write Your First Evaluation
 
 ```java
-import com.agenteval.core.model.AgentTestCase;
-import com.agenteval.junit5.annotation.AgentTest;
-import com.agenteval.junit5.annotation.Metric;
-import com.agenteval.metrics.response.AnswerRelevancyMetric;
-import com.agenteval.metrics.response.FaithfulnessMetric;
+import org.byteveda.agenteval.core.model.AgentTestCase;
+import org.byteveda.agenteval.junit5.annotation.AgentTest;
+import org.byteveda.agenteval.junit5.annotation.Metric;
+import org.byteveda.agenteval.metrics.response.AnswerRelevancyMetric;
+import org.byteveda.agenteval.metrics.response.FaithfulnessMetric;
 
 class MyAgentEvalTest {
 
@@ -277,7 +277,7 @@ Optional modules for automatic capture with popular frameworks:
 
 ```xml
 <plugin>
-    <groupId>com.agenteval</groupId>
+    <groupId>org.byteveda.agenteval</groupId>
     <artifactId>agenteval-maven-plugin</artifactId>
     <version>0.1.0-SNAPSHOT</version>
     <executions>
@@ -296,7 +296,7 @@ mvn agenteval:evaluate
 
 ```kotlin
 plugins {
-    id("com.agenteval.gradle-plugin") version "0.1.0-SNAPSHOT"
+    id("org.byteveda.agenteval.gradle-plugin") version "0.1.0-SNAPSHOT"
 }
 
 agenteval {

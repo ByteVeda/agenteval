@@ -10,7 +10,7 @@ AgentEval integrates with JUnit 5 as a standard extension. Evaluations run as te
 
 ```xml
 <dependency>
-  <groupId>com.agenteval</groupId>
+  <groupId>org.byteveda.agenteval</groupId>
   <artifactId>agenteval-junit5</artifactId>
   <version>1.0.0</version>
   <scope>test</scope>

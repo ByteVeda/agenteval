@@ -10,7 +10,7 @@ Auto-capture responses, tool calls, and RAG context from LangChain4j AI services
 
 ```xml
 <dependency>
-  <groupId>com.agenteval</groupId>
+  <groupId>org.byteveda.agenteval</groupId>
   <artifactId>agenteval-langchain4j</artifactId>
   <version>1.0.0</version>
   <scope>test</scope>

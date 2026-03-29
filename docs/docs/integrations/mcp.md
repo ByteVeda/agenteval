@@ -10,7 +10,7 @@ Capture MCP (Model Context Protocol) tool calls from the MCP Java SDK.
 
 ```xml
 <dependency>
-  <groupId>com.agenteval</groupId>
+  <groupId>org.byteveda.agenteval</groupId>
   <artifactId>agenteval-mcp</artifactId>
   <version>1.0.0</version>
   <scope>test</scope>
