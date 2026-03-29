@@ -46,13 +46,22 @@ jobs:
 
       - name: Set release version
         run: |
-          ./mvnw versions:set -DnewVersion="${{ steps.version.outputs.version }}" -B --no-transfer-progress
+          ./mvnw versions:set -DnewVersion="${{ steps.version.outputs.version }}" -DprocessAllModules=true -B --no-transfer-progress
+          ./mvnw versions:set -DnewVersion="${{ steps.version.outputs.version }}" -B --no-transfer-progress -f agenteval-bom/pom.xml
 
       - name: Maven build & verify
         run: ./mvnw verify -B --no-transfer-progress
 
       - name: Gradle build & verify
         run: ./gradlew build --no-daemon
+
+      - name: Deploy BOM to Maven Central
+        env:
+          MAVEN_USERNAME: ${{ secrets.OSSRH_USERNAME }}
+          MAVEN_PASSWORD: ${{ secrets.OSSRH_TOKEN }}
+          GPG_PASSPHRASE: ${{ secrets.GPG_PASSPHRASE }}
+        run: |
+          ./mvnw deploy -Prelease -B --no-transfer-progress -f agenteval-bom/pom.xml
 
       - name: Deploy to Maven Central
         env:

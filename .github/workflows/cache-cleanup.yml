@@ -4,7 +4,7 @@ on:
   pull_request:
     types: [closed]
   schedule:
-    - cron: '0 3 * * 0' # Sundays at 03:00 UTC
+    - cron: '0 3 * * *' # Daily at 03:00 UTC
   workflow_dispatch:
 
 permissions:
@@ -20,20 +20,23 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Delete caches for closed PR branch
+      - name: Delete caches for closed PR
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          BRANCH: refs/pull/${{ github.event.pull_request.number }}/merge
+          PR_NUMBER: ${{ github.event.pull_request.number }}
+          HEAD_BRANCH: refs/heads/${{ github.event.pull_request.head.ref }}
         run: |
-          echo "Deleting caches for branch: $BRANCH"
-          gh actions-cache list --branch "$BRANCH" --limit 100 | \
-            cut -f1 | \
-            while read -r key; do
-              if [ -n "$key" ]; then
-                echo "Deleting cache: $key"
-                gh actions-cache delete "$key" --branch "$BRANCH" --confirm || true
-              fi
-            done
+          for branch in "refs/pull/$PR_NUMBER/merge" "$HEAD_BRANCH"; do
+            echo "Deleting caches for branch: $branch"
+            gh actions-cache list --branch "$branch" --limit 100 | \
+              cut -f1 | \
+              while read -r key; do
+                if [ -n "$key" ]; then
+                  echo "Deleting cache: $key"
+                  gh actions-cache delete "$key" --branch "$branch" --confirm || true
+                fi
+              done
+          done
 
   cleanup-stale-caches:
     name: Clean Up Stale Caches
@@ -50,8 +53,9 @@ jobs:
           echo "=== Current cache usage ==="
           gh actions-cache list --limit 100 --sort last-used --order asc
 
-          # Get all open PR branch refs
+          # Get all open PR numbers and branch refs
           OPEN_BRANCHES=$(gh pr list --state open --json headRefName --jq '.[].headRefName')
+          OPEN_PR_NUMBERS=$(gh pr list --state open --json number --jq '.[].number')
 
           # Delete caches for branches that no longer have open PRs
           gh actions-cache list --limit 100 --sort last-used --order asc | while IFS=$'\t' read -r key size branch; do
@@ -60,10 +64,18 @@ jobs:
               continue
             fi
 
-            # Extract branch name from ref
-            branch_name="${branch#refs/heads/}"
+            # Handle refs/pull/*/merge caches
+            if [[ "$branch" =~ ^refs/pull/([0-9]+)/merge$ ]]; then
+              pr_num="${BASH_REMATCH[1]}"
+              if ! echo "$OPEN_PR_NUMBERS" | grep -qx "$pr_num"; then
+                echo "Deleting stale PR cache: $key (branch: $branch)"
+                gh actions-cache delete "$key" --branch "$branch" --confirm || true
+              fi
+              continue
+            fi
 
-            # Check if branch has an open PR
+            # Handle refs/heads/* caches
+            branch_name="${branch#refs/heads/}"
             if ! echo "$OPEN_BRANCHES" | grep -qx "$branch_name"; then
               echo "Deleting stale cache: $key (branch: $branch)"
               gh actions-cache delete "$key" --branch "$branch" --confirm || true
