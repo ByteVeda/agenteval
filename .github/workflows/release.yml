@@ -46,7 +46,7 @@ jobs:
 
       - name: Set release version
         run: |
-          ./mvnw versions:set -DnewVersion="${{ steps.version.outputs.version }}" -B --no-transfer-progress
+          ./mvnw versions:set -DnewVersion="${{ steps.version.outputs.version }}" -DprocessAllModules=true -B --no-transfer-progress
 
       - name: Maven build & verify
         run: ./mvnw verify -B --no-transfer-progress
