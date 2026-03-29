@@ -36,17 +36,7 @@ const config: Config = {
           sidebarPath: './sidebars.ts',
           editUrl: 'https://github.com/pratyush618/agenteval/tree/main/docs/',
         },
-        blog: {
-          showReadingTime: true,
-          feedOptions: {
-            type: ['rss', 'atom'],
-            xslt: true,
-          },
-          editUrl: 'https://github.com/pratyush618/agenteval/tree/main/docs/',
-          onInlineTags: 'warn',
-          onInlineAuthors: 'warn',
-          onUntruncatedBlogPosts: 'warn',
-        },
+        blog: false,
         theme: {
           customCss: './src/css/custom.css',
         },
@@ -82,7 +72,6 @@ const config: Config = {
           label: 'Judges',
           position: 'left',
         },
-        {to: '/blog', label: 'Blog', position: 'left'},
         {
           href: 'https://github.com/pratyush618/agenteval',
           label: 'GitHub',
@@ -114,7 +103,6 @@ const config: Config = {
         {
           title: 'More',
           items: [
-            {label: 'Blog', to: '/blog'},
             {label: 'GitHub', href: 'https://github.com/pratyush618/agenteval'},
             {label: 'Maven Central', href: 'https://central.sonatype.com/search?q=agenteval'},
           ],
