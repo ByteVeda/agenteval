@@ -30,6 +30,17 @@
   margin-bottom: 1rem;
 }
 
+.buttons .button--outline {
+  color: #ffffff;
+  border-color: #ffffff;
+}
+
+.buttons .button--outline:hover {
+  background: rgba(255, 255, 255, 0.15);
+  color: #ffffff;
+  border-color: #ffffff;
+}
+
 .quickstart {
   padding: 4rem 0;
   background: var(--ifm-color-emphasis-100);
