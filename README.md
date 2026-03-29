@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="docs/static/img/logo.png" alt="AgentEval" width="80" />
+  <img src="docs/static/img/logo-full.png" alt="AgentEval" width="200" />
 </p>
 
 <p align="center">
