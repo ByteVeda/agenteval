@@ -3,9 +3,9 @@
 </p>
 
 <p align="center">
-[![License](https://img.shields.io/badge/license-Apache%202.0-blue.svg)](LICENSE)
-[![Java](https://img.shields.io/badge/java-21+-orange.svg)](https://openjdk.org/projects/jdk/21/)
-[![Build](https://img.shields.io/badge/build-Maven%20%7C%20Gradle-green.svg)](#build)
+  <a href="LICENSE"><img src="https://img.shields.io/badge/license-Apache%202.0-blue.svg" alt="License" /></a>
+  <a href="https://openjdk.org/projects/jdk/21/"><img src="https://img.shields.io/badge/java-21+-orange.svg" alt="Java" /></a>
+  <a href="#build"><img src="https://img.shields.io/badge/build-Maven%20%7C%20Gradle-green.svg" alt="Build" /></a>
 </p>
 
 <p align="center">
