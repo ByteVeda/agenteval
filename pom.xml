@@ -436,6 +436,10 @@
                             <waitUntil>published</waitUntil>
                             <waitMaxTime>1800</waitMaxTime>
                             <ignorePublishedComponents>true</ignorePublishedComponents>
+                            <excludeArtifacts>
+                                <excludeArtifact>agenteval-intellij</excludeArtifact>
+                                <excludeArtifact>agenteval-gradle-plugin</excludeArtifact>
+                            </excludeArtifacts>
                         </configuration>
                     </plugin>
                 </plugins>

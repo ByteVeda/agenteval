@@ -15,13 +15,11 @@
     <description>IntelliJ IDEA plugin for viewing AgentEval evaluation results</description>
 
     <properties>
-        <!-- This module is distributed via JetBrains Marketplace (Gradle build), not Maven Central -->
+        <!-- This module is distributed via JetBrains Marketplace (Gradle build), not Maven Central.
+            Excluded from Central Publishing bundle via excludeArtifacts in parent pom. -->
         <maven.javadoc.skip>true</maven.javadoc.skip>
         <maven.source.skip>true</maven.source.skip>
-        <maven.deploy.skip>true</maven.deploy.skip>
-        <maven.install.skip>true</maven.install.skip>
         <gpg.skip>true</gpg.skip>
-        <central.publishing.skip>true</central.publishing.skip>
     </properties>
 
     <dependencies>
