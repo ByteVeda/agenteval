@@ -11,9 +11,9 @@ const config: Config = {
     v4: true,
   },
 
-  url: 'https://pratyush618.github.io',
+  url: 'https://byteveda.github.io',
   baseUrl: '/agenteval/',
-  organizationName: 'pratyush618',
+  organizationName: 'ByteVeda',
   projectName: 'agenteval',
 
   onBrokenLinks: 'throw',
@@ -34,7 +34,7 @@ const config: Config = {
       {
         docs: {
           sidebarPath: './sidebars.ts',
-          editUrl: 'https://github.com/pratyush618/agenteval/tree/main/docs/',
+          editUrl: 'https://github.com/ByteVeda/agenteval/tree/main/docs/',
         },
         blog: false,
         theme: {
@@ -53,7 +53,7 @@ const config: Config = {
       title: 'AgentEval',
       logo: {
         alt: 'AgentEval Logo',
-        src: 'img/logo.svg',
+        src: 'img/logo.png',
       },
       items: [
         {
@@ -73,7 +73,7 @@ const config: Config = {
           position: 'left',
         },
         {
-          href: 'https://github.com/pratyush618/agenteval',
+          href: 'https://github.com/ByteVeda/agenteval',
           label: 'GitHub',
           position: 'right',
         },
@@ -103,7 +103,7 @@ const config: Config = {
         {
           title: 'More',
           items: [
-            {label: 'GitHub', href: 'https://github.com/pratyush618/agenteval'},
+            {label: 'GitHub', href: 'https://github.com/ByteVeda/agenteval'},
             {label: 'Maven Central', href: 'https://central.sonatype.com/search?q=agenteval'},
           ],
         },
