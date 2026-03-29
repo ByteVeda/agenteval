@@ -12,6 +12,6 @@ dependencies {
 
 tasks.shadowJar {
     manifest {
-        attributes("Main-Class" to "com.agenteval.github.GitHubActionRunner")
+        attributes("Main-Class" to "org.byteveda.agenteval.github.GitHubActionRunner")
     }
 }

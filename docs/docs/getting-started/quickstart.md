@@ -10,13 +10,13 @@ This guide gets you from zero to your first evaluation in under 5 minutes.
 
 ```xml
 <dependency>
-  <groupId>com.agenteval</groupId>
+  <groupId>org.byteveda.agenteval</groupId>
   <artifactId>agenteval-junit5</artifactId>
   <version>1.0.0</version>
   <scope>test</scope>
 </dependency>
 <dependency>
-  <groupId>com.agenteval</groupId>
+  <groupId>org.byteveda.agenteval</groupId>
   <artifactId>agenteval-judge</artifactId>
   <version>1.0.0</version>
   <scope>test</scope>
@@ -32,13 +32,13 @@ export OPENAI_API_KEY=sk-...
 ## 3. Write your first evaluation test
 
 ```java
-import com.agenteval.junit5.AgentEvalExtension;
-import com.agenteval.junit5.AgentTest;
-import com.agenteval.junit5.Metric;
-import com.agenteval.core.AgentTestCase;
-import com.agenteval.junit5.AgentAssertions;
-import com.agenteval.metrics.AnswerRelevancy;
-import com.agenteval.metrics.Faithfulness;
+import org.byteveda.agenteval.junit5.AgentEvalExtension;
+import org.byteveda.agenteval.junit5.AgentTest;
+import org.byteveda.agenteval.junit5.Metric;
+import org.byteveda.agenteval.core.AgentTestCase;
+import org.byteveda.agenteval.junit5.AgentAssertions;
+import org.byteveda.agenteval.metrics.AnswerRelevancy;
+import org.byteveda.agenteval.metrics.Faithfulness;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 

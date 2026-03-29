@@ -10,7 +10,7 @@ Capture graph execution traces, node transitions, and state snapshots from LangG
 
 ```xml
 <dependency>
-  <groupId>com.agenteval</groupId>
+  <groupId>org.byteveda.agenteval</groupId>
   <artifactId>agenteval-langgraph4j</artifactId>
   <version>1.0.0</version>
   <scope>test</scope>

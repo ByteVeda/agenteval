@@ -10,7 +10,7 @@ The `agenteval-redteam` module provides adversarial test cases to probe your age
 
 ```xml
 <dependency>
-  <groupId>com.agenteval</groupId>
+  <groupId>org.byteveda.agenteval</groupId>
   <artifactId>agenteval-redteam</artifactId>
   <version>1.0.0</version>
   <scope>test</scope>

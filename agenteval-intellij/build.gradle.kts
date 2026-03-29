@@ -7,11 +7,11 @@ sourceSets {
     main {
         java {
             exclude(
-                "com/agenteval/intellij/AgentEvalIcons.java",
-                "com/agenteval/intellij/AgentEvalToolWindowFactory.java",
-                "com/agenteval/intellij/AgentEvalToolWindow.java",
-                "com/agenteval/intellij/ReportFileWatcher.java",
-                "com/agenteval/intellij/MetricGutterIconProvider.java"
+                "org/byteveda/agenteval/intellij/AgentEvalIcons.java",
+                "org/byteveda/agenteval/intellij/AgentEvalToolWindowFactory.java",
+                "org/byteveda/agenteval/intellij/AgentEvalToolWindow.java",
+                "org/byteveda/agenteval/intellij/ReportFileWatcher.java",
+                "org/byteveda/agenteval/intellij/MetricGutterIconProvider.java"
             )
         }
     }

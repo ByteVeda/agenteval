@@ -10,7 +10,7 @@ AgentEval provides plugins for Maven and Gradle to run evaluations as part of th
 
 ```xml
 <plugin>
-  <groupId>com.agenteval</groupId>
+  <groupId>org.byteveda.agenteval</groupId>
   <artifactId>agenteval-maven-plugin</artifactId>
   <version>1.0.0</version>
   <configuration>
@@ -49,7 +49,7 @@ mvn verify -Dagenteval.skip=true
 
 ```kotlin
 plugins {
-    id("com.agenteval") version "1.0.0"
+    id("org.byteveda.agenteval") version "1.0.0"
 }
 
 agenteval {
