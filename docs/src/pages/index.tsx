@@ -160,9 +160,9 @@ export default function Home(): ReactNode {
                 <Heading as="h3">Maven</Heading>
                 <CodeBlock language="xml">
 {`<dependency>
-  <groupId>com.agenteval</groupId>
+  <groupId>org.byteveda.agenteval</groupId>
   <artifactId>agenteval-junit5</artifactId>
-  <version>1.0.0</version>
+  <version>0.1.0</version>
   <scope>test</scope>
 </dependency>`}
                 </CodeBlock>
@@ -170,7 +170,7 @@ export default function Home(): ReactNode {
               <div className="col col--6">
                 <Heading as="h3">Gradle (Kotlin DSL)</Heading>
                 <CodeBlock language="kotlin">
-{`testImplementation("com.agenteval:agenteval-junit5:1.0.0")`}
+{`testImplementation("org.byteveda.agenteval:agenteval-junit5:0.1.0")`}
                 </CodeBlock>
               </div>
             </div>

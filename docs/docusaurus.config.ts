@@ -108,7 +108,7 @@ const config: Config = {
           ],
         },
       ],
-      copyright: `Copyright © ${new Date().getFullYear()} AgentEval Contributors. Licensed under Apache 2.0.`,
+      copyright: `Copyright © ${new Date().getFullYear()} ByteVeda. Licensed under Apache 2.0.`,
     },
     prism: {
       theme: prismThemes.github,
