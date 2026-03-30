@@ -15,7 +15,7 @@
     <description>LangGraph4j graph execution capture for AgentEval</description>
 
     <properties>
-        <langgraph4j.version>1.0.0</langgraph4j.version>
+        <langgraph4j.version>1.1.5</langgraph4j.version>
     </properties>
 
     <dependencies>
