@@ -28,12 +28,11 @@ jobs:
         run: |
           for branch in "refs/pull/$PR_NUMBER/merge" "$HEAD_BRANCH"; do
             echo "Deleting caches for branch: $branch"
-            gh actions-cache list --branch "$branch" --limit 100 | \
-              cut -f1 | \
+            gh cache list --ref "$branch" --limit 100 --json key --jq '.[].key' | \
               while read -r key; do
                 if [ -n "$key" ]; then
                   echo "Deleting cache: $key"
-                  gh actions-cache delete "$key" --branch "$branch" --confirm || true
+                  gh cache delete "$key" || true
                 fi
               done
           done
@@ -51,14 +50,14 @@ jobs:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           echo "=== Current cache usage ==="
-          gh actions-cache list --limit 100 --sort last-used --order asc
+          gh cache list --limit 100 --sort last_accessed_at --order asc
 
           # Get all open PR numbers and branch refs
           OPEN_BRANCHES=$(gh pr list --state open --json headRefName --jq '.[].headRefName')
           OPEN_PR_NUMBERS=$(gh pr list --state open --json number --jq '.[].number')
 
           # Delete caches for branches that no longer have open PRs
-          gh actions-cache list --limit 100 --sort last-used --order asc | while IFS=$'\t' read -r key size branch; do
+          gh cache list --limit 100 --sort last_accessed_at --order asc --json key,ref --jq '.[] | [.key, .ref] | @tsv' | while IFS=$'\t' read -r key branch; do
             # Skip main branch caches
             if [ "$branch" = "refs/heads/main" ]; then
               continue
@@ -69,7 +68,7 @@ jobs:
               pr_num="${BASH_REMATCH[1]}"
               if ! echo "$OPEN_PR_NUMBERS" | grep -qx "$pr_num"; then
                 echo "Deleting stale PR cache: $key (branch: $branch)"
-                gh actions-cache delete "$key" --branch "$branch" --confirm || true
+                gh cache delete "$key" || true
               fi
               continue
             fi
@@ -78,9 +77,9 @@ jobs:
             branch_name="${branch#refs/heads/}"
             if ! echo "$OPEN_BRANCHES" | grep -qx "$branch_name"; then
               echo "Deleting stale cache: $key (branch: $branch)"
-              gh actions-cache delete "$key" --branch "$branch" --confirm || true
+              gh cache delete "$key" || true
             fi
           done
 
           echo "=== Cache usage after cleanup ==="
-          gh actions-cache list --limit 100 --sort last-used --order desc
+          gh cache list --limit 100 --sort last_accessed_at --order desc
