@@ -28,7 +28,7 @@ subprojects {
 
     dependencies {
         "implementation"(platform("org.junit:junit-bom:5.11.4"))
-        "implementation"(platform("com.fasterxml.jackson:jackson-bom:2.18.3"))
+        "implementation"(platform("com.fasterxml.jackson:jackson-bom:2.21.2"))
 
         "testImplementation"("org.junit.jupiter:junit-jupiter")
         "testImplementation"("org.assertj:assertj-core:3.27.7")
