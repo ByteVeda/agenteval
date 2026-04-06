@@ -32,7 +32,7 @@ subprojects {
 
         "testImplementation"("org.junit.jupiter:junit-jupiter")
         "testImplementation"("org.assertj:assertj-core:3.27.7")
-        "testRuntimeOnly"("ch.qos.logback:logback-classic:1.5.25")
+        "testRuntimeOnly"("ch.qos.logback:logback-classic:1.5.32")
     }
 
     configure<CheckstyleExtension> {
