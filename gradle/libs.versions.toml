@@ -1,6 +1,6 @@
 [versions]
 junit-bom = "5.11.4"
-jackson-bom = "2.18.3"
+jackson-bom = "2.21.2"
 slf4j = "2.0.16"
 assertj = "3.27.7"
 logback = "1.5.32"
