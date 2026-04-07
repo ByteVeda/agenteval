@@ -1,0 +1,11 @@
+{
+  "contracts": [
+    {
+      "name": "always-cite-sources",
+      "type": "BEHAVIORAL",
+      "description": "Agent must cite sources for factual claims",
+      "llmJudged": true,
+      "passThreshold": 0.8
+    }
+  ]
+}
