@@ -273,26 +273,6 @@ Optional modules for automatic capture with popular frameworks:
 
 ---
 
-## Build & CI/CD Plugins
-
-### Maven Plugin
-
-```xml
-<plugin>
-    <groupId>org.byteveda.agenteval</groupId>
-    <artifactId>agenteval-maven-plugin</artifactId>
-    <version>0.1.0-SNAPSHOT</version>
-    <executions>
-        <execution>
-            <goals><goal>evaluate</goal></goals>
-        </execution>
-    </executions>
-</plugin>
-```
-
-```bash
-mvn agenteval:evaluate
-```
 
 ### Gradle Plugin
 
@@ -350,6 +330,12 @@ agenteval-langchain4j/  — LangChain4j auto-capture (optional)
 agenteval-langgraph4j/  — LangGraph4j graph execution capture (optional)
 agenteval-mcp/          — MCP Java SDK tool call capture (optional)
 agenteval-redteam/      — Adversarial testing, 20 attack templates
+agenteval-contracts/    — Contract testing, behavioral invariant verification
+agenteval-statistics/   — Statistical rigor: confidence intervals, significance tests
+agenteval-chaos/        — Chaos engineering, agent resilience testing
+agenteval-replay/       — Deterministic record & replay for $0 regression tests
+agenteval-mutation/     — Prompt mutation testing, eval quality verification
+agenteval-fingerprint/  — Agent capability profiling across 8 dimensions
 agenteval-maven-plugin/ — Maven build integration
 agenteval-gradle-plugin/— Gradle build integration
 agenteval-github-actions/ — GitHub Actions composite action

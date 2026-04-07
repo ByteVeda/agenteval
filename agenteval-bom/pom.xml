@@ -171,6 +171,27 @@
                 <artifactId>agenteval-chaos</artifactId>
                 <version>${project.version}</version>
             </dependency>
+
+            <!-- Deterministic Replay (optional) -->
+            <dependency>
+                <groupId>org.byteveda.agenteval</groupId>
+                <artifactId>agenteval-replay</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+
+            <!-- Mutation Testing (optional) -->
+            <dependency>
+                <groupId>org.byteveda.agenteval</groupId>
+                <artifactId>agenteval-mutation</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+
+            <!-- Capability Fingerprinting (optional) -->
+            <dependency>
+                <groupId>org.byteveda.agenteval</groupId>
+                <artifactId>agenteval-fingerprint</artifactId>
+                <version>${project.version}</version>
+            </dependency>
         </dependencies>
     </dependencyManagement>
 </project>

@@ -37,6 +37,9 @@
         <module>agenteval-contracts</module>
         <module>agenteval-statistics</module>
         <module>agenteval-chaos</module>
+        <module>agenteval-replay</module>
+        <module>agenteval-mutation</module>
+        <module>agenteval-fingerprint</module>
         <module>agenteval-maven-plugin</module>
         <module>agenteval-github-actions</module>
         <module>agenteval-gradle-plugin</module>
