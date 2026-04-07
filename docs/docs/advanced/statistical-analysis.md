@@ -102,10 +102,10 @@ Stability assessments are based on the coefficient of variation (CV):
 
 | CV Range | Assessment |
 |---|---|
-| CV <= 0.05 | Highly stable |
-| CV <= threshold | Stable |
-| CV <= threshold x 2 | Moderately unstable |
-| CV > threshold x 2 | Highly unstable |
+| CV ≤ 0.05 | Highly stable |
+| CV ≤ threshold | Stable |
+| CV ≤ threshold x 2 | Moderately unstable |
+| CV &gt; threshold x 2 | Highly unstable |
 
 A warning is emitted if fewer than 3 runs are provided.
 
