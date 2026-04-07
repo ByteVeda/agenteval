@@ -34,6 +34,9 @@
         <module>agenteval-langgraph4j</module>
         <module>agenteval-mcp</module>
         <module>agenteval-redteam</module>
+        <module>agenteval-contracts</module>
+        <module>agenteval-statistics</module>
+        <module>agenteval-chaos</module>
         <module>agenteval-maven-plugin</module>
         <module>agenteval-github-actions</module>
         <module>agenteval-gradle-plugin</module>

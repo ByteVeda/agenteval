@@ -124,6 +124,20 @@
         <Bug pattern="EI_EXPOSE_REP,EI_EXPOSE_REP2"/>
     </Match>
 
+    <!-- Chaos engineering records expose their components by design -->
+    <Match>
+        <Class name="~org\.byteveda\.agenteval\.chaos\..*"/>
+        <Bug pattern="EI_EXPOSE_REP,EI_EXPOSE_REP2"/>
+    </Match>
+
+    <!-- Contract testing — AgentTestCase is mutable by design (capture-time fields);
+        CompositeContract validates before assigning;
+        ContractDefinition is a Jackson POJO -->
+    <Match>
+        <Class name="~org\.byteveda\.agenteval\.contracts\..*"/>
+        <Bug pattern="EI_EXPOSE_REP,EI_EXPOSE_REP2,CT_CONSTRUCTOR_THROW,UUF_UNUSED_PUBLIC_OR_PROTECTED_FIELD"/>
+    </Match>
+
     <!-- Benchmark classes store config/metrics intentionally;
         BenchmarkResult exposes variant results by design -->
     <Match>
