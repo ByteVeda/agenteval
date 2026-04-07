@@ -14,9 +14,6 @@ import java.util.random.RandomGenerator;
  */
 public final class InferenceCalculator {
 
-    private static final int DEFAULT_BOOTSTRAP_ITERATIONS = 10_000;
-    private static final long DEFAULT_SEED = 42L;
-
     private InferenceCalculator() {
         // utility class
     }
