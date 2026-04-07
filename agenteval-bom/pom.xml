@@ -150,6 +150,27 @@
                 <artifactId>agenteval-redteam</artifactId>
                 <version>${project.version}</version>
             </dependency>
+
+            <!-- Contract Testing (optional) -->
+            <dependency>
+                <groupId>org.byteveda.agenteval</groupId>
+                <artifactId>agenteval-contracts</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+
+            <!-- Statistical Analysis (optional) -->
+            <dependency>
+                <groupId>org.byteveda.agenteval</groupId>
+                <artifactId>agenteval-statistics</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+
+            <!-- Chaos Engineering (optional) -->
+            <dependency>
+                <groupId>org.byteveda.agenteval</groupId>
+                <artifactId>agenteval-chaos</artifactId>
+                <version>${project.version}</version>
+            </dependency>
         </dependencies>
     </dependencyManagement>
 </project>

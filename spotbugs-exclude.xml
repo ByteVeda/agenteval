@@ -124,6 +124,12 @@
         <Bug pattern="EI_EXPOSE_REP,EI_EXPOSE_REP2"/>
     </Match>
 
+    <!-- Chaos engineering records expose their components by design -->
+    <Match>
+        <Class name="~org\.byteveda\.agenteval\.chaos\..*"/>
+        <Bug pattern="EI_EXPOSE_REP,EI_EXPOSE_REP2"/>
+    </Match>
+
     <!-- Benchmark classes store config/metrics intentionally;
         BenchmarkResult exposes variant results by design -->
     <Match>
