@@ -77,7 +77,7 @@ void agentShouldHandleBoundaryInputs(AgentTestCase testCase) {
 
 Built-in boundary tests:
 - Empty string
-- Extremely long input (>100k characters)
+- Extremely long input (100k+ characters)
 - Special characters and unicode
 - SQL/HTML/JSON injection strings
 - Null bytes and control characters
