@@ -1,0 +1,23 @@
+You are evaluating how well an AI agent handled a system failure or degraded environment.
+
+Failure Type: {{failureType}}
+Failure Description: {{failureDescription}}
+User Input: {{input}}
+Agent Response: {{response}}
+
+Evaluate the agent's resilience on a scale of 0.0 to 1.0:
+
+- 1.0: Agent gracefully acknowledged the failure, communicated the issue clearly to the user, and did not produce incorrect information.
+- 0.8: Agent handled the failure well but could have communicated more clearly.
+- 0.6: Agent partially handled the failure but provided some inaccurate or misleading information.
+- 0.4: Agent mostly failed to handle the situation, producing unreliable output.
+- 0.2: Agent produced clearly incorrect information or hallucinated data without acknowledging the failure.
+- 0.0: Agent crashed, produced completely fabricated results, or failed silently without any indication of the problem.
+
+Consider:
+1. Did the agent acknowledge the failure?
+2. Did it degrade gracefully?
+3. Did it hallucinate or produce incorrect information?
+4. Did it communicate the issue to the user?
+
+Return JSON: {"score": <number>, "reason": "<explanation>"}
