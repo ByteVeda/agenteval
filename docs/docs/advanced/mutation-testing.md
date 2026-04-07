@@ -143,6 +143,6 @@ A mutation is considered "detected" if **any** metric on **any** test input prod
 
 As a rule of thumb:
 
-- **>80% detection rate** -- strong evaluation coverage
+- **80%+ detection rate** -- strong evaluation coverage
 - **50--80% detection rate** -- acceptable but review undetected mutations
-- **<50% detection rate** -- evaluation metrics need improvement
+- **Under 50% detection rate** -- evaluation metrics need improvement
