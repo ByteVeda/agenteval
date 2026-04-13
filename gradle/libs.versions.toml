@@ -10,7 +10,7 @@ spring-ai = "1.1.4"
 spring-boot = "3.4.2"
 langchain4j = "0.36.2"
 langgraph4j = "1.1.5"
-spotbugs-plugin = "6.4.8"
+spotbugs-plugin = "6.4.12"
 shadow = "8.1.1"
 
 [libraries]
