@@ -12,12 +12,12 @@ class JudgeConfigTest {
     @Test
     void shouldBuildWithDefaults() {
         var config = JudgeConfig.builder()
-                .apiKey("sk-test")
+                .apiKey("fake-key-for-tests")
                 .model("gpt-4o")
                 .baseUrl("https://api.openai.com")
                 .build();
 
-        assertThat(config.getApiKey()).isEqualTo("sk-test");
+        assertThat(config.getApiKey()).isEqualTo("fake-key-for-tests");
         assertThat(config.getModel()).isEqualTo("gpt-4o");
         assertThat(config.getBaseUrl()).isEqualTo("https://api.openai.com");
         assertThat(config.getTimeout()).isEqualTo(Duration.ofSeconds(60));
@@ -28,7 +28,7 @@ class JudgeConfigTest {
     @Test
     void shouldBuildWithCustomValues() {
         var config = JudgeConfig.builder()
-                .apiKey("sk-test")
+                .apiKey("fake-key-for-tests")
                 .model("gpt-4o-mini")
                 .baseUrl("https://custom.api.com")
                 .timeout(Duration.ofSeconds(30))
@@ -53,7 +53,7 @@ class JudgeConfigTest {
     @Test
     void shouldRejectNullModel() {
         assertThatThrownBy(() -> JudgeConfig.builder()
-                .apiKey("sk-test")
+                .apiKey("fake-key-for-tests")
                 .baseUrl("https://api.openai.com")
                 .build())
                 .isInstanceOf(NullPointerException.class);

@@ -27,7 +27,7 @@ class OpenAiJudgeModelTest {
     @BeforeEach
     void setUp() {
         config = JudgeConfig.builder()
-                .apiKey("sk-test")
+                .apiKey("fake-key-for-tests")
                 .model("gpt-4o")
                 .baseUrl("https://api.openai.com")
                 .build();
@@ -48,7 +48,7 @@ class OpenAiJudgeModelTest {
             HttpJudgeRequest req = invocation.getArgument(0);
             assertThat(req.url()).isEqualTo("https://api.openai.com/v1/chat/completions");
             assertThat(req.headers()).containsKey("Authorization");
-            assertThat(req.headers().get("Authorization")).isEqualTo("Bearer sk-test");
+            assertThat(req.headers().get("Authorization")).isEqualTo("Bearer fake-key-for-tests");
 
             JsonNode body = MAPPER.readTree(req.body());
             assertThat(body.get("model").asText()).isEqualTo("gpt-4o");
@@ -106,12 +106,12 @@ class OpenAiJudgeModelTest {
                 "{\"score\": %s, \"reason\": \"%s\"}", score, reason);
         String body = String.format("""
                 {
-                  "choices": [{"message": {"content": %s}}],
-                  "usage": {
-                    "prompt_tokens": %d,
-                    "completion_tokens": %d,
-                    "total_tokens": %d
-                  }
+                    "choices": [{"message": {"content": %s}}],
+                    "usage": {
+                        "prompt_tokens": %d,
+                        "completion_tokens": %d,
+                        "total_tokens": %d
+                    }
                 }""",
                 MAPPER.valueToTree(content), promptTokens, completionTokens, totalTokens);
         return new HttpJudgeResponse(200, body, null);
