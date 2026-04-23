@@ -31,17 +31,17 @@
         <Bug pattern="EI_EXPOSE_REP"/>
     </Match>
 
-    <!-- ObjectMapper is intentionally shared (thread-safe) -->
+    <!-- ObjectMapper is intentionally shared (thread-safe); narrow to the
+        specific loader/writer pairs and their `mapper` / `yamlMapper` fields
+        so a future class added to these packages is not blanket-suppressed -->
     <Match>
-        <Class name="~org\.byteveda\.agenteval\.datasets\.json\.Json.*"/>
-        <Bug pattern="EI_EXPOSE_REP2"/>
-    </Match>
-    <Match>
-        <Class name="~org\.byteveda\.agenteval\.datasets\.jsonl\.Jsonl.*"/>
-        <Bug pattern="EI_EXPOSE_REP2"/>
-    </Match>
-    <Match>
-        <Class name="~org\.byteveda\.agenteval\.datasets\.yaml\.Yaml.*"/>
+        <Or>
+            <Class name="org.byteveda.agenteval.datasets.json.JsonDatasetLoader"/>
+            <Class name="org.byteveda.agenteval.datasets.json.JsonDatasetWriter"/>
+            <Class name="org.byteveda.agenteval.datasets.jsonl.JsonlDatasetLoader"/>
+            <Class name="org.byteveda.agenteval.datasets.jsonl.JsonlDatasetWriter"/>
+            <Class name="org.byteveda.agenteval.datasets.yaml.YamlDatasetLoader"/>
+        </Or>
         <Bug pattern="EI_EXPOSE_REP2"/>
     </Match>
 
@@ -100,9 +100,16 @@
         <Bug pattern="EI_EXPOSE_REP,EI_EXPOSE_REP2"/>
     </Match>
 
-    <!-- Dataset version records expose immutable components by design -->
+    <!-- Dataset version records expose immutable components by design;
+        enumerated to keep new classes in this package under spotbugs review -->
     <Match>
-        <Class name="~org\.byteveda\.agenteval\.datasets\.version\..*"/>
+        <Or>
+            <Class name="org.byteveda.agenteval.datasets.version.DatasetVersion"/>
+            <Class name="org.byteveda.agenteval.datasets.version.DatasetVersioner"/>
+            <Class name="org.byteveda.agenteval.datasets.version.GitMetadata"/>
+            <Class name="org.byteveda.agenteval.datasets.version.GitResolver"/>
+            <Class name="org.byteveda.agenteval.datasets.version.VersionedDataset"/>
+        </Or>
         <Bug pattern="EI_EXPOSE_REP,EI_EXPOSE_REP2"/>
     </Match>
 
