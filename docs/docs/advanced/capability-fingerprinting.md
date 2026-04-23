@@ -12,7 +12,7 @@ The `agenteval-fingerprint` module profiles an agent's capabilities across multi
 <dependency>
   <groupId>org.byteveda.agenteval</groupId>
   <artifactId>agenteval-fingerprint</artifactId>
-  <version>0.1.0-SNAPSHOT</version>
+  <version>0.2.0</version>
   <scope>test</scope>
 </dependency>
 ```

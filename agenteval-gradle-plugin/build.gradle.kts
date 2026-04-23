@@ -3,7 +3,7 @@ plugins {
     id("com.gradle.plugin-publish") version "1.3.0"
 }
 
-val agentevalVersion = providers.gradleProperty("agentevalVersion").getOrElse("0.1.0-SNAPSHOT")
+val agentevalVersion = providers.gradleProperty("agentevalVersion").getOrElse("0.2.0")
 
 group = "org.byteveda.agenteval"
 version = agentevalVersion

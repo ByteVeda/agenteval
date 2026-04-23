@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.2.0] — 2026-04-24
+
 ### Added
 - Six new modules extending the evaluation surface beyond core metrics:
   - `agenteval-contracts` — contract testing for agent responses
@@ -109,5 +111,6 @@ Initial public release. Includes:
   file-based (`agenteval.yaml`); environment variables
   `AGENTEVAL_JUDGE_PROVIDER`, `AGENTEVAL_JUDGE_MODEL`
 
-[Unreleased]: https://github.com/ByteVeda/agenteval/compare/0.1.0...HEAD
+[Unreleased]: https://github.com/ByteVeda/agenteval/compare/0.2.0...HEAD
+[0.2.0]: https://github.com/ByteVeda/agenteval/releases/tag/0.2.0
 [0.1.0]: https://github.com/ByteVeda/agenteval/releases/tag/0.1.0

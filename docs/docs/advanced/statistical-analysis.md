@@ -12,7 +12,7 @@ The `agenteval-statistics` module adds statistical rigor to evaluation results. 
 <dependency>
   <groupId>org.byteveda.agenteval</groupId>
   <artifactId>agenteval-statistics</artifactId>
-  <version>0.1.0-SNAPSHOT</version>
+  <version>0.2.0</version>
   <scope>test</scope>
 </dependency>
 ```
