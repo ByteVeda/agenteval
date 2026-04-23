@@ -60,33 +60,33 @@ jobs:
           path: '**/target/surefire-reports/*.xml'
           reporter: java-junit
 
-  gradle:
-    name: Build (Gradle, Java ${{ matrix.java }})
+  gradle-plugin:
+    name: Build (Gradle plugin only, Java 21)
+    needs: maven
     runs-on: ubuntu-latest
-    strategy:
-      fail-fast: false
-      matrix:
-        java: ['21', '23']
     steps:
       - name: Checkout
         uses: actions/checkout@v6
 
-      - name: Set up JDK ${{ matrix.java }}
+      - name: Set up JDK 21
         uses: actions/setup-java@v5
         with:
-          java-version: ${{ matrix.java }}
+          java-version: '21'
           distribution: temurin
-          cache: gradle
+          cache: maven
 
-      - name: Build & verify
-        run: ./gradlew build --no-daemon --warning-mode all
+      - name: Install agenteval artifacts to local Maven repo
+        run: ./mvnw install -DskipTests -B --no-transfer-progress
 
-      - name: Upload test reports
+      - name: Build Gradle plugin
+        run: ./gradlew :agenteval-gradle-plugin:build --no-daemon --warning-mode all
+
+      - name: Upload plugin test reports
         if: always()
         uses: actions/upload-artifact@v7
         with:
-          name: gradle-test-reports-java-${{ matrix.java }}
-          path: '**/build/reports/tests/'
+          name: gradle-plugin-test-reports
+          path: 'agenteval-gradle-plugin/build/reports/tests/'
           retention-days: 14
 
   eval-tests:

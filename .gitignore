@@ -27,9 +27,18 @@ replay_pid*
 target/
 build/
 
-# Gradle
+# Gradle (used only by agenteval-gradle-plugin; see settings.gradle.kts)
 .gradle/
 !gradle/wrapper/gradle-wrapper.jar
+
+# Secrets
+.env
+.env.*
+!.env.example
+*.p12
+*.jks
+*.keystore
+credentials.json
 
 # IDE
 .idea/

@@ -27,18 +27,13 @@ updates:
           - "org.slf4j*"
           - "ch.qos.logback*"
 
-  # Gradle dependencies
+  # Gradle dependencies (scoped to agenteval-gradle-plugin)
   - package-ecosystem: gradle
-    directory: /
+    directory: /agenteval-gradle-plugin
     schedule:
       interval: weekly
       day: monday
-    open-pull-requests-limit: 5
-    groups:
-      gradle-plugins:
-        patterns:
-          - "com.github.spotbugs*"
-          - "com.github.johnrengelman*"
+    open-pull-requests-limit: 3
 
   # GitHub Actions
   - package-ecosystem: github-actions
