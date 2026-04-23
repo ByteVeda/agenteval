@@ -7,21 +7,34 @@ on:
   workflow_dispatch:
     inputs:
       version:
-        description: 'Release version (e.g. 0.1.0)'
+        description: 'Release version (e.g. 0.2.0 or 0.3.0-rc1)'
         required: true
 
 permissions:
   contents: write
   packages: write
 
+# Serialize release runs. Two releases for the same ref would race on the
+# Central staging repo and overwrite each other; across refs we let them
+# queue (cancel-in-progress: false) so a dispatch cannot cancel a tag-push
+# release already mid-deploy.
+concurrency:
+  group: release-${{ github.ref }}
+  cancel-in-progress: false
+
 jobs:
   release:
     name: Build & Publish Release
     runs-on: ubuntu-latest
     environment: release
+    timeout-minutes: 45
     steps:
       - name: Checkout
         uses: actions/checkout@v6
+        with:
+          # Full history so release-notes generation and git-based version
+          # resolution (e.g. git describe) work correctly.
+          fetch-depth: 0
 
       - name: Set up JDK 21
         uses: actions/setup-java@v5
@@ -35,25 +48,84 @@ jobs:
           gpg-private-key: ${{ secrets.GPG_PRIVATE_KEY }}
           gpg-passphrase: GPG_PASSPHRASE
 
-      - name: Determine version
+      - name: Resolve and validate release version
         id: version
         run: |
+          set -euo pipefail
           if [ "${{ github.event_name }}" = "push" ]; then
-            echo "version=${GITHUB_REF_NAME}" >> "$GITHUB_OUTPUT"
+            VERSION="${GITHUB_REF_NAME}"
           else
-            echo "version=${{ inputs.version }}" >> "$GITHUB_OUTPUT"
+            VERSION="${{ inputs.version }}"
+          fi
+          # Strict semver (optional pre-release label, no build metadata)
+          if ! printf '%s' "$VERSION" | grep -qE '^[0-9]+\.[0-9]+\.[0-9]+(-[0-9A-Za-z.-]+)?$'; then
+            echo "::error title=Invalid version::'$VERSION' is not valid semver (expected e.g. 0.2.0 or 0.2.0-rc1)"
+            exit 1
+          fi
+          echo "version=$VERSION" >> "$GITHUB_OUTPUT"
+          if printf '%s' "$VERSION" | grep -q '-'; then
+            echo "prerelease=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "prerelease=false" >> "$GITHUB_OUTPUT"
+          fi
+          echo "Releasing version: $VERSION"
+
+      - name: Sync project version with release version
+        # Idempotent when pom.xml already matches (tag-push flow after a
+        # pre-release version-bump commit). Critical for workflow_dispatch
+        # runs where the pom may still be on -SNAPSHOT or a prior version.
+        # agenteval-bom has an independent <version> and must be set
+        # separately — versions:set with processAllModules does not
+        # descend into it because it has no <parent>.
+        run: |
+          ./mvnw versions:set \
+            -DnewVersion="${{ steps.version.outputs.version }}" \
+            -DprocessAllModules=true \
+            -DgenerateBackupPoms=false \
+            -B --no-transfer-progress
+          ./mvnw versions:set \
+            -DnewVersion="${{ steps.version.outputs.version }}" \
+            -DgenerateBackupPoms=false \
+            -B --no-transfer-progress \
+            -f agenteval-bom/pom.xml
+
+      - name: Verify pom version matches release version
+        # Guards against silent drift: if versions:set somehow left a
+        # module on a different version (e.g. a module without a <parent>
+        # was missed), fail loudly before we sign and deploy.
+        run: |
+          set -euo pipefail
+          EXPECTED="${{ steps.version.outputs.version }}"
+          ACTUAL=$(./mvnw help:evaluate -Dexpression=project.version -q -DforceStdout)
+          if [ "$ACTUAL" != "$EXPECTED" ]; then
+            echo "::error title=Version mismatch::Root pom version is '$ACTUAL' but release is '$EXPECTED'"
+            exit 1
+          fi
+          BOM=$(./mvnw help:evaluate -Dexpression=project.version -q -DforceStdout -f agenteval-bom/pom.xml)
+          if [ "$BOM" != "$EXPECTED" ]; then
+            echo "::error title=BOM version mismatch::agenteval-bom is at '$BOM' but release is '$EXPECTED'"
+            exit 1
           fi
 
-      - name: Set release version
+      - name: Build, test, sign, and install to local Maven repo
+        # Single build pass that: runs tests, produces source + javadoc
+        # jars, GPG-signs everything, and installs into ~/.m2 so the
+        # Gradle plugin build can resolve same-version siblings from
+        # Maven Local (Central does not have this version yet).
+        # Downstream deploy steps reuse these signed artifacts via
+        # `deploy -DskipTests` to avoid rebuilding.
+        env:
+          GPG_PASSPHRASE: ${{ secrets.GPG_PASSPHRASE }}
+        run: ./mvnw install -Prelease -B --no-transfer-progress
+
+      - name: Verify Gradle plugin builds against installed artifacts
+        # Runs compileJava + tests for agenteval-gradle-plugin only.
+        # The plugin resolves agenteval-core / judge / metrics /
+        # datasets / reporting from mavenLocal() populated above.
         run: |
-          ./mvnw versions:set -DnewVersion="${{ steps.version.outputs.version }}" -DprocessAllModules=true -B --no-transfer-progress
-          ./mvnw versions:set -DnewVersion="${{ steps.version.outputs.version }}" -B --no-transfer-progress -f agenteval-bom/pom.xml
-
-      - name: Maven build & verify
-        run: ./mvnw verify -B --no-transfer-progress
-
-      - name: Gradle build & verify
-        run: ./gradlew build --no-daemon
+          ./gradlew :agenteval-gradle-plugin:build \
+            -PagentevalVersion="${{ steps.version.outputs.version }}" \
+            --no-daemon --warning-mode all
 
       - name: Deploy BOM to Maven Central
         env:
@@ -61,36 +133,89 @@ jobs:
           MAVEN_PASSWORD: ${{ secrets.OSSRH_TOKEN }}
           GPG_PASSPHRASE: ${{ secrets.GPG_PASSPHRASE }}
         run: |
-          ./mvnw deploy -Prelease -B --no-transfer-progress -f agenteval-bom/pom.xml
+          ./mvnw deploy -Prelease -DskipTests \
+            -B --no-transfer-progress \
+            -f agenteval-bom/pom.xml
 
-      - name: Deploy to Maven Central
+      - name: Deploy library modules to Maven Central
         env:
           MAVEN_USERNAME: ${{ secrets.OSSRH_USERNAME }}
           MAVEN_PASSWORD: ${{ secrets.OSSRH_TOKEN }}
           GPG_PASSPHRASE: ${{ secrets.GPG_PASSPHRASE }}
-        run: |
-          ./mvnw deploy -Prelease -DskipTests -B --no-transfer-progress
+        run: ./mvnw deploy -Prelease -DskipTests -B --no-transfer-progress
 
-      - name: Publish Gradle plugin
+      - name: Publish Gradle plugin to Plugin Portal
+        # Runs last so a failure here does not leave Central partially
+        # published without the plugin. Intentionally NOT marked
+        # continue-on-error — a silently-unpublished plugin is a worse
+        # failure mode than a red CI.
         env:
           GRADLE_PUBLISH_KEY: ${{ secrets.GRADLE_PUBLISH_KEY }}
           GRADLE_PUBLISH_SECRET: ${{ secrets.GRADLE_PUBLISH_SECRET }}
         run: |
           ./gradlew :agenteval-gradle-plugin:publishPlugins \
-            -Pgradle.publish.key=$GRADLE_PUBLISH_KEY \
-            -Pgradle.publish.secret=$GRADLE_PUBLISH_SECRET \
+            -Pgradle.publish.key="$GRADLE_PUBLISH_KEY" \
+            -Pgradle.publish.secret="$GRADLE_PUBLISH_SECRET" \
+            -PagentevalVersion="${{ steps.version.outputs.version }}" \
             --no-daemon
-        continue-on-error: true
+
+      - name: Extract release notes from CHANGELOG
+        id: notes
+        run: |
+          set -euo pipefail
+          VERSION="${{ steps.version.outputs.version }}"
+          NOTES_FILE="release-notes.md"
+          if [ -f CHANGELOG.md ]; then
+            # Extract the section between "## [VERSION]" and the next
+            # "## [" heading (exclusive).
+            awk -v tag="## [$VERSION]" '
+              index($0, tag) == 1 { capture = 1; next }
+              /^## \[/ && capture { exit }
+              capture { print }
+            ' CHANGELOG.md > "$NOTES_FILE"
+            if [ -s "$NOTES_FILE" ]; then
+              echo "has_notes=true" >> "$GITHUB_OUTPUT"
+              echo "Extracted CHANGELOG section for $VERSION ($(wc -l < "$NOTES_FILE") lines)"
+            else
+              echo "has_notes=false" >> "$GITHUB_OUTPUT"
+              echo "::warning title=No CHANGELOG entry::CHANGELOG.md has no '## [$VERSION]' section; falling back to auto-generated notes"
+              rm -f "$NOTES_FILE"
+            fi
+          else
+            echo "has_notes=false" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Stage GitHub release artifacts
+        # Curated list: the BOM, the core/judge/metrics/datasets/reporting
+        # runtime jars, and the JUnit 5 integration. Users wanting every
+        # module go to Maven Central; this keeps the release page
+        # browsable without dozens of attachments.
+        run: |
+          set -euo pipefail
+          mkdir -p release-artifacts
+          MODULES=(
+            agenteval-core
+            agenteval-judge
+            agenteval-metrics
+            agenteval-datasets
+            agenteval-reporting
+            agenteval-junit5
+          )
+          for m in "${MODULES[@]}"; do
+            cp "$m"/target/"$m"-*.jar release-artifacts/ 2>/dev/null || true
+          done
+          # BOM is pom-packaged; attach the pom itself for completeness.
+          cp agenteval-bom/pom.xml "release-artifacts/agenteval-bom-${{ steps.version.outputs.version }}.pom"
+          ls -la release-artifacts/
 
       - name: Create GitHub release
         uses: softprops/action-gh-release@v3
         with:
-          tag_name: ${{ github.event_name == 'push' && github.ref_name || inputs.version }}
+          tag_name: ${{ steps.version.outputs.version }}
           name: AgentEval ${{ steps.version.outputs.version }}
-          generate_release_notes: true
+          body_path: ${{ steps.notes.outputs.has_notes == 'true' && 'release-notes.md' || '' }}
+          generate_release_notes: ${{ steps.notes.outputs.has_notes != 'true' }}
           draft: false
-          prerelease: ${{ contains(steps.version.outputs.version, '-') }}
-          files: |
-            agenteval-core/target/agenteval-core-*.jar
-            agenteval-junit5/target/agenteval-junit5-*.jar
-            agenteval-metrics/target/agenteval-metrics-*.jar
+          prerelease: ${{ steps.version.outputs.prerelease == 'true' }}
+          files: release-artifacts/*
+          fail_on_unmatched_files: true
