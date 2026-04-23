@@ -6,7 +6,11 @@ import org.byteveda.agenteval.datasets.EvalDataset;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
 
+import java.io.IOException;
+import java.nio.file.Files;
 import java.nio.file.Path;
+import java.nio.file.attribute.FileTime;
+import java.time.Instant;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -39,9 +43,11 @@ class DatasetVersionerTest {
         var versioner = new DatasetVersioner(tempDir);
 
         versioner.tag(dataset, "v1.0");
-        // Small delay to ensure different timestamps
-        Thread.sleep(50);
         versioner.tag(dataset, "v2.0");
+        // Force deterministic mtime ordering so the test does not depend on
+        // clock tick resolution or CI machine speed.
+        setVersionMtime(tempDir, "ds", "v1.0", Instant.parse("2020-01-01T00:00:00Z"));
+        setVersionMtime(tempDir, "ds", "v2.0", Instant.parse("2020-01-02T00:00:00Z"));
 
         List<String> versions = versioner.listVersions("ds");
         assertThat(versions).containsExactly("v2.0", "v1.0");
@@ -53,11 +59,18 @@ class DatasetVersionerTest {
         var versioner = new DatasetVersioner(tempDir);
 
         versioner.tag(dataset, "v1.0");
-        Thread.sleep(50);
         versioner.tag(dataset, "v2.0");
+        setVersionMtime(tempDir, "ds", "v1.0", Instant.parse("2020-01-01T00:00:00Z"));
+        setVersionMtime(tempDir, "ds", "v2.0", Instant.parse("2020-01-02T00:00:00Z"));
 
         VersionedDataset latest = versioner.latest("ds");
         assertThat(latest.version().versionLabel()).isEqualTo("v2.0");
+    }
+
+    private static void setVersionMtime(Path tempDir, String name, String label, Instant when)
+            throws IOException {
+        Path versionFile = tempDir.resolve(name).resolve(label).resolve("version.json");
+        Files.setLastModifiedTime(versionFile, FileTime.from(when));
     }
 
     @Test
