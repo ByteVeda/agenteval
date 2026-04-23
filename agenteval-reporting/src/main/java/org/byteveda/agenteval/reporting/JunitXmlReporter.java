@@ -51,7 +51,17 @@ public final class JunitXmlReporter implements EvalReporter {
      */
     String generateXml(EvalResult result)
             throws ParserConfigurationException, TransformerException {
-        var docBuilder = DocumentBuilderFactory.newInstance().newDocumentBuilder();
+        var dbf = DocumentBuilderFactory.newInstance();
+        // Defense-in-depth against XXE: this reporter only writes XML today,
+        // but hardening here prevents regressions if parsing is added later
+        // and serves as a template for any future DocumentBuilderFactory usage.
+        dbf.setFeature("http://apache.org/xml/features/disallow-doctype-decl", true);
+        dbf.setFeature("http://xml.org/sax/features/external-general-entities", false);
+        dbf.setFeature("http://xml.org/sax/features/external-parameter-entities", false);
+        dbf.setFeature("http://apache.org/xml/features/nonvalidating/load-external-dtd", false);
+        dbf.setXIncludeAware(false);
+        dbf.setExpandEntityReferences(false);
+        var docBuilder = dbf.newDocumentBuilder();
         var doc = docBuilder.newDocument();
 
         var testsuite = doc.createElement("testsuite");
