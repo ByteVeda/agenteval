@@ -27,7 +27,7 @@ class AnthropicJudgeModelTest {
     @BeforeEach
     void setUp() {
         config = JudgeConfig.builder()
-                .apiKey("sk-ant-test")
+                .apiKey("fake-ant-key-for-tests")
                 .model("claude-sonnet-4-20250514")
                 .baseUrl("https://api.anthropic.com")
                 .build();
@@ -47,7 +47,7 @@ class AnthropicJudgeModelTest {
         when(mockClient.send(any())).thenAnswer(invocation -> {
             HttpJudgeRequest req = invocation.getArgument(0);
             assertThat(req.url()).isEqualTo("https://api.anthropic.com/v1/messages");
-            assertThat(req.headers()).containsEntry("x-api-key", "sk-ant-test");
+            assertThat(req.headers()).containsEntry("x-api-key", "fake-ant-key-for-tests");
             assertThat(req.headers()).containsEntry("anthropic-version", "2023-06-01");
 
             JsonNode body = MAPPER.readTree(req.body());
@@ -104,8 +104,8 @@ class AnthropicJudgeModelTest {
                 "{\"score\": %s, \"reason\": \"%s\"}", score, reason);
         String body = String.format("""
                 {
-                  "content": [{"type": "text", "text": %s}],
-                  "usage": {"input_tokens": 200, "output_tokens": 80}
+                    "content": [{"type": "text", "text": %s}],
+                    "usage": {"input_tokens": 200, "output_tokens": 80}
                 }""", MAPPER.valueToTree(content));
         return new HttpJudgeResponse(200, body, null);
     }

@@ -12,7 +12,7 @@ The `agenteval-chaos` module injects controlled failures into agent evaluations 
 <dependency>
   <groupId>org.byteveda.agenteval</groupId>
   <artifactId>agenteval-chaos</artifactId>
-  <version>0.1.0-SNAPSHOT</version>
+  <version>0.2.0</version>
   <scope>test</scope>
 </dependency>
 ```

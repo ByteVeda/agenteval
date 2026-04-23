@@ -10,13 +10,13 @@ Add the dependencies to your project:
 <dependency>
     <groupId>org.byteveda.agenteval</groupId>
     <artifactId>agenteval-junit5</artifactId>
-    <version>0.1.0-SNAPSHOT</version>
+    <version>0.2.0</version>
     <scope>test</scope>
 </dependency>
 <dependency>
     <groupId>org.byteveda.agenteval</groupId>
     <artifactId>agenteval-metrics</artifactId>
-    <version>0.1.0-SNAPSHOT</version>
+    <version>0.2.0</version>
     <scope>test</scope>
 </dependency>
 ```
@@ -24,8 +24,8 @@ Add the dependencies to your project:
 ### Gradle
 
 ```kotlin
-testImplementation("org.byteveda.agenteval:agenteval-junit5:0.1.0-SNAPSHOT")
-testImplementation("org.byteveda.agenteval:agenteval-metrics:0.1.0-SNAPSHOT")
+testImplementation("org.byteveda.agenteval:agenteval-junit5:0.2.0")
+testImplementation("org.byteveda.agenteval:agenteval-metrics:0.2.0")
 ```
 
 ---

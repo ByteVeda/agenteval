@@ -12,7 +12,7 @@ The `agenteval-replay` module records agent and judge interactions during an eva
 <dependency>
   <groupId>org.byteveda.agenteval</groupId>
   <artifactId>agenteval-replay</artifactId>
-  <version>0.1.0-SNAPSHOT</version>
+  <version>0.2.0</version>
   <scope>test</scope>
 </dependency>
 ```

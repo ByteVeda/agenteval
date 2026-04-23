@@ -1,19 +1,13 @@
 rootProject.name = "agenteval"
 
-include(
-    "agenteval-core",
-    "agenteval-judge",
-    "agenteval-embeddings",
-    "agenteval-metrics",
-    "agenteval-datasets",
-    "agenteval-reporting",
-    "agenteval-junit5",
-    "agenteval-spring-ai",
-    "agenteval-langchain4j",
-    "agenteval-langgraph4j",
-    "agenteval-mcp",
-    "agenteval-redteam",
-    "agenteval-github-actions",
-    "agenteval-gradle-plugin",
-    "agenteval-intellij"
-)
+// This Gradle build is scoped to agenteval-gradle-plugin only, because that
+// module is published to the Gradle Plugin Portal via `publishPlugins` which
+// has no Maven equivalent. Every other module is built by Maven (see pom.xml).
+include("agenteval-gradle-plugin")
+
+dependencyResolutionManagement {
+    repositories {
+        mavenLocal()
+        mavenCentral()
+    }
+}

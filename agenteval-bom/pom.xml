@@ -6,7 +6,7 @@
 
     <groupId>org.byteveda.agenteval</groupId>
     <artifactId>agenteval-bom</artifactId>
-    <version>0.1.0-SNAPSHOT</version>
+    <version>0.2.0</version>
     <packaging>pom</packaging>
 
     <name>AgentEval BOM</name>
@@ -71,6 +71,14 @@
         </profile>
     </profiles>
 
+    <!--
+        This BOM intentionally lists library modules only. Build-tooling
+        modules (agenteval-maven-plugin, agenteval-gradle-plugin,
+        agenteval-github-actions, agenteval-intellij) are deliberately
+        omitted: they are end-user tools on independent release cadences,
+        not library dependencies you import into application code.
+        Consumers pin those modules directly when configuring builds.
+    -->
     <dependencyManagement>
         <dependencies>
             <!-- Core -->

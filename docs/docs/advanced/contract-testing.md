@@ -12,7 +12,7 @@ The `agenteval-contracts` module lets you define behavioral invariants that your
 <dependency>
   <groupId>org.byteveda.agenteval</groupId>
   <artifactId>agenteval-contracts</artifactId>
-  <version>0.1.0-SNAPSHOT</version>
+  <version>0.2.0</version>
   <scope>test</scope>
 </dependency>
 ```

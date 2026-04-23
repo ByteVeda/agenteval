@@ -34,13 +34,13 @@ AgentEval is a library (not a framework) for evaluating the quality of Java-base
 <dependency>
     <groupId>org.byteveda.agenteval</groupId>
     <artifactId>agenteval-junit5</artifactId>
-    <version>0.1.0-SNAPSHOT</version>
+    <version>0.2.0</version>
     <scope>test</scope>
 </dependency>
 <dependency>
     <groupId>org.byteveda.agenteval</groupId>
     <artifactId>agenteval-metrics</artifactId>
-    <version>0.1.0-SNAPSHOT</version>
+    <version>0.2.0</version>
     <scope>test</scope>
 </dependency>
 ```
@@ -48,8 +48,8 @@ AgentEval is a library (not a framework) for evaluating the quality of Java-base
 ### Gradle
 
 ```kotlin
-testImplementation("org.byteveda.agenteval:agenteval-junit5:0.1.0-SNAPSHOT")
-testImplementation("org.byteveda.agenteval:agenteval-metrics:0.1.0-SNAPSHOT")
+testImplementation("org.byteveda.agenteval:agenteval-junit5:0.2.0")
+testImplementation("org.byteveda.agenteval:agenteval-metrics:0.2.0")
 ```
 
 ### Write Your First Evaluation
@@ -278,7 +278,7 @@ Optional modules for automatic capture with popular frameworks:
 
 ```kotlin
 plugins {
-    id("org.byteveda.agenteval.gradle-plugin") version "0.1.0-SNAPSHOT"
+    id("org.byteveda.agenteval.gradle-plugin") version "0.2.0"
 }
 
 agenteval {

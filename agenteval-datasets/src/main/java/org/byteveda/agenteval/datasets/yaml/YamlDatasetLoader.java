@@ -9,6 +9,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.dataformat.yaml.YAMLFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.yaml.snakeyaml.LoaderOptions;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -38,11 +39,26 @@ public final class YamlDatasetLoader implements DatasetLoader {
     private final ObjectMapper yamlMapper;
 
     public YamlDatasetLoader() {
-        this(new ObjectMapper(new YAMLFactory()));
+        this(new ObjectMapper(hardenedYamlFactory()));
     }
 
     public YamlDatasetLoader(ObjectMapper yamlMapper) {
         this.yamlMapper = yamlMapper;
+    }
+
+    private static YAMLFactory hardenedYamlFactory() {
+        // SnakeYAML 2.0+ uses SafeConstructor by default and blocks global tags
+        // unless a TagInspector allows them. These limits are additional
+        // defense-in-depth against resource-exhaustion attacks (billion-laughs,
+        // deeply-nested maps, oversized documents) on dataset YAML that may
+        // come from less-trusted sources such as shared CI caches.
+        LoaderOptions options = new LoaderOptions();
+        options.setAllowDuplicateKeys(false);
+        options.setAllowRecursiveKeys(false);
+        options.setMaxAliasesForCollections(50);
+        options.setNestingDepthLimit(50);
+        options.setCodePointLimit(3 * 1024 * 1024);
+        return YAMLFactory.builder().loaderOptions(options).build();
     }
 
     @Override
