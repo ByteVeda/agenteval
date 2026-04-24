@@ -20,10 +20,15 @@ import static org.mockito.Mockito.when;
 
 class SpringAiAdvisorInterceptorTest {
 
+    /** Spring AI's constructors declare {@code @NonNull Map<String, Object>} parameters via JSpecify.
+     * Eclipse JDT flags {@code Map.of()} as unchecked against those; a typed field initialized from
+     * {@code new HashMap<>()} is accepted without suppression. */
+    private static final Map<String, Object> EMPTY_METADATA = new HashMap<>();
+
     private static ChatClientResponse simpleResponse() {
         ChatResponse chatResponse = new ChatResponse(
                 List.of(new Generation(new AssistantMessage("ok"))));
-        return new ChatClientResponse(chatResponse, Map.of());
+        return new ChatClientResponse(chatResponse, EMPTY_METADATA);
     }
 
     @Test
@@ -44,8 +49,8 @@ class SpringAiAdvisorInterceptorTest {
         var advisor = new SpringAiAdvisorInterceptor();
         Map<String, Object> context = new HashMap<>();
         context.put("qa_advisor_retrieved_documents", List.of(
-                new Document("first doc", Map.of()),
-                new Document("second doc", Map.of())));
+                new Document("first doc", EMPTY_METADATA),
+                new Document("second doc", EMPTY_METADATA)));
         ChatClientRequest request = new ChatClientRequest(new Prompt("q"), context);
         CallAdvisorChain chain = mock(CallAdvisorChain.class);
         when(chain.nextCall(request)).thenReturn(simpleResponse());
@@ -59,7 +64,7 @@ class SpringAiAdvisorInterceptorTest {
     void consumeClearsBufferBetweenCalls() {
         var advisor = new SpringAiAdvisorInterceptor();
         Map<String, Object> context = new HashMap<>();
-        context.put("qa_advisor_retrieved_documents", List.of(new Document("only", Map.of())));
+        context.put("qa_advisor_retrieved_documents", List.of(new Document("only", EMPTY_METADATA)));
         ChatClientRequest request = new ChatClientRequest(new Prompt("q"), context);
         CallAdvisorChain chain = mock(CallAdvisorChain.class);
         when(chain.nextCall(request)).thenReturn(simpleResponse());
@@ -72,7 +77,7 @@ class SpringAiAdvisorInterceptorTest {
     @Test
     void passesThroughWhenContextIsAbsent() {
         var advisor = new SpringAiAdvisorInterceptor();
-        ChatClientRequest request = new ChatClientRequest(new Prompt("q"), Map.of());
+        ChatClientRequest request = new ChatClientRequest(new Prompt("q"), EMPTY_METADATA);
         CallAdvisorChain chain = mock(CallAdvisorChain.class);
         when(chain.nextCall(request)).thenReturn(simpleResponse());
 
