@@ -12,13 +12,13 @@ This guide gets you from zero to your first evaluation in under 5 minutes.
 <dependency>
   <groupId>org.byteveda.agenteval</groupId>
   <artifactId>agenteval-junit5</artifactId>
-  <version>1.0.0</version>
+  <version>0.2.0</version>
   <scope>test</scope>
 </dependency>
 <dependency>
   <groupId>org.byteveda.agenteval</groupId>
   <artifactId>agenteval-judge</artifactId>
-  <version>1.0.0</version>
+  <version>0.2.0</version>
   <scope>test</scope>
 </dependency>
 ```

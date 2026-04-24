@@ -12,7 +12,7 @@ AgentEval provides plugins for Maven and Gradle to run evaluations as part of th
 <plugin>
   <groupId>org.byteveda.agenteval</groupId>
   <artifactId>agenteval-maven-plugin</artifactId>
-  <version>1.0.0</version>
+  <version>0.2.0</version>
   <configuration>
     <judgeProvider>openai</judgeProvider>
     <judgeModel>gpt-4o-mini</judgeModel>
@@ -49,7 +49,7 @@ mvn verify -Dagenteval.skip=true
 
 ```kotlin
 plugins {
-    id("org.byteveda.agenteval") version "1.0.0"
+    id("org.byteveda.agenteval.evaluate") version "0.2.0"
 }
 
 agenteval {

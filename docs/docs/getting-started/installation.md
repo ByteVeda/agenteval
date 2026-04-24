@@ -14,7 +14,7 @@ Add the JUnit 5 integration module (the most common starting point):
 <dependency>
   <groupId>org.byteveda.agenteval</groupId>
   <artifactId>agenteval-junit5</artifactId>
-  <version>1.0.0</version>
+  <version>0.2.0</version>
   <scope>test</scope>
 </dependency>
 ```
@@ -25,7 +25,7 @@ For LLM-as-judge metrics (AnswerRelevancy, Faithfulness, etc.), also add the jud
 <dependency>
   <groupId>org.byteveda.agenteval</groupId>
   <artifactId>agenteval-judge</artifactId>
-  <version>1.0.0</version>
+  <version>0.2.0</version>
   <scope>test</scope>
 </dependency>
 ```
@@ -40,7 +40,7 @@ Use the BOM to manage versions across multiple modules:
     <dependency>
       <groupId>org.byteveda.agenteval</groupId>
       <artifactId>agenteval-bom</artifactId>
-      <version>1.0.0</version>
+      <version>0.2.0</version>
       <type>pom</type>
       <scope>import</scope>
     </dependency>
@@ -65,7 +65,7 @@ Use the BOM to manage versions across multiple modules:
 
 ```kotlin
 dependencies {
-    testImplementation(platform("org.byteveda.agenteval:agenteval-bom:1.0.0"))
+    testImplementation(platform("org.byteveda.agenteval:agenteval-bom:0.2.0"))
     testImplementation("org.byteveda.agenteval:agenteval-junit5")
     testImplementation("org.byteveda.agenteval:agenteval-judge")
 }
@@ -75,7 +75,7 @@ dependencies {
 
 ```groovy
 dependencies {
-    testImplementation platform('org.byteveda.agenteval:agenteval-bom:1.0.0')
+    testImplementation platform('org.byteveda.agenteval:agenteval-bom:0.2.0')
     testImplementation 'org.byteveda.agenteval:agenteval-junit5'
     testImplementation 'org.byteveda.agenteval:agenteval-judge'
 }

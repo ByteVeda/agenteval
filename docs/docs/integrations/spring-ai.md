@@ -12,7 +12,7 @@ Auto-capture agent responses, tool calls, token usage, and RAG context from Spri
 <dependency>
   <groupId>org.byteveda.agenteval</groupId>
   <artifactId>agenteval-spring-ai</artifactId>
-  <version>1.0.0</version>
+  <version>0.2.0</version>
   <scope>test</scope>
 </dependency>
 ```

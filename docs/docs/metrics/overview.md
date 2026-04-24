@@ -4,7 +4,7 @@ sidebar_position: 1
 
 # Metrics Overview
 
-AgentEval provides 25+ built-in metrics organized into five categories. All metrics return an `EvalScore` (0.0–1.0) with a human-readable reason.
+AgentEval provides 27 built-in metrics organized into five categories. All metrics return an `EvalScore` (0.0–1.0) with a human-readable reason.
 
 ## Response Quality
 
