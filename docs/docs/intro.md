@@ -11,7 +11,7 @@ sidebar_position: 1
 
 AI agents produce non-deterministic outputs that standard unit tests can't cover. AgentEval fills that gap with:
 
-- **25+ built-in metrics** — response quality, RAG pipelines, agent tool use, multi-turn conversations
+- **27 built-in metrics** — response quality, RAG pipelines, agent tool use, multi-turn conversations, cost/latency
 - **LLM-as-judge** — pluggable providers (OpenAI, Anthropic, Google, Ollama, Azure, Bedrock)
 - **JUnit 5 integration** — `@AgentTest`, `@Metric`, `@DatasetSource` annotations
 - **Dataset management** — load golden sets from JSON/CSV/JSONL, run batch evaluations
@@ -65,4 +65,4 @@ class RefundAgentTest {
 
 - [Installation](./getting-started/installation) — add AgentEval to your project
 - [Quickstart](./getting-started/quickstart) — first evaluation in 5 minutes
-- [Metrics Overview](./metrics/overview) — all 25+ available metrics
+- [Metrics Overview](./metrics/overview) — all 27 available metrics

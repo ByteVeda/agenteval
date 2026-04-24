@@ -88,7 +88,7 @@ mvn test -Dgroups=eval
 
 ## Metrics
 
-AgentEval ships 23 built-in metrics across 4 categories.
+AgentEval ships 27 built-in metrics across 4 categories.
 
 ### Response Quality
 
@@ -278,7 +278,7 @@ Optional modules for automatic capture with popular frameworks:
 
 ```kotlin
 plugins {
-    id("org.byteveda.agenteval.gradle-plugin") version "0.2.0"
+    id("org.byteveda.agenteval.evaluate") version "0.2.0"
 }
 
 agenteval {
@@ -319,7 +319,7 @@ suite.run();
 
 ```
 agenteval-core/         — Test case model, metric interfaces, scoring engine, config
-agenteval-metrics/      — 23 built-in metric implementations
+agenteval-metrics/      — 27 built-in metric implementations
 agenteval-judge/        — LLM-as-judge engine, 7 provider integrations, multi-model consensus
 agenteval-embeddings/   — Embedding model integrations (OpenAI, custom HTTP)
 agenteval-junit5/       — JUnit 5 extension, @AgentTest, @Metric, @DatasetSource annotations
