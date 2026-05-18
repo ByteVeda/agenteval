@@ -20,7 +20,7 @@ dependencies {
     implementation("org.byteveda.agenteval:agenteval-metrics:$agentevalVersion")
     implementation("org.byteveda.agenteval:agenteval-datasets:$agentevalVersion")
     implementation("org.byteveda.agenteval:agenteval-reporting:$agentevalVersion")
-    implementation("org.slf4j:slf4j-api:2.0.17")
+    implementation("org.slf4j:slf4j-api:2.0.18")
 
     testImplementation(platform("org.junit:junit-bom:5.11.4"))
     testImplementation("org.junit.jupiter:junit-jupiter")
