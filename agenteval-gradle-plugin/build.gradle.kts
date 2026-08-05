@@ -44,6 +44,10 @@ gradlePlugin {
 
 tasks.withType<Test>().configureEach {
     useJUnitPlatform()
+    // ProjectBuilder defines synthetic classes into a ClassLoader via
+    // MethodHandles.privateLookupIn(ClassLoader.class, ...). Gradle test workers do not
+    // open java.lang themselves (JpmsConfiguration.forWorkerProcesses), so pass it here.
+    jvmArgs("--add-opens=java.base/java.lang=ALL-UNNAMED")
 }
 
 tasks.processResources {
