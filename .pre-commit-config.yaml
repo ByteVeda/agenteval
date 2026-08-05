@@ -1,0 +1,43 @@
+repos:
+  # Standard file checks
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v5.0.0
+    hooks:
+      - id: trailing-whitespace
+        exclude: '\.md$'
+      - id: end-of-file-fixer
+      - id: check-yaml
+      - id: check-xml
+      - id: check-json
+      - id: check-merge-conflict
+      - id: check-added-large-files
+        args: ['--maxkb=500']
+      - id: mixed-line-ending
+        args: ['--fix=lf']
+
+  # EditorConfig compliance
+  - repo: https://github.com/editorconfig-checker/editorconfig-checker.python
+    rev: 3.2.1
+    hooks:
+      - id: editorconfig-checker
+        alias: ec
+        exclude: '(\.jar|\.class|gradlew\.bat|mvnw\.cmd)$'
+
+  # Local hooks
+  - repo: local
+    hooks:
+      # Checkstyle via Maven (runs only when Java files change)
+      - id: checkstyle
+        name: checkstyle
+        entry: ./mvnw checkstyle:check -q -B --no-transfer-progress
+        language: system
+        types: [java]
+        pass_filenames: false
+
+      # Detect accidentally committed secrets
+      - id: no-credentials
+        name: no-credentials
+        entry: '(?i)(api[_-]?key|secret[_-]?key|password|passwd|credential|token)\s*[:=]\s*["\x27][A-Za-z0-9+/=_-]{16,}'
+        language: pygrep
+        types: [text]
+        exclude: '(\.pre-commit-config\.yaml|CLAUDE\.md|agent-eval-feature-spec\.md|\.github/)$'

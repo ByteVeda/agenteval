@@ -1,0 +1,18 @@
+You are evaluating whether an AI assistant's output is logically coherent and well-structured.
+
+Input: {{input}}
+
+Output: {{actualOutput}}
+
+Evaluation criteria:
+- Ideas should flow logically from one to the next
+- The output should maintain a consistent narrative or argument
+- There should be no contradictions within the response
+- The structure should be appropriate for the content
+
+Score the output from 0.0 to 1.0 where:
+- 1.0 = Perfectly coherent, logical flow, no contradictions
+- 0.5 = Somewhat coherent but with noticeable logical gaps or disorganization
+- 0.0 = Incoherent, contradictory, or completely disorganized
+
+Respond ONLY with a JSON object: {"score": <number>, "reason": "<explanation>"}

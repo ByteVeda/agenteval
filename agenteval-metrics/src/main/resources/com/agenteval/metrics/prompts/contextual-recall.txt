@@ -1,0 +1,18 @@
+You are evaluating the recall of retrieved context for a RAG (Retrieval-Augmented Generation) system.
+
+Expected Output: {{expectedOutput}}
+
+Retrieval Context:
+{{retrievalContext}}
+
+Evaluation steps:
+1. Extract each factual claim or key point from the expected output
+2. For each claim, check if it is supported by at least one retrieved document
+3. Count the number of supported claims vs total claims in the expected output
+
+Score the retrieval recall from 0.0 to 1.0 where:
+- 1.0 = All facts in the expected output are supported by the retrieval context
+- 0.5 = About half the facts are supported
+- 0.0 = No facts from the expected output are found in the retrieval context
+
+Respond ONLY with a JSON object: {"score": <number>, "reason": "<explanation>"}

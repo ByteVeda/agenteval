@@ -1,0 +1,17 @@
+Generate variations of the following question-answer pair for evaluation testing.
+
+## Original
+Q: {{input}}
+A: {{expectedOutput}}
+
+## Requirements
+- Generate 3 variations that test the same knowledge differently
+- Rephrase, change perspective, or adjust specificity
+- Keep answers accurate and consistent with the original
+
+## Output Format
+Output each pair as:
+Q: <question>
+A: <answer>
+
+Generate the variations now:

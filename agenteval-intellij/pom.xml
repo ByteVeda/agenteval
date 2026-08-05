@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>org.byteveda.agenteval</groupId>
+        <artifactId>agenteval-parent</artifactId>
+        <version>0.2.0</version>
+    </parent>
+
+    <artifactId>agenteval-intellij</artifactId>
+    <name>AgentEval IntelliJ Plugin</name>
+    <description>IntelliJ IDEA plugin for viewing AgentEval evaluation results</description>
+
+    <properties>
+        <!-- This module is distributed via JetBrains Marketplace (Gradle build), not Maven Central.
+            Excluded from Central Publishing bundle via excludeArtifacts in parent pom. -->
+        <maven.javadoc.skip>true</maven.javadoc.skip>
+        <maven.source.skip>true</maven.source.skip>
+        <gpg.skip>true</gpg.skip>
+    </properties>
+
+    <dependencies>
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-databind</artifactId>
+            <scope>provided</scope>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <plugins>
+            <!-- Skip SpotBugs for IntelliJ plugin module -->
+            <plugin>
+                <groupId>com.github.spotbugs</groupId>
+                <artifactId>spotbugs-maven-plugin</artifactId>
+                <configuration>
+                    <skip>true</skip>
+                </configuration>
+            </plugin>
+            <!-- Exclude IntelliJ Platform-dependent sources (require IDE SDK) -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <configuration>
+                    <excludes>
+                        <exclude>org/byteveda/agenteval/intellij/AgentEvalIcons.java</exclude>
+                        <exclude>org/byteveda/agenteval/intellij/AgentEvalToolWindowFactory.java</exclude>
+                        <exclude>org/byteveda/agenteval/intellij/AgentEvalToolWindow.java</exclude>
+                        <exclude>org/byteveda/agenteval/intellij/ReportFileWatcher.java</exclude>
+                        <exclude>org/byteveda/agenteval/intellij/MetricGutterIconProvider.java</exclude>
+                    </excludes>
+                </configuration>
+            </plugin>
+            <!-- Exclude IntelliJ Platform-dependent sources from checkstyle too -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-checkstyle-plugin</artifactId>
+                <configuration>
+                    <excludes>
+                        org/byteveda/agenteval/intellij/AgentEvalIcons.java,
+                        org/byteveda/agenteval/intellij/AgentEvalToolWindowFactory.java,
+                        org/byteveda/agenteval/intellij/AgentEvalToolWindow.java,
+                        org/byteveda/agenteval/intellij/ReportFileWatcher.java,
+                        org/byteveda/agenteval/intellij/MetricGutterIconProvider.java
+                    </excludes>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+</project>

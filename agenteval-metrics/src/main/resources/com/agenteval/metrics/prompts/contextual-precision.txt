@@ -1,0 +1,22 @@
+You are evaluating the precision of retrieved context for a RAG (Retrieval-Augmented Generation) system.
+
+Input: {{input}}
+
+Actual Output: {{actualOutput}}
+
+Expected Output: {{expectedOutput}}
+
+Retrieval Context:
+{{retrievalContext}}
+
+Evaluation steps:
+1. For each retrieved document, determine if it contains information relevant to producing the expected output
+2. Count the number of relevant documents vs total retrieved documents
+3. Consider the ranking — relevant documents appearing earlier is better
+
+Score the retrieval precision from 0.0 to 1.0 where:
+- 1.0 = All retrieved documents are relevant to the expected output
+- 0.5 = About half the retrieved documents are relevant
+- 0.0 = No retrieved documents are relevant
+
+Respond ONLY with a JSON object: {"score": <number>, "reason": "<explanation>"}

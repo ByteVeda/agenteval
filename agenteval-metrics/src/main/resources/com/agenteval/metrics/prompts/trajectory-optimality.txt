@@ -1,0 +1,29 @@
+You are evaluating whether an AI agent took the most efficient path to complete its task.
+
+Task Input: {{input}}
+
+Agent's Reasoning Trace ({{totalSteps}} steps):
+{{reasoningTrace}}
+
+Tool Calls Made ({{totalToolCalls}} calls): {{toolCalls}}
+
+Final Output: {{actualOutput}}
+
+Maximum Expected Steps: {{maxSteps}}
+
+Evaluation criteria:
+- Did the agent take the most direct path to the solution?
+- Were there any unnecessary or redundant tool calls?
+- Did the agent repeat the same actions or reasoning (circular reasoning)?
+- Were there unnecessary intermediate steps that could have been skipped?
+- If a maximum step count is set, did the agent stay within the limit?
+- Did the agent avoid calling tools whose results were not used?
+
+Score the trajectory optimality from 0.0 to 1.0 where:
+- 1.0 = Perfectly optimal path, no unnecessary steps, all actions contributed to the result
+- 0.7 = Mostly efficient with minor redundancies
+- 0.5 = Some unnecessary steps or minor circular reasoning
+- 0.3 = Significant inefficiencies, multiple redundant actions
+- 0.0 = Extremely inefficient, circular reasoning, or far exceeded expected steps
+
+Respond ONLY with a JSON object: {"score": <number>, "reason": "<explanation>"}

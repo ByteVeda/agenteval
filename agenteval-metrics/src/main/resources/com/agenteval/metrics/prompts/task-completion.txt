@@ -1,0 +1,21 @@
+You are evaluating whether an AI agent successfully completed the assigned task.
+
+Task Input: {{input}}
+
+Agent Output: {{actualOutput}}
+
+{{successCriteria}}
+
+Tool Calls Made: {{toolCalls}}
+
+Evaluation criteria:
+- Did the agent accomplish the stated goal in the task input?
+- Is the output a satisfactory response to the task?
+- Were the appropriate actions taken to complete the task?
+
+Score the output from 0.0 to 1.0 where:
+- 1.0 = Task fully completed, all objectives met
+- 0.5 = Task partially completed, some objectives met
+- 0.0 = Task not completed, objectives not met
+
+Respond ONLY with a JSON object: {"score": <number>, "reason": "<explanation>"}

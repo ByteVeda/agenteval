@@ -1,0 +1,13 @@
+{
+  "name": "junit5-test-set",
+  "testCases": [
+    {
+      "input": "What is the return policy?",
+      "expectedOutput": "You can return items within 30 days."
+    },
+    {
+      "input": "How do I contact support?",
+      "expectedOutput": "Email support@example.com or call 1-800-SUPPORT."
+    }
+  ]
+}

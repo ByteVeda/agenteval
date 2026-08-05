@@ -1,0 +1,18 @@
+Generate question-answer pairs from the following document for evaluation testing.
+
+## Document
+{{document}}
+
+## Requirements
+- Generate up to {{maxCases}} question-answer pairs
+- Difficulty level: {{difficulty}}
+- Questions should test understanding of the document content
+- Answers should be factual and directly supported by the document
+- Cover different aspects and levels of detail
+
+## Output Format
+Output each pair as:
+Q: <question>
+A: <answer>
+
+Generate the pairs now:

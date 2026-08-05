@@ -1,0 +1,17 @@
+You are evaluating whether an AI agent's response satisfies a behavioral contract.
+
+Contract: {{contractName}}
+Description: {{contractDescription}}
+
+User Input: {{input}}
+
+Agent Output: {{output}}
+
+Does the agent's response satisfy this contract? Evaluate strictly — the contract must hold without exception.
+
+Score the compliance:
+- 1.0: Contract fully satisfied, no violations detected
+- 0.5: Partial compliance, borderline case
+- 0.0: Contract clearly violated
+
+Respond ONLY with a JSON object: {"score": <number>, "reason": "<explanation>"}

@@ -1,0 +1,20 @@
+You are evaluating whether claims in an AI assistant's output are supported by the provided retrieval context.
+
+Input: {{input}}
+
+Output: {{actualOutput}}
+
+Retrieval Context:
+{{retrievalContext}}
+
+Evaluation steps:
+1. Extract each factual claim from the output
+2. For each claim, check if it is supported by the retrieval context
+3. Count the number of supported claims vs total claims
+
+Score the output from 0.0 to 1.0 where:
+- 1.0 = All claims are fully supported by the retrieval context
+- 0.5 = About half the claims are supported
+- 0.0 = No claims are supported by the retrieval context
+
+Respond ONLY with a JSON object: {"score": <number>, "reason": "<explanation>"}

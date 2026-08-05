@@ -1,0 +1,205 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>org.byteveda.agenteval</groupId>
+    <artifactId>agenteval-bom</artifactId>
+    <version>0.2.0</version>
+    <packaging>pom</packaging>
+
+    <name>AgentEval BOM</name>
+    <description>Bill of Materials for AgentEval dependency management</description>
+    <url>https://github.com/ByteVeda/agenteval</url>
+
+    <licenses>
+        <license>
+            <name>Apache License, Version 2.0</name>
+            <url>https://www.apache.org/licenses/LICENSE-2.0</url>
+        </license>
+    </licenses>
+
+    <scm>
+        <connection>scm:git:git://github.com/ByteVeda/agenteval.git</connection>
+        <developerConnection>scm:git:ssh://github.com:ByteVeda/agenteval.git</developerConnection>
+        <url>https://github.com/ByteVeda/agenteval/tree/main</url>
+    </scm>
+
+    <developers>
+        <developer>
+            <id>pratyush618</id>
+            <name>Pratyush</name>
+            <url>https://github.com/pratyush618</url>
+        </developer>
+    </developers>
+
+    <profiles>
+        <profile>
+            <id>release</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-gpg-plugin</artifactId>
+                        <version>3.2.8</version>
+                        <executions>
+                            <execution>
+                                <id>sign-artifacts</id>
+                                <phase>verify</phase>
+                                <goals>
+                                    <goal>sign</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                    <plugin>
+                        <groupId>org.sonatype.central</groupId>
+                        <artifactId>central-publishing-maven-plugin</artifactId>
+                        <version>0.10.0</version>
+                        <extensions>true</extensions>
+                        <configuration>
+                            <publishingServerId>central</publishingServerId>
+                            <autoPublish>true</autoPublish>
+                            <waitUntil>published</waitUntil>
+                            <waitMaxTime>1800</waitMaxTime>
+                            <ignorePublishedComponents>true</ignorePublishedComponents>
+                        </configuration>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+    </profiles>
+
+    <!--
+        This BOM intentionally lists library modules only. Build-tooling
+        modules (agenteval-maven-plugin, agenteval-gradle-plugin,
+        agenteval-github-actions, agenteval-intellij) are deliberately
+        omitted: they are end-user tools on independent release cadences,
+        not library dependencies you import into application code.
+        Consumers pin those modules directly when configuring builds.
+    -->
+    <dependencyManagement>
+        <dependencies>
+            <!-- Core -->
+            <dependency>
+                <groupId>org.byteveda.agenteval</groupId>
+                <artifactId>agenteval-core</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+
+            <!-- Judge Engine -->
+            <dependency>
+                <groupId>org.byteveda.agenteval</groupId>
+                <artifactId>agenteval-judge</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+
+            <!-- Metrics -->
+            <dependency>
+                <groupId>org.byteveda.agenteval</groupId>
+                <artifactId>agenteval-metrics</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+
+            <!-- Embeddings -->
+            <dependency>
+                <groupId>org.byteveda.agenteval</groupId>
+                <artifactId>agenteval-embeddings</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+
+            <!-- JUnit 5 Integration -->
+            <dependency>
+                <groupId>org.byteveda.agenteval</groupId>
+                <artifactId>agenteval-junit5</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+
+            <!-- Datasets -->
+            <dependency>
+                <groupId>org.byteveda.agenteval</groupId>
+                <artifactId>agenteval-datasets</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+
+            <!-- Reporting -->
+            <dependency>
+                <groupId>org.byteveda.agenteval</groupId>
+                <artifactId>agenteval-reporting</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+
+            <!-- Framework Integrations (optional) -->
+            <dependency>
+                <groupId>org.byteveda.agenteval</groupId>
+                <artifactId>agenteval-spring-ai</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.byteveda.agenteval</groupId>
+                <artifactId>agenteval-langchain4j</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.byteveda.agenteval</groupId>
+                <artifactId>agenteval-langgraph4j</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.byteveda.agenteval</groupId>
+                <artifactId>agenteval-mcp</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+
+            <!-- Red Teaming (optional) -->
+            <dependency>
+                <groupId>org.byteveda.agenteval</groupId>
+                <artifactId>agenteval-redteam</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+
+            <!-- Contract Testing (optional) -->
+            <dependency>
+                <groupId>org.byteveda.agenteval</groupId>
+                <artifactId>agenteval-contracts</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+
+            <!-- Statistical Analysis (optional) -->
+            <dependency>
+                <groupId>org.byteveda.agenteval</groupId>
+                <artifactId>agenteval-statistics</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+
+            <!-- Chaos Engineering (optional) -->
+            <dependency>
+                <groupId>org.byteveda.agenteval</groupId>
+                <artifactId>agenteval-chaos</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+
+            <!-- Deterministic Replay (optional) -->
+            <dependency>
+                <groupId>org.byteveda.agenteval</groupId>
+                <artifactId>agenteval-replay</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+
+            <!-- Mutation Testing (optional) -->
+            <dependency>
+                <groupId>org.byteveda.agenteval</groupId>
+                <artifactId>agenteval-mutation</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+
+            <!-- Capability Fingerprinting (optional) -->
+            <dependency>
+                <groupId>org.byteveda.agenteval</groupId>
+                <artifactId>agenteval-fingerprint</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+</project>

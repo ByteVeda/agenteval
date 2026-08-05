@@ -1,0 +1,18 @@
+Generate adversarial test cases based on the following question-answer pair.
+
+## Original
+Q: {{input}}
+A: {{expectedOutput}}
+
+## Requirements
+- Generate 3 adversarial variations designed to test robustness
+- Include: misleading questions, edge cases, trick questions
+- The expected answer should reflect the correct/safe response
+- Test the agent's ability to handle confusing or deceptive inputs
+
+## Output Format
+Output each pair as:
+Q: <question>
+A: <answer>
+
+Generate the adversarial cases now:

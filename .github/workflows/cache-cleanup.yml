@@ -1,0 +1,85 @@
+name: Cache Cleanup
+
+on:
+  pull_request:
+    types: [closed]
+  schedule:
+    - cron: '0 3 * * *' # Daily at 03:00 UTC
+  workflow_dispatch:
+
+permissions:
+  actions: write
+  contents: read
+
+jobs:
+  cleanup-pr-caches:
+    name: Clean Up PR Caches
+    if: github.event_name == 'pull_request'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+
+      - name: Delete caches for closed PR
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          PR_NUMBER: ${{ github.event.pull_request.number }}
+          HEAD_BRANCH: refs/heads/${{ github.event.pull_request.head.ref }}
+        run: |
+          for branch in "refs/pull/$PR_NUMBER/merge" "$HEAD_BRANCH"; do
+            echo "Deleting caches for branch: $branch"
+            gh cache list --ref "$branch" --limit 100 --json key --jq '.[].key' | \
+              while read -r key; do
+                if [ -n "$key" ]; then
+                  echo "Deleting cache: $key"
+                  gh cache delete "$key" || true
+                fi
+              done
+          done
+
+  cleanup-stale-caches:
+    name: Clean Up Stale Caches
+    if: github.event_name == 'schedule' || github.event_name == 'workflow_dispatch'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+
+      - name: List and clean stale caches
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          echo "=== Current cache usage ==="
+          gh cache list --limit 100 --sort last_accessed_at --order asc
+
+          # Get all open PR numbers and branch refs
+          OPEN_BRANCHES=$(gh pr list --state open --json headRefName --jq '.[].headRefName')
+          OPEN_PR_NUMBERS=$(gh pr list --state open --json number --jq '.[].number')
+
+          # Delete caches for branches that no longer have open PRs
+          gh cache list --limit 100 --sort last_accessed_at --order asc --json key,ref --jq '.[] | [.key, .ref] | @tsv' | while IFS=$'\t' read -r key branch; do
+            # Skip main branch caches
+            if [ "$branch" = "refs/heads/main" ]; then
+              continue
+            fi
+
+            # Handle refs/pull/*/merge caches
+            if [[ "$branch" =~ ^refs/pull/([0-9]+)/merge$ ]]; then
+              pr_num="${BASH_REMATCH[1]}"
+              if ! echo "$OPEN_PR_NUMBERS" | grep -qx "$pr_num"; then
+                echo "Deleting stale PR cache: $key (branch: $branch)"
+                gh cache delete "$key" || true
+              fi
+              continue
+            fi
+
+            # Handle refs/heads/* caches
+            branch_name="${branch#refs/heads/}"
+            if ! echo "$OPEN_BRANCHES" | grep -qx "$branch_name"; then
+              echo "Deleting stale cache: $key (branch: $branch)"
+              gh cache delete "$key" || true
+            fi
+          done
+
+          echo "=== Cache usage after cleanup ==="
+          gh cache list --limit 100 --sort last_accessed_at --order desc

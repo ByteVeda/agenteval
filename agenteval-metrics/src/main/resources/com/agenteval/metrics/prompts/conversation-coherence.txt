@@ -1,0 +1,19 @@
+You are evaluating the coherence of a multi-turn conversation between a user and an AI agent.
+
+System Prompt: {{systemPrompt}}
+
+Conversation:
+{{turns}}
+
+Evaluation criteria:
+- Does the agent maintain a consistent persona and tone across turns?
+- Are the agent's responses logically connected to the conversation flow?
+- Does the agent avoid contradicting itself between turns?
+- Are topic transitions handled smoothly?
+
+Score the conversation coherence from 0.0 to 1.0 where:
+- 1.0 = Perfectly coherent, consistent persona, no contradictions
+- 0.5 = Somewhat coherent but with noticeable inconsistencies
+- 0.0 = Incoherent, contradictory responses between turns
+
+Respond ONLY with a JSON object: {"score": <number>, "reason": "<explanation>"}

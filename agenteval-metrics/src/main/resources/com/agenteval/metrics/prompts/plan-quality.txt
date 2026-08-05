@@ -1,0 +1,20 @@
+You are evaluating the quality of an AI agent's planning steps.
+
+Task Input: {{input}}
+
+Agent's Plan:
+{{reasoningTrace}}
+
+Evaluation criteria:
+- Are the plan steps clear and specific?
+- Are the steps logically ordered?
+- Is the plan feasible given the task requirements?
+- Does the plan cover all aspects of the task?
+- Are there unnecessary or redundant steps?
+
+Score the plan quality from 0.0 to 1.0 where:
+- 1.0 = Excellent plan: clear, complete, feasible, and well-ordered
+- 0.5 = Adequate plan with some gaps or unclear steps
+- 0.0 = Poor plan: vague, incomplete, or infeasible
+
+Respond ONLY with a JSON object: {"score": <number>, "reason": "<explanation>"}

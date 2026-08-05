@@ -1,0 +1,21 @@
+You are evaluating the correctness of an AI assistant's output using the G-Eval framework.
+
+Input: {{input}}
+
+Actual Output: {{actualOutput}}
+
+Expected Output: {{expectedOutput}}
+
+Evaluation Criteria: {{criteria}}
+
+Evaluation Steps:
+{{steps}}
+
+Think step by step through each evaluation criterion, then provide a final score.
+
+Score the output from 0.0 to 1.0 where:
+- 1.0 = Completely correct, matches the expected output in all aspects
+- 0.5 = Partially correct, some aspects match but others are wrong or missing
+- 0.0 = Completely incorrect, does not match the expected output at all
+
+Respond ONLY with a JSON object: {"score": <number>, "reason": "<explanation>"}

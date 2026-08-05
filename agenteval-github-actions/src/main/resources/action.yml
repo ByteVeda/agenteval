@@ -1,0 +1,58 @@
+name: 'AgentEval'
+description: 'Run AgentEval AI agent evaluations and post results to PRs'
+author: 'AgentEval'
+
+inputs:
+  dataset-path:
+    description: 'Path to the evaluation dataset file'
+    required: true
+  config-file:
+    description: 'Path to agenteval.yaml configuration file'
+    required: false
+    default: 'agenteval.yaml'
+  fail-on-regression:
+    description: 'Exit with failure if any test case fails'
+    required: false
+    default: 'false'
+  post-pr-comment:
+    description: 'Post evaluation results as a PR comment'
+    required: false
+    default: 'true'
+  report-json:
+    description: 'Path to a pre-generated JSON evaluation report'
+    required: false
+    default: 'target/agenteval/agenteval-report.json'
+  java-version:
+    description: 'Java version to use'
+    required: false
+    default: '21'
+
+outputs:
+  pass-rate:
+    description: 'Overall pass rate as a percentage'
+  average-score:
+    description: 'Overall average score'
+  total-cases:
+    description: 'Total number of test cases evaluated'
+  failed-cases:
+    description: 'Number of failed test cases'
+
+runs:
+  using: 'composite'
+  steps:
+    - name: Set up Java
+      uses: actions/setup-java@v4
+      with:
+        distribution: 'temurin'
+        java-version: ${{ inputs.java-version }}
+
+    - name: Run AgentEval
+      shell: bash
+      env:
+        INPUT_DATASET_PATH: ${{ inputs.dataset-path }}
+        INPUT_CONFIG_FILE: ${{ inputs.config-file }}
+        INPUT_FAIL_ON_REGRESSION: ${{ inputs.fail-on-regression }}
+        INPUT_POST_PR_COMMENT: ${{ inputs.post-pr-comment }}
+        INPUT_REPORT_JSON: ${{ inputs.report-json }}
+      run: |
+        java -jar ${{ github.action_path }}/agenteval-github-actions.jar

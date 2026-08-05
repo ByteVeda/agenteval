@@ -1,0 +1,18 @@
+You are evaluating whether an AI assistant's output is relevant to the user's input question.
+
+Input: {{input}}
+
+Output: {{actualOutput}}
+
+Evaluation criteria:
+- The output should directly address the input question
+- Penalize off-topic content and irrelevant information
+- Partial relevance should receive a partial score
+{{strictMode}}
+
+Score the output from 0.0 to 1.0 where:
+- 1.0 = Perfectly relevant, directly addresses the question
+- 0.5 = Partially relevant, some useful content but also irrelevant parts
+- 0.0 = Completely irrelevant to the question
+
+Respond ONLY with a JSON object: {"score": <number>, "reason": "<explanation>"}

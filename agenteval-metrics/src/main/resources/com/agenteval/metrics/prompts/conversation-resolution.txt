@@ -1,0 +1,29 @@
+You are evaluating whether a multi-turn conversation reached a satisfactory resolution.
+
+## System Prompt
+{{systemPrompt}}
+
+## Conversation
+{{turns}}
+
+## Success Criteria
+{{successCriteria}}
+
+## Instructions
+Evaluate whether the conversation successfully resolved the user's request or problem.
+
+Consider:
+1. Did the agent understand the user's goal?
+2. Did the agent provide a complete and actionable response?
+3. Was the user's issue fully addressed by the end of the conversation?
+4. If success criteria are specified, were they met?
+
+Score the resolution:
+- 1.0: Fully resolved — user's goal was completely achieved
+- 0.7: Mostly resolved — core issue addressed with minor gaps
+- 0.5: Partially resolved — some progress but significant gaps remain
+- 0.3: Minimally resolved — acknowledged but not meaningfully addressed
+- 0.0: Unresolved — user's goal was not addressed at all
+
+Return your evaluation as JSON:
+{"score": <number>, "reason": "<brief explanation>"}

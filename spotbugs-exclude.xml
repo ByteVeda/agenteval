@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<FindBugsFilter>
+    <!-- Builder patterns store mutable objects intentionally;
+        defensive copies are made in build() -->
+    <Match>
+        <Class name="~.*\$Builder"/>
+        <Bug pattern="EI_EXPOSE_REP2"/>
+    </Match>
+
+    <!-- CaseResult.testCase is an intentionally mutable reference
+        (AgentTestCase has mutable capture-time fields by design) -->
+    <Match>
+        <Class name="org.byteveda.agenteval.core.eval.CaseResult"/>
+        <Bug pattern="EI_EXPOSE_REP,EI_EXPOSE_REP2"/>
+    </Match>
+
+    <!-- Abstract base class constructors that validate arguments intentionally
+        throw; all concrete subclasses are final -->
+    <Match>
+        <Class name="org.byteveda.agenteval.metrics.llm.LLMJudgeMetric"/>
+        <Bug pattern="CT_CONSTRUCTOR_THROW"/>
+    </Match>
+    <Match>
+        <Class name="org.byteveda.agenteval.metrics.conversation.LLMConversationMetric"/>
+        <Bug pattern="CT_CONSTRUCTOR_THROW"/>
+    </Match>
+
+    <!-- EvalDataset fields are defensively copied via List.copyOf/Map.copyOf -->
+    <Match>
+        <Class name="org.byteveda.agenteval.datasets.EvalDataset"/>
+        <Bug pattern="EI_EXPOSE_REP"/>
+    </Match>
+
+    <!-- ObjectMapper is intentionally shared (thread-safe); narrow to the
+        specific loader/writer pairs and their `mapper` / `yamlMapper` fields
+        so a future class added to these packages is not blanket-suppressed -->
+    <Match>
+        <Or>
+            <Class name="org.byteveda.agenteval.datasets.json.JsonDatasetLoader"/>
+            <Class name="org.byteveda.agenteval.datasets.json.JsonDatasetWriter"/>
+            <Class name="org.byteveda.agenteval.datasets.jsonl.JsonlDatasetLoader"/>
+            <Class name="org.byteveda.agenteval.datasets.jsonl.JsonlDatasetWriter"/>
+            <Class name="org.byteveda.agenteval.datasets.yaml.YamlDatasetLoader"/>
+        </Or>
+        <Bug pattern="EI_EXPOSE_REP2"/>
+    </Match>
+
+    <!-- ConsoleReporter stores PrintStream for injection (test support) -->
+    <Match>
+        <Class name="org.byteveda.agenteval.reporting.ConsoleReporter"/>
+        <Bug pattern="EI_EXPOSE_REP2"/>
+    </Match>
+
+    <!-- AgentTestCaseAssert intentionally exposes the mutable test case -->
+    <Match>
+        <Class name="org.byteveda.agenteval.junit5.assertion.AgentTestCaseAssert"/>
+        <Bug pattern="EI_EXPOSE_REP"/>
+    </Match>
+
+    <!-- YamlConfigModel is a Jackson deserialization POJO — mutable by design -->
+    <Match>
+        <Class name="~org\.byteveda\.agenteval\.core\.config\.YamlConfigModel.*"/>
+        <Bug pattern="EI_EXPOSE_REP,EI_EXPOSE_REP2"/>
+    </Match>
+
+    <!-- AgentEvalConfigLoader reads YAML files which are always UTF-8 -->
+    <Match>
+        <Class name="org.byteveda.agenteval.core.config.AgentEvalConfigLoader"/>
+        <Bug pattern="DM_DEFAULT_ENCODING"/>
+    </Match>
+
+    <!-- Regression records use defensive copies where possible;
+        records expose their components by design -->
+    <Match>
+        <Class name="~org\.byteveda\.agenteval\.reporting\.regression\..*"/>
+        <Bug pattern="EI_EXPOSE_REP,EI_EXPOSE_REP2,WMI_WRONG_MAP_ITERATOR"/>
+    </Match>
+
+    <!-- HtmlReportConfig stores Path (immutable by design) -->
+    <Match>
+        <Class name="org.byteveda.agenteval.reporting.HtmlReportConfig"/>
+        <Bug pattern="EI_EXPOSE_REP,EI_EXPOSE_REP2"/>
+    </Match>
+
+    <!-- Red team records expose their list components by design -->
+    <Match>
+        <Class name="~org\.byteveda\.agenteval\.redteam\..*"/>
+        <Bug pattern="EI_EXPOSE_REP,EI_EXPOSE_REP2"/>
+    </Match>
+
+    <!-- MCP capture stores thread-safe synchronized list -->
+    <Match>
+        <Class name="org.byteveda.agenteval.mcp.McpCapture"/>
+        <Bug pattern="EI_EXPOSE_REP"/>
+    </Match>
+
+    <!-- Multi-judge records use defensive copies; ThreadLocal is intentional -->
+    <Match>
+        <Class name="~org\.byteveda\.agenteval\.judge\.multi\..*"/>
+        <Bug pattern="EI_EXPOSE_REP,EI_EXPOSE_REP2"/>
+    </Match>
+
+    <!-- Dataset version records expose immutable components by design;
+        enumerated to keep new classes in this package under spotbugs review -->
+    <Match>
+        <Or>
+            <Class name="org.byteveda.agenteval.datasets.version.DatasetVersion"/>
+            <Class name="org.byteveda.agenteval.datasets.version.DatasetVersioner"/>
+            <Class name="org.byteveda.agenteval.datasets.version.GitMetadata"/>
+            <Class name="org.byteveda.agenteval.datasets.version.GitResolver"/>
+            <Class name="org.byteveda.agenteval.datasets.version.VersionedDataset"/>
+        </Or>
+        <Bug pattern="EI_EXPOSE_REP,EI_EXPOSE_REP2"/>
+    </Match>
+
+    <!-- MarkdownReporter intentionally uses \n (not %n) for Markdown output -->
+    <Match>
+        <Class name="org.byteveda.agenteval.github.MarkdownReporter"/>
+        <Bug pattern="VA_FORMAT_STRING_USES_NEWLINE"/>
+    </Match>
+
+    <!-- MarkdownConfig stores Path (immutable by design) -->
+    <Match>
+        <Class name="org.byteveda.agenteval.github.MarkdownConfig"/>
+        <Bug pattern="EI_EXPOSE_REP,EI_EXPOSE_REP2"/>
+    </Match>
+
+    <!-- GitHub Actions module — ObjectMapper is thread-safe, records expose by design -->
+    <Match>
+        <Class name="~org\.byteveda\.agenteval\.github\..*"/>
+        <Bug pattern="EI_EXPOSE_REP,EI_EXPOSE_REP2"/>
+    </Match>
+
+    <!-- Chaos engineering records expose their components by design -->
+    <Match>
+        <Class name="~org\.byteveda\.agenteval\.chaos\..*"/>
+        <Bug pattern="EI_EXPOSE_REP,EI_EXPOSE_REP2"/>
+    </Match>
+
+    <!-- Contract testing — AgentTestCase is mutable by design (capture-time fields);
+        CompositeContract validates before assigning;
+        ContractDefinition is a Jackson POJO -->
+    <Match>
+        <Class name="~org\.byteveda\.agenteval\.contracts\..*"/>
+        <Bug pattern="EI_EXPOSE_REP,EI_EXPOSE_REP2,CT_CONSTRUCTOR_THROW,UUF_UNUSED_PUBLIC_OR_PROTECTED_FIELD"/>
+    </Match>
+
+    <!-- Benchmark classes store config/metrics intentionally;
+        BenchmarkResult exposes variant results by design -->
+    <Match>
+        <Class name="~org\.byteveda\.agenteval\.core\.benchmark\..*"/>
+        <Bug pattern="EI_EXPOSE_REP,EI_EXPOSE_REP2"/>
+    </Match>
+
+    <!-- BenchmarkReporter stores PrintStream for injection (test support) -->
+    <Match>
+        <Class name="org.byteveda.agenteval.reporting.benchmark.BenchmarkReporter"/>
+        <Bug pattern="EI_EXPOSE_REP2"/>
+    </Match>
+
+    <!-- Snapshot records expose their components by design;
+        SnapshotStore shares ObjectMapper (thread-safe);
+        SnapshotReporter stores config/store references intentionally -->
+    <Match>
+        <Class name="~org\.byteveda\.agenteval\.reporting\.snapshot\..*"/>
+        <Bug pattern="EI_EXPOSE_REP,EI_EXPOSE_REP2"/>
+    </Match>
+</FindBugsFilter>
