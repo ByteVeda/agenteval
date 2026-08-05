@@ -2,35 +2,14 @@ package org.byteveda.agenteval.gradle;
 
 import org.gradle.api.Project;
 import org.gradle.testfixtures.ProjectBuilder;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assumptions.assumeTrue;
 
 class EvaluateTaskTest {
 
-    private static boolean gradleTaskCreationSupported;
-
-    @BeforeAll
-    static void checkEnvironment() {
-        // Gradle's ProjectBuilder may fail to inject synthetic classes on newer JDKs
-        // without --add-opens. Guard tests with an assumption.
-        try {
-            Project project = ProjectBuilder.builder().build();
-            project.getPluginManager().apply("org.byteveda.agenteval.evaluate");
-            EvaluateTask task = (EvaluateTask) project.getTasks().getByName("agentEvaluate");
-            gradleTaskCreationSupported = task != null;
-        } catch (Exception e) {
-            gradleTaskCreationSupported = false;
-        }
-    }
-
     @Test
     void taskDefaultPropertyValues() {
-        assumeTrue(gradleTaskCreationSupported,
-                "Gradle task creation not supported in this JVM configuration");
-
         Project project = ProjectBuilder.builder().build();
         project.getPluginManager().apply("org.byteveda.agenteval.evaluate");
 
@@ -46,9 +25,6 @@ class EvaluateTaskTest {
 
     @Test
     void datasetPathRequiredValidation() {
-        assumeTrue(gradleTaskCreationSupported,
-                "Gradle task creation not supported in this JVM configuration");
-
         Project project = ProjectBuilder.builder().build();
         project.getPluginManager().apply("org.byteveda.agenteval.evaluate");
 
@@ -59,9 +35,6 @@ class EvaluateTaskTest {
 
     @Test
     void extensionOverridesWireToTask() {
-        assumeTrue(gradleTaskCreationSupported,
-                "Gradle task creation not supported in this JVM configuration");
-
         Project project = ProjectBuilder.builder().build();
         project.getPluginManager().apply("org.byteveda.agenteval.evaluate");
 
