@@ -46,6 +46,16 @@ jobs:
         with:
           path: docs/build
 
+      # Mirrored into docs.byteveda.org/<slug>/ by ByteVeda/byteveda.site.
+      # upload-pages-artifact keeps its artifact for 1 day, too short for the
+      # portal's next build to fetch, so publish a longer-lived copy.
+      - name: Upload docs for the portal mirror
+        uses: actions/upload-artifact@v7
+        with:
+          name: docs-dist
+          path: docs/build
+          retention-days: 90
+
   deploy:
     name: Deploy to GitHub Pages
     needs: build
